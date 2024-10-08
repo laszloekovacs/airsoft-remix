@@ -24,7 +24,7 @@ FROM node:22-alpine AS runtime
 WORKDIR /app
 
 # Copy the built application from the build stage.
-COPY --from=build /app/build .
+COPY --from=build /app/build /app/build
 # Copy the node_modules from the build stage.
 COPY --from=build /app/node_modules ./node_modules
 # Copy the package files from the build stage.
