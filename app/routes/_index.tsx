@@ -24,7 +24,7 @@ export default function Events() {
 
 	if (!events || events.length == 0) {
 		return (
-			<div>
+			<div className='container'>
 				<h1>No Events</h1>
 			</div>
 		)
