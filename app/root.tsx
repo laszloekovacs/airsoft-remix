@@ -9,7 +9,7 @@ import {
 } from '@remix-run/react'
 import type { LinksFunction } from '@remix-run/node'
 
-import './tailwind.css'
+import './styles.css'
 
 export const links: LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -24,16 +24,9 @@ export const links: LinksFunction = () => [
 	}
 ]
 
-export const loader = async () => {
-	return {
-		SUPABASE_URL: process.env.SUPABASE_URL!,
-		SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY!
-	}
-}
-
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang='en'>
+		<html lang='hu'>
 			<head>
 				<meta charSet='utf-8' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -54,23 +47,23 @@ export default function App() {
 }
 
 export function ErrorBoundary() {
-	const error = useRouteError() as { message?: string }
+	const error = useRouteError() as any
 
 	if (isRouteErrorResponse(error)) {
 		return (
-			<>
+			<div>
 				<h1>
 					{error.status} {error.statusText}
 				</h1>
 				<p>{error.data}</p>
-			</>
+			</div>
 		)
 	}
 
 	return (
-		<>
+		<div>
 			<h1>Error!</h1>
 			<p>{error?.message ?? 'Unknown error'}</p>
-		</>
+		</div>
 	)
 }
