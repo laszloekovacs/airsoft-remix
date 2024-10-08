@@ -11,16 +11,19 @@ export const loader = async () => {
 
 	const { data, error } = await supabase.auth.getSession()
 
-	if (error || !data.session) {
+	if (error || !data) {
+		console.log(error)
+
 		return redirect('/login')
 	}
 
+	console.log(data)
 	return {
-		user: data.session.user
+		data
 	}
 }
 
 export default function Private() {
-	const { user } = useLoaderData<typeof loader>()
-	return <h1>{user.email}</h1>
+	const { data } = useLoaderData<typeof loader>()
+	return <h1>{JSON.stringify(data, null, 2)}</h1>
 }
