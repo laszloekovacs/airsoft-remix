@@ -1,3 +1,4 @@
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
 import {
 	isRouteErrorResponse,
 	json,
@@ -10,18 +11,17 @@ import {
 	useRevalidator,
 	useRouteError
 } from '@remix-run/react'
-import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
 
-import './styles.css'
 import {
 	createBrowserClient,
 	createServerClient,
 	parseCookieHeader,
 	serializeCookieHeader
 } from '@supabase/ssr'
-import { Database } from './supabase'
-import { useEffect, useState } from 'react'
 import { Session, SupabaseClient } from '@supabase/supabase-js'
+import { useEffect, useState } from 'react'
+import './styles.css'
+import { Database } from './supabase'
 
 export const links: LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -107,12 +107,12 @@ export function ErrorBoundary() {
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	if (!process.env.VITE_SUPABASE_URL || !process.env.VITE_SUPABASE_ANON_KEY) {
+	if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
 		throw new Error('Missing environment variables. Check your .env file.')
 	}
 	const env = {
-		SUPABASE_URL: process.env.VITE_SUPABASE_URL as string,
-		SUPABASE_ANON_KEY: process.env.VITE_SUPABASE_ANON_KEY as string
+		SUPABASE_URL: process.env.SUPABASE_URL as string,
+		SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY as string
 	}
 
 	const response = new Response()

@@ -1,6 +1,5 @@
 import { LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { createSupabaseServerClient } from '~/lib/supabase.server'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	return { events: [] }

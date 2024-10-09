@@ -1,13 +1,4 @@
-import {
-	json,
-	Link,
-	Outlet,
-	redirect,
-	useLoaderData,
-	useNavigate,
-	useRouteLoaderData
-} from '@remix-run/react'
-import { createSupabaseServerClient } from '~/lib/supabase.server'
+import { Link, Outlet } from '@remix-run/react'
 
 export default function Page() {
 	return (
