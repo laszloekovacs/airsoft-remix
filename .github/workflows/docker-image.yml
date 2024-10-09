@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "release/*" ]
+    branches: ['release/*']
   workflow_dispatch:
 
 jobs:
@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - uses: actions/checkout@v4
+      - name: Login to GHCR
+        run: echo "${GITHUB_TOKEN}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ghcr.io/$GITHUB_REPOSITORY/airsoft-remix:$(date +%s)
+      - name: Push the Docker image
+        run: docker push ghcr.io/$GITHUB_REPOSITORY/airsoft-remix:$(date +%s)
