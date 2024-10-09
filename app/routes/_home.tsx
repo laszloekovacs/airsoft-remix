@@ -80,11 +80,19 @@ export default function Page() {
 }
 
 export const SessionState = ({ user }: { user: any }) => {
-	return <div>{user ? <ProfileButton /> : <LoginButton />}</div>
+	return (
+		<div>
+			{user ? <ProfileButton avatar_url={user.avatar_url} /> : <LoginButton />}
+		</div>
+	)
 }
 
-export const ProfileButton = () => {
-	return <button>Profile</button>
+export const ProfileButton = ({ avatar_url }: { avatar_url: string }) => {
+	return (
+		<button>
+			<img src={avatar_url} width='32' />
+		</button>
+	)
 }
 
 export const LoginButton = () => {
