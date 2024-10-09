@@ -35,8 +35,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		error
 	} = await supabase.auth.getUser()
 
-	if (error) throw new Error(error.message)
-
 	return json({ user }, { headers: response.headers })
 }
 

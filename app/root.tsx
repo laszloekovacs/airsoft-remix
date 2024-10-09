@@ -21,7 +21,7 @@ import {
 } from '@supabase/ssr'
 import { Session, SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
-import './styles.css'
+import styles from './styles.css?url'
 import { Database } from './supabase'
 
 export const links: LinksFunction = () => [
@@ -34,6 +34,10 @@ export const links: LinksFunction = () => [
 	{
 		rel: 'stylesheet',
 		href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'
+	},
+	{
+		rel: 'stylesheet',
+		href: styles
 	}
 ]
 
