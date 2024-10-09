@@ -2,6 +2,7 @@ import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
 import {
 	isRouteErrorResponse,
 	json,
+	Link,
 	Links,
 	Meta,
 	Outlet,
@@ -84,31 +85,11 @@ export type OutletContext = {
 	session: Session
 }
 
-export function ErrorBoundary() {
-	const error = useRouteError() as any
-
-	if (isRouteErrorResponse(error)) {
-		return (
-			<div>
-				<h1>
-					{error.status} {error.statusText}
-				</h1>
-				<p>{error.data}</p>
-			</div>
-		)
-	}
-
-	return (
-		<div>
-			<h1>Error!</h1>
-			<p>{error?.message ?? 'Unknown error'}</p>
-		</div>
-	)
-}
-
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
-		throw new Error('Missing environment variables. Check your .env file.')
+		throw new Response('Missing environment variables. Check your .env file.', {
+			status: 500
+		})
 	}
 	const env = {
 		SUPABASE_URL: process.env.SUPABASE_URL as string,
@@ -142,4 +123,27 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	} = await supabase.auth.getSession()
 
 	return json({ env, session }, { headers: response.headers })
+}
+
+export function ErrorBoundary() {
+	const error = useRouteError() as any
+
+	let errormessage = error instanceof Error ? error.message : null
+
+	return (
+		<Layout>
+			<section>
+				<h1>Somewhat expected Error</h1>
+				{isRouteErrorResponse(error) && <p>{error.status}</p>}
+				<p>something when wrong</p>
+				{errormessage && <pre>Error message:{errormessage}</pre>}
+				<hr />
+				{process.env.NODE_ENV == 'development' && error?.stack && (
+					<pre>{error.stack}</pre>
+				)}
+
+				<Link to='/'>Vissza</Link>
+			</section>
+		</Layout>
+	)
 }
