@@ -39,4 +39,13 @@ Make sure to deploy the output of `npm run build`
 
 This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
 
+## redeployment
+```
+git push origin HEAD:release 
+```
+then hit redeploy at:
+
+https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/application/cscwgc48sowkw0oowssokkwc
+
+
 https://blog.logrocket.com/remix-supabase-real-time-chat-app/

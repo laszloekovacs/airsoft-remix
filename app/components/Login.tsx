@@ -6,10 +6,7 @@ export const Login = () => {
 
 	const handleLogin = () => {
 		supabase.auth.signInWithOAuth({
-			provider: 'github',
-			options: {
-				redirectTo: 'http://localhost:3000/login'
-			}
+			provider: 'github'
 		})
 	}
 
