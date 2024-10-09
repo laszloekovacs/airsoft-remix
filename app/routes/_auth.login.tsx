@@ -10,6 +10,7 @@ export default function AuthLoginPage() {
 			<Link to='/'>Vissza a főoldalra</Link>
 			<h1>Belépés</h1>
 			{!session?.user ? <Login /> : <Logout />}
+			{session?.user && <p>Szia, {session.user.email}!</p>}
 		</div>
 	)
 }
