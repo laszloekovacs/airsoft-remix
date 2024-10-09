@@ -63,6 +63,7 @@ const extractRelevantUserData = (user: User | null) => {
 
 export default function Page() {
 	const { user } = useLoaderData<typeof loader>()
+	const context = useOutletContext<OutletContext>()
 
 	return (
 		<div>
@@ -74,7 +75,7 @@ export default function Page() {
 				<SessionState user={user} />
 			</div>
 
-			<Outlet />
+			<Outlet context={context} />
 		</div>
 	)
 }
