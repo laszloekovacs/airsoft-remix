@@ -1,19 +1,9 @@
 import { LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { createServerSupabase } from '~/lib/createServerSupabase.server'
+import { createSupabaseServerClient } from '~/lib/supabase.server'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const { supabase } = createServerSupabase(request)
-
-	const { data: events, error } = await supabase.from('events').select('*')
-
-	if (error) {
-		throw new Error(error.message)
-	}
-
-	return {
-		events
-	}
+	return { events: [] }
 }
 
 export default function Page() {
@@ -32,9 +22,11 @@ export default function Page() {
 			<h1>Közelgő események</h1>
 			<ul>
 				{events.map(event => (
-					<li key={event.id}>{event.title}</li>
+					<li>hello</li>
 				))}
 			</ul>
 		</div>
 	)
 }
+
+///<li key={event?.id ?? ''}>{event?.title ?? ''}</li>

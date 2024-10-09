@@ -1,15 +1,27 @@
 import {
 	isRouteErrorResponse,
+	json,
 	Links,
 	Meta,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useLoaderData,
+	useRevalidator,
 	useRouteError
 } from '@remix-run/react'
-import type { LinksFunction } from '@remix-run/node'
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node'
 
 import './styles.css'
+import {
+	createBrowserClient,
+	createServerClient,
+	parseCookieHeader,
+	serializeCookieHeader
+} from '@supabase/ssr'
+import { Database } from './supabase'
+import { useEffect, useState } from 'react'
+import { Session, SupabaseClient } from '@supabase/supabase-js'
 
 export const links: LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -24,26 +36,52 @@ export const links: LinksFunction = () => [
 	}
 ]
 
-export function Layout({ children }: { children: React.ReactNode }) {
-	return (
-		<html lang='hu'>
-			<head>
-				<meta charSet='utf-8' />
-				<meta name='viewport' content='width=device-width, initial-scale=1' />
-				<Meta />
-				<Links />
-			</head>
-			<body>
-				{children}
-				<ScrollRestoration />
-				<Scripts />
-			</body>
-		</html>
-	)
-}
+export const Layout = ({ children }: { children: React.ReactNode }) => (
+	<html lang='hu'>
+		<head>
+			<meta charSet='utf-8' />
+			<meta name='viewport' content='width=device-width, initial-scale=1' />
+			<Meta />
+			<Links />
+		</head>
+		<body>
+			{children}
+			<ScrollRestoration />
+			<Scripts />
+		</body>
+	</html>
+)
 
 export default function App() {
-	return <Outlet />
+	const { env, session } = useLoaderData<typeof loader>()
+	const { revalidate } = useRevalidator()
+
+	const [supabase] = useState(() =>
+		createBrowserClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY)
+	)
+
+	const serverAccessToken = session?.access_token ?? null
+
+	useEffect(() => {
+		const {
+			data: { subscription }
+		} = supabase.auth.onAuthStateChange((event, session) => {
+			if (session?.access_token !== serverAccessToken) {
+				revalidate()
+			}
+		})
+
+		return () => {
+			subscription.unsubscribe()
+		}
+	}, [revalidate, serverAccessToken, supabase])
+
+	return <Outlet context={{ supabase, session }} />
+}
+
+export type OutletContext = {
+	supabase: SupabaseClient
+	session: Session
 }
 
 export function ErrorBoundary() {
@@ -66,4 +104,42 @@ export function ErrorBoundary() {
 			<p>{error?.message ?? 'Unknown error'}</p>
 		</div>
 	)
+}
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+	if (!process.env.VITE_SUPABASE_URL || !process.env.VITE_SUPABASE_ANON_KEY) {
+		throw new Error('Missing environment variables. Check your .env file.')
+	}
+	const env = {
+		SUPABASE_URL: process.env.VITE_SUPABASE_URL as string,
+		SUPABASE_ANON_KEY: process.env.VITE_SUPABASE_ANON_KEY as string
+	}
+
+	const response = new Response()
+
+	const supabase = createServerClient<Database>(
+		env.SUPABASE_URL,
+		env.SUPABASE_ANON_KEY,
+		{
+			cookies: {
+				getAll() {
+					return parseCookieHeader(request.headers.get('Cookie') ?? '')
+				},
+				setAll(cookiesToSet) {
+					cookiesToSet.forEach(({ name, value, options }) => {
+						response.headers.append(
+							'Set-Cookie',
+							serializeCookieHeader(name, value, options)
+						)
+					})
+				}
+			}
+		}
+	)
+
+	const {
+		data: { session }
+	} = await supabase.auth.getSession()
+
+	return json({ env, session }, { headers: response.headers })
 }
