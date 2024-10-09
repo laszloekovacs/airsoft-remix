@@ -1,6 +1,48 @@
-import { Link, Outlet } from '@remix-run/react'
+import { json, LoaderFunctionArgs } from '@remix-run/node'
+import { Link, Outlet, useLoaderData } from '@remix-run/react'
+import {
+	createServerClient,
+	parseCookieHeader,
+	serializeCookieHeader
+} from '@supabase/ssr'
+import { Database } from '~/supabase'
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+	const response = new Response()
+
+	const supabase = createServerClient<Database>(
+		process.env.SUPABASE_URL!,
+		process.env.SUPABASE_ANON_KEY!,
+		{
+			cookies: {
+				getAll() {
+					return parseCookieHeader(request.headers.get('Cookie') ?? '')
+				},
+				setAll(cookiesToSet) {
+					cookiesToSet.forEach(({ name, value, options }) => {
+						response.headers.append(
+							'Set-Cookie',
+							serializeCookieHeader(name, value, options)
+						)
+					})
+				}
+			}
+		}
+	)
+
+	const {
+		data: { user },
+		error
+	} = await supabase.auth.getUser()
+
+	if (error) throw new Error(error.message)
+
+	return json({ user }, { headers: response.headers })
+}
 
 export default function Page() {
+	const { user } = useLoaderData<typeof loader>()
+
 	return (
 		<div>
 			<div className='home-header'>
@@ -13,31 +55,3 @@ export default function Page() {
 		</div>
 	)
 }
-//<LoginState username={username} />
-/*
-const LoginState = ({ username }: { username: string }) => {
-	const navigate = useNavigate()
-
-	const logout = async () => {
-		console.log('logging out')
-		const { error } = await createClientSupabase().auth.signOut()
-
-		if (error) {
-			throw new Error(error.message)
-		}
-
-		navigate('/')
-	}
-
-	if (!username) {
-		return <Link to='/login'>Bejelentkezés</Link>
-	} else {
-		return (
-			<div>
-				<p>{username}</p>
-				<button onClick={logout}>Kijelentkezés</button>
-			</div>
-		)
-	}
-}
-*/
