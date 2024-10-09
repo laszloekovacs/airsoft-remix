@@ -127,6 +127,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export function ErrorBoundary() {
 	const error = useRouteError() as any
+	console.error(error)
 
 	let errormessage = error instanceof Error ? error.message : null
 
