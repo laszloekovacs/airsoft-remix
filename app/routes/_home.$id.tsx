@@ -53,7 +53,6 @@ export default function EventDetailPage() {
 		</div>
 	)
 }
-//<pre>{JSON.stringify(event, null, 2)}</pre>
 
 export const CommentSection = ({
 	supabase,

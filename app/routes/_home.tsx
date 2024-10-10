@@ -63,6 +63,7 @@ const extractRelevantUserData = (user: User | null) => {
 
 export default function Page() {
 	const { user } = useLoaderData<typeof loader>()
+	// sadly we have to pass the context along, or take it from the root loader
 	const context = useOutletContext<OutletContext>()
 
 	return (
