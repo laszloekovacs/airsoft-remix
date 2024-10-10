@@ -13,16 +13,11 @@ import {
 	useRouteError
 } from '@remix-run/react'
 
-import {
-	createBrowserClient,
-	createServerClient,
-	parseCookieHeader,
-	serializeCookieHeader
-} from '@supabase/ssr'
+import { createBrowserClient } from '@supabase/ssr'
 import { Session, SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
+import { createServerSupabaseClient } from './lib/supabase.server'
 import styles from './styles.css?url'
-import { Database } from './supabase'
 
 export const links: LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -100,33 +95,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY as string
 	}
 
-	const response = new Response()
-
-	const supabase = createServerClient<Database>(
-		env.SUPABASE_URL,
-		env.SUPABASE_ANON_KEY,
-		{
-			cookies: {
-				getAll() {
-					return parseCookieHeader(request.headers.get('Cookie') ?? '')
-				},
-				setAll(cookiesToSet) {
-					cookiesToSet.forEach(({ name, value, options }) => {
-						response.headers.append(
-							'Set-Cookie',
-							serializeCookieHeader(name, value, options)
-						)
-					})
-				}
-			}
-		}
-	)
+	const { supabase, headers } = createServerSupabaseClient(request)
 
 	const {
 		data: { session }
 	} = await supabase.auth.getSession()
 
-	return json({ env, session }, { headers: response.headers })
+	return json({ env, session }, { headers })
 }
 
 export function ErrorBoundary() {

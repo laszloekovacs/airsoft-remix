@@ -20,7 +20,6 @@ const DebugPage = () => {
 
 			<div>
 				<Login />
-
 				<Logout />
 			</div>
 			<hr />
