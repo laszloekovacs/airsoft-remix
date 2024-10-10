@@ -98,7 +98,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { supabase, headers } = createServerSupabaseClient(request)
 
 	const {
-		data: { session }
+		data: { session },
+		error
 	} = await supabase.auth.getSession()
 
 	return json({ env, session }, { headers })

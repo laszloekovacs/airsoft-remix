@@ -34,92 +34,25 @@ export type Database = {
   }
   public: {
     Tables: {
-      comments: {
+      accounts: {
         Row: {
-          comment_text: string
-          created_at: string | null
-          event_id: string | null
+          created_at: string
           id: string
-          user_id: string | null
+          name: string
         }
         Insert: {
-          comment_text: string
-          created_at?: string | null
-          event_id?: string | null
+          created_at?: string
           id?: string
-          user_id?: string | null
+          name?: string
         }
         Update: {
-          comment_text?: string
-          created_at?: string | null
-          event_id?: string | null
+          created_at?: string
           id?: string
-          user_id?: string | null
+          name?: string
         }
         Relationships: [
           {
-            foreignKeyName: "comments_event_id_fkey"
-            columns: ["event_id"]
-            isOneToOne: false
-            referencedRelation: "event_comments"
-            referencedColumns: ["event_id"]
-          },
-          {
-            foreignKeyName: "comments_event_id_fkey"
-            columns: ["event_id"]
-            isOneToOne: false
-            referencedRelation: "events"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "comments_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      events: {
-        Row: {
-          description: string | null
-          id: string
-          location: string | null
-          start_time: string
-          title: string
-        }
-        Insert: {
-          description?: string | null
-          id?: string
-          location?: string | null
-          start_time?: string
-          title: string
-        }
-        Update: {
-          description?: string | null
-          id?: string
-          location?: string | null
-          start_time?: string
-          title?: string
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          id: string
-          metadata: Json | null
-        }
-        Insert: {
-          id: string
-          metadata?: Json | null
-        }
-        Update: {
-          id?: string
-          metadata?: Json | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey"
+            foreignKeyName: "users_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
@@ -127,17 +60,27 @@ export type Database = {
           },
         ]
       }
-    }
-    Views: {
-      event_comments: {
+      events: {
         Row: {
-          comment_text: string | null
-          commenter_name: string | null
-          event_id: string | null
-          id: string | null
+          created_at: string
+          id: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string
         }
         Relationships: []
       }
+    }
+    Views: {
+      [_ in never]: never
     }
     Functions: {
       [_ in never]: never
