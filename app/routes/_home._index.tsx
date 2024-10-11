@@ -1,34 +1,10 @@
-import { LoaderFunctionArgs } from '@remix-run/node'
+import { json, LoaderFunctionArgs } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
-import {
-	createServerClient,
-	parseCookieHeader,
-	serializeCookieHeader
-} from '@supabase/ssr'
-import { Database, Tables } from '~/supabase'
+import { createServerSupabaseClient } from '~/lib/supabase.server'
+import { Tables } from '~/supabase'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const response = new Response()
-
-	const supabase = createServerClient<Database>(
-		process.env.SUPABASE_URL!,
-		process.env.SUPABASE_ANON_KEY!,
-		{
-			cookies: {
-				getAll() {
-					return parseCookieHeader(request.headers.get('Cookie') ?? '')
-				},
-				setAll(cookiesToSet) {
-					cookiesToSet.forEach(({ name, value, options }) => {
-						response.headers.append(
-							'Set-Cookie',
-							serializeCookieHeader(name, value, options)
-						)
-					})
-				}
-			}
-		}
-	)
+	const { supabase, headers } = createServerSupabaseClient(request)
 
 	// query the events
 	const { data: events, error } = await supabase
@@ -36,12 +12,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		.select('*')
 		.limit(10)
 
-	return { events }
+	return json({ events }, { headers })
 }
 
 export default function Page() {
 	const { events } = useLoaderData<typeof loader>()
-
 	if (!events || events.length == 0) {
 		return (
 			<div>
@@ -65,8 +40,8 @@ export default function Page() {
 export const EventListItem = ({ event }: { event: Tables<'events'> }) => {
 	return (
 		<li>
-			<Link prefetch='intent' to={`/${event.id}`}>
-				{event.title}
+			<Link prefetch='intent' to={`/event/${event.id}`}>
+				<h2>{event.title}</h2>
 			</Link>
 		</li>
 	)

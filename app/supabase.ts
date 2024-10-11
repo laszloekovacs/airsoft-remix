@@ -62,21 +62,32 @@ export type Database = {
       }
       events: {
         Row: {
+          author_id: string | null
           created_at: string
           id: string
           title: string
         }
         Insert: {
+          author_id?: string | null
           created_at?: string
           id?: string
           title: string
         }
         Update: {
+          author_id?: string | null
           created_at?: string
           id?: string
           title?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "events_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

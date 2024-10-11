@@ -1,36 +1,11 @@
 import { json, LoaderFunctionArgs } from '@remix-run/node'
 import { Link, Outlet, useLoaderData, useOutletContext } from '@remix-run/react'
-import {
-	createServerClient,
-	parseCookieHeader,
-	serializeCookieHeader
-} from '@supabase/ssr'
 import { User } from '@supabase/supabase-js'
+import { createServerSupabaseClient } from '~/lib/supabase.server'
 import { OutletContext } from '~/root'
-import { Database } from '~/supabase'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const response = new Response()
-
-	const supabase = createServerClient<Database>(
-		process.env.SUPABASE_URL!,
-		process.env.SUPABASE_ANON_KEY!,
-		{
-			cookies: {
-				getAll() {
-					return parseCookieHeader(request.headers.get('Cookie') ?? '')
-				},
-				setAll(cookiesToSet) {
-					cookiesToSet.forEach(({ name, value, options }) => {
-						response.headers.append(
-							'Set-Cookie',
-							serializeCookieHeader(name, value, options)
-						)
-					})
-				}
-			}
-		}
-	)
+	const { supabase, headers } = createServerSupabaseClient(request)
 
 	const {
 		data: { user },
@@ -40,12 +15,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	if (error) {
 		// getUser will set the error if the user isnt logged in, tho its not a problem
 		console.warn(error.message)
-		return json({ user: null }, { headers: response.headers })
+		return json({ user: null }, { headers })
 	} else {
 		// extract from the user obj the only relevant data needed
 		const userData = extractRelevantUserData(user)
 
-		return json({ user: userData }, { headers: response.headers })
+		return json({ user: userData }, { headers })
 	}
 }
 

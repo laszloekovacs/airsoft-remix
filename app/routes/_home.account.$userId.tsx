@@ -17,7 +17,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	// the user.id is equals the id in the profile table
 	const { data: profile, error: profileError } = await supabase
-		.from('profiles')
+		.from('accounts')
 		.select('*')
 		.eq('id', user.id)
 		.single()

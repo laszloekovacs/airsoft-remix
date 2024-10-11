@@ -5,7 +5,6 @@ import { OutletContext } from '~/root'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { supabase, headers } = createServerSupabaseClient(request)
-
 	const { data: user, error } = await supabase.auth.getUser()
 
 	// user is allready signed in
