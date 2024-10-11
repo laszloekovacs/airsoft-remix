@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs } from '@remix-run/node'
+import { json, LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData, useOutletContext } from '@remix-run/react'
 import {
 	createServerClient,
@@ -6,31 +6,12 @@ import {
 	serializeCookieHeader
 } from '@supabase/ssr'
 import { useEffect, useState } from 'react'
+import { createServerSupabaseClient } from '~/lib/supabase.server'
 import { OutletContext } from '~/root'
 import { Database } from '~/supabase'
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
-	const response = new Response()
-
-	const supabase = createServerClient<Database>(
-		process.env.SUPABASE_URL!,
-		process.env.SUPABASE_ANON_KEY!,
-		{
-			cookies: {
-				getAll() {
-					return parseCookieHeader(request.headers.get('Cookie') ?? '')
-				},
-				setAll(cookiesToSet) {
-					cookiesToSet.forEach(({ name, value, options }) => {
-						response.headers.append(
-							'Set-Cookie',
-							serializeCookieHeader(name, value, options)
-						)
-					})
-				}
-			}
-		}
-	)
+	const { supabase, headers } = createServerSupabaseClient(request)
 
 	// query the event details
 	const { data: event, error } = await supabase
@@ -39,7 +20,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 		.eq('id', params.id!)
 		.single()
 
-	return { id: params.id, event }
+	return json({ id: params.id, event }, { headers })
 }
 
 export default function EventDetailPage() {
@@ -49,6 +30,7 @@ export default function EventDetailPage() {
 	return (
 		<div>
 			<div>EventDetailPage for {id}</div>
+			<pre>{JSON.stringify(event, null, 2)}</pre>
 			<CommentSection supabase={supabase} id={id} />
 		</div>
 	)
@@ -86,8 +68,8 @@ export const CommentSection = ({
 				{comments.map((comment: any) => (
 					<li key={comment.id}>
 						<CommentListItem
-							text={comment.comment_text}
-							name={comment.commenter_name}
+							comment={comment.comment}
+							name={comment.author_id}
 						/>
 					</li>
 				))}
