@@ -60,6 +60,45 @@ export type Database = {
           },
         ]
       }
+      event_comments: {
+        Row: {
+          author_id: string
+          comment: string
+          created_at: string
+          event_id: string
+          id: string
+        }
+        Insert: {
+          author_id: string
+          comment: string
+          created_at?: string
+          event_id: string
+          id?: string
+        }
+        Update: {
+          author_id?: string
+          comment?: string
+          created_at?: string
+          event_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_comment_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_comment_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       events: {
         Row: {
           author_id: string | null

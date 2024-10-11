@@ -97,16 +97,16 @@ export const CommentSection = ({
 }
 
 export const CommentListItem = ({
-	text,
+	comment,
 	name
 }: {
-	text: string
+	comment: string
 	name: string
 }) => {
 	return (
 		<div>
 			<p>{name}</p>
-			<p>{text}</p>
+			<p>{comment}</p>
 		</div>
 	)
 }
