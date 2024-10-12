@@ -16,8 +16,8 @@ import {
 import { createBrowserClient } from '@supabase/ssr'
 import { Session, SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
-import { createServerSupabaseClient } from './lib/supabase.server'
-import styles from './styles.css?url'
+
+import './tailwind.css'
 
 export const links: LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -29,10 +29,6 @@ export const links: LinksFunction = () => [
 	{
 		rel: 'stylesheet',
 		href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'
-	},
-	{
-		rel: 'stylesheet',
-		href: styles
 	}
 ]
 
