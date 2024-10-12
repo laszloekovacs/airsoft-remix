@@ -14,7 +14,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	} = await getSession(request.headers.get('Cookie'))
 
 	// if the user has a user.newuser set, return to home
-	if (user.isnew == false) return redirect('/')
+	if (user.isOnboarding == false) return redirect('/')
 
 	return json({ user })
 }
