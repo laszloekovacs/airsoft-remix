@@ -22,7 +22,7 @@ const githubStrategy = new GitHubStrategy(
 			.from(users)
 			.where(eq(users.email, profile._json.email))
 
-		// if the array is empty
+		// if not found, send him to register or sign out
 		if (user.length == 0) {
 			return {
 				isnew: true,
@@ -33,8 +33,8 @@ const githubStrategy = new GitHubStrategy(
 		}
 
 		console.log(user[0])
-
-		return user
+		// if we found him, return him
+		return user[0]
 	}
 )
 
