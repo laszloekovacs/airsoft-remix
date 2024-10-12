@@ -9,18 +9,22 @@ import { db } from 'services/drizzle.server'
 import { users } from 'schema/schema.server'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const {
-		data: { user }
-	} = await getSession(request.headers.get('Cookie'))
+	const { data } = await getSession(request.headers.get('Cookie'))
 
-	// if the user has a user.newuser set, return to home
-	if (user.isOnboarding == false) return redirect('/')
+	console.log('session', data)
 
-	return json({ user })
+	// its someone who isn't in the system
+	if (data.newuser == undefined) {
+		return redirect('/')
+	}
+
+	return json({ user: data.user })
 }
 
 export default function Onboarding() {
 	const { user } = useLoaderData<typeof loader>()
+
+	return <p>hello</p>
 
 	return (
 		<div>
@@ -33,11 +37,7 @@ export default function Onboarding() {
 			<Form method='post'>
 				<div className='flex flex-col gap-2'>
 					<label htmlFor='name'>felhasználónév</label>
-					<input
-						type='name'
-						name='name'
-						defaultValue={user.name}
-						required></input>
+					<input type='name' name='name' defaultValue={user.name} required />
 					<button type='submit'>regisztrálok</button>
 
 					<label htmlFor='accept'>elfogadom a felhasznalasi feteteleket</label>
