@@ -3,18 +3,14 @@ import {
 	LoaderFunctionArgs,
 	redirect
 } from '@remix-run/node'
-import {
-	Form,
-	json,
-	useActionData,
-	useFetcher,
-	useLoaderData
-} from '@remix-run/react'
-import { getSession } from 'services/session.server'
-import { db } from 'services/drizzle.server'
-import { users } from 'schema/schema.server'
+import { json, useFetcher, useLoaderData } from '@remix-run/react'
 import { eq } from 'drizzle-orm'
 import React from 'react'
+import { users } from 'schema/schema.server'
+import { db } from 'services/drizzle.server'
+import { getSession } from 'services/session.server'
+
+const MIN_NAME_LENGTH = 5
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const {
@@ -33,20 +29,39 @@ export default function Onboarding() {
 	const { user } = useLoaderData<typeof loader>()
 	const fetcher = useFetcher<typeof action>()
 
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+		fetcher.submit(event.currentTarget)
+	}
+
 	return (
 		<div>
 			<div>Onboarding</div>
-
-			{fetcher.data?.status == 'error' && <div>{fetcher.data.message}</div>}
 
 			<img src={user.avatar_url} alt={user.name} width={45}></img>
 
 			<output>{user.name}</output>
 
-			<fetcher.Form method='post'>
+			<fetcher.Form method='post' onSubmit={handleSubmit}>
 				<div className='flex flex-col gap-2'>
 					<label htmlFor='name'>felhasználónév</label>
-					<input type='name' name='name' defaultValue={user.name} required />
+					<input
+						type='name'
+						name='name'
+						defaultValue={user.name}
+						required
+						minLength={MIN_NAME_LENGTH}
+					/>
+					{fetcher.data?.status == 'name_taken' && (
+						<div className='text-red-500'>{fetcher.data.message}</div>
+					)}
+
+					{fetcher.data?.status == 'min_length' && (
+						<div className='text-red-500'>
+							a felhasznalonev rövidebb mint 5 karakter
+						</div>
+					)}
+
 					<button type='submit'>regisztrálok</button>
 
 					<label htmlFor='accept'>elfogadom a felhasznalasi feteteleket</label>
@@ -74,6 +89,14 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	const email = user.email
 	const avatar_url = user.avatar_url
 
+	// name too short
+	if (name.length < MIN_NAME_LENGTH) {
+		return json({
+			message: 'a felhasznalo neve rövidebb mint 5 karakter',
+			status: 'min_length'
+		})
+	}
+
 	// check if the userame is avalable
 	const existing = await db
 		.select({ name: users.name })
@@ -81,11 +104,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 		.where(eq(users.name, name))
 
 	if (existing.length > 0) {
-		return json({ message: 'user already exists', status: 'error' })
+		return json({ message: 'a felhasználonév foglalt!', status: 'name_taken' })
 	}
 
-	// record the new user in the database
+	// record the new user in the database, go home
 	await db.insert(users).values({ name, email, avatar_url })
 
-	return redirect('/')
+	// success
+	return json({ message: 'sikeres regisztráció', status: 'ok' })
 }
