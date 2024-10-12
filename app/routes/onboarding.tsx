@@ -3,11 +3,18 @@ import {
 	LoaderFunctionArgs,
 	redirect
 } from '@remix-run/node'
-import { Form, json, useLoaderData } from '@remix-run/react'
+import {
+	Form,
+	json,
+	useActionData,
+	useFetcher,
+	useLoaderData
+} from '@remix-run/react'
 import { getSession } from 'services/session.server'
 import { db } from 'services/drizzle.server'
 import { users } from 'schema/schema.server'
 import { eq } from 'drizzle-orm'
+import React from 'react'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const {
@@ -24,16 +31,19 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function Onboarding() {
 	const { user } = useLoaderData<typeof loader>()
+	const fetcher = useFetcher<typeof action>()
 
 	return (
 		<div>
 			<div>Onboarding</div>
 
+			{fetcher.data?.status == 'error' && <div>{fetcher.data.message}</div>}
+
 			<img src={user.avatar_url} alt={user.name} width={45}></img>
 
 			<output>{user.name}</output>
 
-			<Form method='post'>
+			<fetcher.Form method='post'>
 				<div className='flex flex-col gap-2'>
 					<label htmlFor='name'>felhasználónév</label>
 					<input type='name' name='name' defaultValue={user.name} required />
@@ -42,7 +52,7 @@ export default function Onboarding() {
 					<label htmlFor='accept'>elfogadom a felhasznalasi feteteleket</label>
 					<input name='accept' type='checkbox' />
 				</div>
-			</Form>
+			</fetcher.Form>
 
 			<pre>{JSON.stringify(user, null, 2)}</pre>
 		</div>
@@ -71,7 +81,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 		.where(eq(users.name, name))
 
 	if (existing.length > 0) {
-		return json({ message: 'user already exists' }, { status: 409 })
+		return json({ message: 'user already exists', status: 'error' })
 	}
 
 	// record the new user in the database
