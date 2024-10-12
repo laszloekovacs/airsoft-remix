@@ -25,7 +25,6 @@ const githubStrategy = new GitHubStrategy(
 		// if not found, send him to register or sign out
 		if (user.length == 0) {
 			const newuser = {
-				isRegistered: false,
 				name: profile._json.name,
 				email: profile._json.email,
 				avatar_url: profile._json.avatar_url
@@ -40,5 +39,5 @@ const githubStrategy = new GitHubStrategy(
 		}
 	}
 )
-
+// save just in case
 authenticator.use(githubStrategy, 'github')

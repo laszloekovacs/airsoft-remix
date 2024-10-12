@@ -13,18 +13,18 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	console.log('session', data)
 
-	// its someone who isn't in the system
-	if (data.newuser == undefined) {
+	// its someone who is already in the system
+	if (data.user.newuser == undefined && data.user) {
 		return redirect('/')
 	}
 
-	return json({ user: data.user })
+	return json({ newuser: data.newuser })
 }
 
 export default function Onboarding() {
-	const { user } = useLoaderData<typeof loader>()
+	const { newuser } = useLoaderData<typeof loader>()
 
-	return <p>hello</p>
+	return <p>hello {JSON.stringify(newuser, null, 2)}</p>
 
 	return (
 		<div>
