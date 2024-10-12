@@ -10,6 +10,7 @@
 		"drizzle-studio": "npx drizzle-kit studio",
 		"drizzle-generate": "npx drizzle-kit generate",
 		"drizzle-migrate": "npx drizzle-kit migrate",
+		"drizzle-push": "npx drizzle-kit push",
 		"lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
 		"typecheck": "tsc"
 	},
