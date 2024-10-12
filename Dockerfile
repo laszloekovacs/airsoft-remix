@@ -37,8 +37,6 @@ EXPOSE 3000
 
 # Set the environment variables.
 ENV NODE_ENV=${NODE_ENV:-production}
-ENV SUPABASE_URL=${SUPABASE_URL}
-ENV SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
 
 # Set the command to run the application.
 CMD ["npm", "run", "start"]
