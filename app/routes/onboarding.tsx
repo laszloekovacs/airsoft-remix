@@ -15,8 +15,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	console.log('session', user)
 
-	// its someone who is already in the system, or not signing in, send him away
-	if (!user || !user.id) {
+	// not signing up or already registered
+	if (!user || user.id) {
 		return redirect('/')
 	}
 
