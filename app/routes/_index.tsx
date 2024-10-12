@@ -17,7 +17,7 @@ export default function Index() {
 						Welcome to <span className='sr-only'>Remix</span>
 					</h1>
 					<div>
-						<Form action='/auth/login' method='post'>
+						<Form action='/auth/github/login' method='post'>
 							<button>Login with github</button>
 						</Form>
 					</div>

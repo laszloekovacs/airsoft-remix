@@ -9,7 +9,7 @@ const githubStrategy = new GitHubStrategy(
 	{
 		clientId: process.env.GITHUB_CLIENT_ID!,
 		clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-		redirectURI: process.env.GITHUB_REDIRECT_URI!
+		redirectURI: process.env.GITHUB_REDIRECT_URL!
 	},
 	async ({ profile, tokens, request, context }) => {
 		//return user data from database using profile
@@ -20,4 +20,4 @@ const githubStrategy = new GitHubStrategy(
 	}
 )
 
-authenticator.use(githubStrategy)
+authenticator.use(githubStrategy, 'github')
