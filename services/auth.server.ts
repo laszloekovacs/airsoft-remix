@@ -24,12 +24,12 @@ const githubStrategy = new GitHubStrategy(
 
 		// if not found, send him to register or sign out
 		if (user.length == 0) {
-			return {
-				isnew: true,
+			const newuser = {
+				isOnboarding: true,
 				name: profile._json.name,
 				email: profile._json.email,
 				avatar_url: profile._json.avatar_url
-			}
+			} as OboardingUser
 		}
 
 		console.log(user[0])
@@ -39,3 +39,8 @@ const githubStrategy = new GitHubStrategy(
 )
 
 authenticator.use(githubStrategy, 'github')
+
+export type OboardingUser = Pick<
+	typeof users.$inferSelect,
+	'name' | 'email' | 'avatar_url'
+> & { isOnboarding: boolean }
