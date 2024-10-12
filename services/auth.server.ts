@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm'
 import { users } from 'schema/schema.server'
 
 // TODO: add generic of a type that the authenticator will return
-export const authenticator = new Authenticator(sessionStorage)
+export const authenticator = new Authenticator<SessionUser>(sessionStorage)
 
 const githubStrategy = new GitHubStrategy(
 	{
@@ -18,7 +18,12 @@ const githubStrategy = new GitHubStrategy(
 		//return user data from database using profile
 
 		const user = await db
-			.select()
+			.select({
+				id: users.id,
+				name: users.name,
+				email: users.email,
+				avatar_url: users.avatar_url
+			})
 			.from(users)
 			.where(eq(users.email, profile._json.email))
 
@@ -42,3 +47,5 @@ const githubStrategy = new GitHubStrategy(
 )
 
 authenticator.use(githubStrategy, 'github')
+
+export type SessionUser = Required<typeof users.$inferInsert>

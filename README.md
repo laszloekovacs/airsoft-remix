@@ -1,5 +1,11 @@
+# Community website with an event calendar
 
-## redeployment
+
+
+
+## notes
+
+### redeployment
 ```
 git push origin HEAD:release 
 ```
@@ -11,7 +17,6 @@ https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/appl
 https://blog.logrocket.com/remix-supabase-real-time-chat-app/
 
 
-## notes
 
 ### profile page
 - should show users profile picture
