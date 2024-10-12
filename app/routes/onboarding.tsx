@@ -9,35 +9,37 @@ import { db } from 'services/drizzle.server'
 import { users } from 'schema/schema.server'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const { data } = await getSession(request.headers.get('Cookie'))
+	const {
+		data: { user }
+	} = await getSession(request.headers.get('Cookie'))
 
-	console.log('session', data)
+	console.log('session', user)
 
-	// its someone who is already in the system
-	if (data.user.newuser == undefined && data.user) {
+	// its someone who is already in the system, or not signing in, send him away
+	if (!user || !user.id) {
 		return redirect('/')
 	}
 
-	return json({ newuser: data.newuser })
+	return json({ user })
 }
 
 export default function Onboarding() {
-	const { newuser } = useLoaderData<typeof loader>()
+	const { user } = useLoaderData<typeof loader>()
 
-	return <p>hello {JSON.stringify(newuser, null, 2)}</p>
+	return <p>hello {JSON.stringify(user, null, 2)}</p>
 
 	return (
 		<div>
 			<div>Onboarding</div>
 
-			<img src={user.avatar_url} alt={user.name} width={45}></img>
+			<img src={newuser.avatar_url} alt={newuser.name} width={45}></img>
 
-			<output>{user.name}</output>
+			<output>{newuser.name}</output>
 
 			<Form method='post'>
 				<div className='flex flex-col gap-2'>
 					<label htmlFor='name'>felhasználónév</label>
-					<input type='name' name='name' defaultValue={user.name} required />
+					<input type='name' name='name' defaultValue={newuser.name} required />
 					<button type='submit'>regisztrálok</button>
 
 					<label htmlFor='accept'>elfogadom a felhasznalasi feteteleket</label>
@@ -45,19 +47,19 @@ export default function Onboarding() {
 				</div>
 			</Form>
 
-			<pre>{JSON.stringify(user, null, 2)}</pre>
+			<pre>{JSON.stringify(newuser, null, 2)}</pre>
 		</div>
 	)
 }
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-	const session = await getSession(request.headers.get('Cookie'))
+	const { data } = await getSession(request.headers.get('Cookie'))
 
 	const formData = await request.formData()
 
 	const name = formData.get('name') as string
-	const email = session.data.user.email
-	const avatar_url = session.data.user.avatar_url
+	const email = data.user.newuser.email
+	const avatar_url = data.user.newuser.avatar_url
 
 	// record the new user in the database
 	const result = await db.insert(users).values({ name, email, avatar_url }) // error: cannot insert null into column "name"

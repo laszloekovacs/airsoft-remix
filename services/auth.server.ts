@@ -22,22 +22,23 @@ const githubStrategy = new GitHubStrategy(
 			.from(users)
 			.where(eq(users.email, profile._json.email))
 
-		// if not found, send him to register or sign out
-		if (user.length == 0) {
+		// if we found him, return him
+		if (user.length != 0) {
+			console.log('found user')
+			return user[0]
+		} else {
+			// if not found, send him to register or sign out
 			const newuser = {
+				id: '',
 				name: profile._json.name,
 				email: profile._json.email,
 				avatar_url: profile._json.avatar_url
 			}
 
 			console.log('new user')
-			return { newuser }
-		} else {
-			console.log('found user')
-			// if we found him, return him
-			return user[0]
+			return newuser
 		}
 	}
 )
-// save just in case
+
 authenticator.use(githubStrategy, 'github')
