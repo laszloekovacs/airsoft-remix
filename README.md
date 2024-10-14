@@ -34,3 +34,5 @@ https://sergiodxa.github.io/remix-auth-github/
 - [ ] add create event page
 - [ ] add admin route
 - [ ] add claims to users
+- [ ] use separate connection string(due to roles) for admins?
+- [ ] 
