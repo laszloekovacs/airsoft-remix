@@ -47,6 +47,7 @@ const EventsTable = () => {
 			<ul>
 				{eventList.map(event => (
 					<li key={event.id}>
+						<p>{event.creator_name}</p>
 						<a href={`/events/${event.id}`}>{event.title}</a>
 					</li>
 				))}

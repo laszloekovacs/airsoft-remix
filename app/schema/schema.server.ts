@@ -26,6 +26,11 @@ export const events = pgTable('events', {
 	created_at: timestamp({ withTimezone: true })
 		.notNull()
 		.default(sql`now()`),
+
+	start_time: timestamp({ withTimezone: true })
+		.notNull()
+		.default(sql`now()`),
+
 	// the article. store it as a json
 	text_mdx: text().default('').notNull(),
 	text_json: json().default({}).notNull()

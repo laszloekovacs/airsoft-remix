@@ -38,6 +38,6 @@ https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/appl
 - [ ] google, facebook auth
 - [ ] online indicator
 - [ ] image upload
-- [ ] event listing
+- [x] event listing
 - [ ] write some type assertion functions eg: () => is string
 - [ ] add event detail page
