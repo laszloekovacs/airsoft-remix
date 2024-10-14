@@ -22,7 +22,8 @@ const githubStrategy = new GitHubStrategy(
 				id: users.id,
 				name: users.name,
 				email: users.email,
-				avatar_url: users.avatar_url
+				avatar_url: users.avatar_url,
+				claims: users.claims
 			})
 			.from(users)
 			.where(eq(users.email, profile._json.email))
@@ -36,7 +37,8 @@ const githubStrategy = new GitHubStrategy(
 				id: '',
 				name: profile._json.name,
 				email: profile._json.email,
-				avatar_url: profile._json.avatar_url
+				avatar_url: profile._json.avatar_url,
+				claims: []
 			}
 
 			return newuser

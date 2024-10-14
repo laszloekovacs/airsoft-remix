@@ -31,3 +31,6 @@ https://sergiodxa.github.io/remix-auth-github/
 
 ### Tasks
 - [ ] update docker file env variables (github, db)
+- [ ] add create event page
+- [ ] add admin route
+- [ ] add claims to users

@@ -60,6 +60,9 @@ export default function Onboarding() {
 			<fetcher.Form method='post' onSubmit={handleSubmit}>
 				<div className='flex flex-col gap-2'>
 					<fieldset disabled={pending}>
+						<input type='hidden' name='email' value={user.email} />
+						<input type='hidden' name='avatar_url' value={user.avatar_url} />
+
 						<label htmlFor='name'>felhasználónév</label>
 						<input
 							type='name'
@@ -94,19 +97,21 @@ export default function Onboarding() {
 }
 
 export const action = async ({ request }: ActionFunctionArgs) => {
+	/*	
+
 	const {
 		data: { user }
 	} = await getSession(request.headers.get('Cookie'))
-
+*/
 	// shouldn't happen tho since we check for user in the loader
 	// still posible to POST here
-	if (!user) throw redirect('/')
+	//	if (!user) throw redirect('/')
 
 	const formData = await request.formData()
 
 	const name = formData.get('name') as string
-	const email = user.email
-	const avatar_url = user.avatar_url
+	const email = formData.get('email') as string
+	const avatar_url = formData.get('avatar_url') as string
 
 	// name too short
 	if (name.length < MIN_NAME_LENGTH) {
@@ -131,6 +136,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 	// record the new user in the database, go home
 	await db.insert(users).values({ name, email, avatar_url })
+	return redirect('/')
 
 	// success
 	return json({ message: 'sikeres regisztráció', status: 'ok' })
