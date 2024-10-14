@@ -11,6 +11,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			status: 403,
 			statusText: 'Forbidden'
 		})
+	} else {
+		return {
+			status: 200,
+			message: 'ok'
+		}
 	}
 }
 
