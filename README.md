@@ -30,4 +30,4 @@ https://sergiodxa.github.io/remix-auth-github/
 
 
 ### Tasks
-[ ] update docker file env variables (github, db)
+- [ ] update docker file env variables (github, db)
