@@ -52,3 +52,4 @@ https://sergiodxa.github.io/remix-auth-github/
 - [ ] online indicator
 - [ ] image upload
 - [ ] event listing
+- [ ] write some type assertion functions eg: () => is string
