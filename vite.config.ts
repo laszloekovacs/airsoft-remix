@@ -7,10 +7,7 @@ export default defineConfig({
 		globals: true,
 		include: ['**/*.test.{ts,tsx}'],
 		exclude: ['node_modules', 'dist'],
-		environment: 'jsdom'
-	},
-	define: {
-		'import.meta.vitest': 'undefined'
+		environment: 'node'
 	},
 	plugins: [
 		tsconfigPaths(),
