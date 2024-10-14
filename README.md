@@ -3,35 +3,21 @@
 
 
 
-## notes
-- return json() or redirects or throw errors, try not to use Response (investigate)
-
-
-### redeployment
-```
-git push origin HEAD:release 
-```
-then hit redeploy at:
-
-https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/application/cscwgc48sowkw0oowssokkwc
-
-
+### relevant links and articles
 https://blog.logrocket.com/remix-supabase-real-time-chat-app/
-
-
-
-### profile page
-- should show users profile picture
-- should show users username
-- should show users email
-
-
--user should be able to change their username
-
 https://sergiodxa.github.io/remix-auth-github/
 
 
-### Tasks
+### releases
+the project is set up so if its pushed to github on the release branch, it will build a docker image
+```
+git push origin HEAD:release 
+```
+the project doesn't automatically deploys itself, in coolify, it needs to be restarted. in my case:
+https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/application/cscwgc48sowkw0oowssokkwc
+
+
+### Notes & Tasks
 - [x] add admin route
 - [x] add claims to users
 - [x] added prosemirror test page
