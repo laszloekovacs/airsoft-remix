@@ -6,23 +6,32 @@ import {
 import { json, useFetcher, useLoaderData } from '@remix-run/react'
 import { eq } from 'drizzle-orm'
 import React from 'react'
-import { users } from 'schema/schema.server'
-import { db } from 'services/drizzle.server'
-import { getSession } from 'services/session.server'
+import { users } from '~/schema/schema.server'
+import { db } from '~/services/drizzle.server'
+import { destroySession, getSession } from '~/services/session.server'
 
 const MIN_NAME_LENGTH = 5
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const {
-		data: { user }
-	} = await getSession(request.headers.get('Cookie'))
+	const session = await getSession(request.headers.get('Cookie'))
+	const user = session.get('user')
 
 	// user isn't signing in, or is already registered redirect to home
-	if (!user || user.id) {
-		return redirect('/')
+	if (!user) {
+		throw new Error('no session found', { cause: 401 })
 	}
 
-	return json({ user })
+	// registered user, redirect to home
+	if (user.id) {
+		throw redirect('/')
+	}
+
+	// delete the session, but return the user
+	const headers = {
+		'Set-Cookie': await destroySession(session)
+	}
+
+	return json({ user }, { headers })
 }
 
 export default function Onboarding() {

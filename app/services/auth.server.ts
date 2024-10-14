@@ -3,7 +3,7 @@ import { sessionStorage } from './session.server'
 import { GitHubStrategy } from 'remix-auth-github'
 import { db } from './drizzle.server'
 import { eq } from 'drizzle-orm'
-import { users } from 'schema/schema.server'
+import { users } from '~/schema/schema.server'
 
 // TODO: add generic of a type that the authenticator will return
 export const authenticator = new Authenticator<SessionUser>(sessionStorage)
