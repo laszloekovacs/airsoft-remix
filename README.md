@@ -40,3 +40,6 @@ https://sergiodxa.github.io/remix-auth-github/
 - [ ] add create event page
 - [ ] use separate connection string(due to roles) for admins?
 - [ ] create a new event post
+- [ ] admins should log in with different connection string / credentials
+- [ ] investigate prosemirror
+- [ ] create a claim check function 

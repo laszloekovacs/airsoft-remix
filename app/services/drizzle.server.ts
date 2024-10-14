@@ -9,6 +9,7 @@ const pool = new Pool({
 
 export const db = drizzle(pool)
 
+// admins should login with different credentials eg:
 // admindb = drizzle(otherpool)
 
 /**

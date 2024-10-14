@@ -27,5 +27,6 @@ export const events = pgTable('events', {
 		.notNull()
 		.default(sql`now()`),
 	// the article. store it as a json
-	text_json: json().default({})
+	text_mdx: text().default('').notNull(),
+	text_json: json().default({}).notNull()
 })

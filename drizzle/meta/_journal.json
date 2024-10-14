@@ -15,6 +15,13 @@
       "when": 1728925119628,
       "tag": "0001_dark_the_hunter",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1728927630146,
+      "tag": "0002_unknown_doorman",
+      "breakpoints": true
     }
   ]
 }

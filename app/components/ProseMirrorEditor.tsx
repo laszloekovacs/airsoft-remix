@@ -37,7 +37,7 @@ const ProseMirrorEditor = () => {
 	}, [])
 
 	const handleRead = () => {
-		console.log(viewRef.current?.state.doc.toJSON())
+		console.log(JSON.stringify(viewRef.current?.state.doc.toJSON()))
 	}
 
 	return (

@@ -3,3 +3,6 @@ node_modules
 /.cache
 /build
 .env
+
+drizzle
+# for now, dont bother storing migrations
