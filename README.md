@@ -43,3 +43,5 @@ https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/appl
 - [ ] image upload
 - [ ] write some type assertion functions eg: () => is string
 - [ ] add event detail page
+- [ ] investigate s3 storage, postgresql storage
+- [ ] investigate postgres triggers, events and policies 
