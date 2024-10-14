@@ -14,3 +14,8 @@ body {
 button {
 	@apply bg-gray-300 dark:bg-gray-800;
 }
+
+input,
+textarea {
+	@apply bg-gray-300 dark:bg-gray-800;
+}

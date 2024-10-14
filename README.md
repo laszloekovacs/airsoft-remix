@@ -43,3 +43,4 @@ https://sergiodxa.github.io/remix-auth-github/
 - [ ] admins should log in with different connection string / credentials
 - [ ] investigate prosemirror
 - [ ] create a claim check function 
+- [ ] create an edit form page for events
