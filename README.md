@@ -4,8 +4,8 @@
 
 
 ### relevant links and articles
-https://blog.logrocket.com/remix-supabase-real-time-chat-app/
-https://sergiodxa.github.io/remix-auth-github/
+- https://blog.logrocket.com/remix-supabase-real-time-chat-app/
+- https://sergiodxa.github.io/remix-auth-github/
 
 
 ### releases
