@@ -3,7 +3,17 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
+	test: {
+		globals: true,
+		include: ['**/*.test.{ts,tsx}'],
+		exclude: ['node_modules', 'dist'],
+		environment: 'jsdom'
+	},
+	define: {
+		'import.meta.vitest': 'undefined'
+	},
 	plugins: [
+		tsconfigPaths(),
 		remix({
 			future: {
 				v3_fetcherPersist: true,
@@ -11,8 +21,7 @@ export default defineConfig({
 				v3_throwAbortReason: true
 			},
 			ignoredRouteFiles: ['**/*.css', '**/*.test.{js,jsx,ts,tsx}']
-		}),
-		tsconfigPaths()
+		})
 	],
 	server: {
 		port: 3000
