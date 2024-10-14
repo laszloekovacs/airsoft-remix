@@ -27,3 +27,7 @@ https://blog.logrocket.com/remix-supabase-real-time-chat-app/
 -user should be able to change their username
 
 https://sergiodxa.github.io/remix-auth-github/
+
+
+### Tasks
+[ ] update docker file env variables (github, db)
