@@ -25,7 +25,8 @@ https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/appl
 - [x] events list on index page
 - [x] event listing
 - [x] added event detail page
-- [ ] update docker file env variables (github, db)
+- [x] update docker file env variables (github, db)
+- [ ] create a docker compose file
 - [ ] setup deployment on home server
 - [ ] use separate connection string(due to roles) for admins?
 - [ ] create a new event post
