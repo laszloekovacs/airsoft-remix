@@ -7,20 +7,23 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	// check for admin claim
 	if (!session.data.user?.claims.includes('admin')) {
-		throw new Response('/', {
+		return new Response('Forbidden', {
 			status: 403,
 			statusText: 'Forbidden'
 		})
 	} else {
-		return {
-			status: 200,
-			message: 'ok'
-		}
+		return new Response('ok', { status: 200 })
 	}
 }
 
 const AdminPage = () => {
-	return <div>AdminPage</div>
+	return (
+		<div>
+			<h2>AdminPage</h2>
+
+			<nav></nav>
+		</div>
+	)
 }
 
 export default AdminPage

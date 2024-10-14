@@ -4,6 +4,8 @@
 
 
 ## notes
+- return json() or redirects or throw errors, try not to use Response (investigate)
+
 
 ### redeployment
 ```
@@ -30,9 +32,11 @@ https://sergiodxa.github.io/remix-auth-github/
 
 
 ### Tasks
+- [x] add admin route
+- [x] add claims to users
+- [x] added prosemirror test page
 - [ ] update docker file env variables (github, db)
+- [ ] setup deployment on home server
 - [ ] add create event page
-- [ ] add admin route
-- [ ] add claims to users
 - [ ] use separate connection string(due to roles) for admins?
-- [ ] 
+- [ ] create a new event post
