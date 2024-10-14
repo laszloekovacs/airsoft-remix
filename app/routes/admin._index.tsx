@@ -1,5 +1,11 @@
-import { LoaderFunctionArgs, redirect } from '@remix-run/node'
+import {
+	ActionFunctionArgs,
+	LoaderFunctionArgs,
+	redirect
+} from '@remix-run/node'
+import { Form } from '@remix-run/react'
 import React from 'react'
+import { genPostgresUUID } from '~/services/drizzle.server'
 import { getSession } from '~/services/session.server'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -16,14 +22,20 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	}
 }
 
-const AdminPage = () => {
+export default function AdminPage() {
 	return (
 		<div>
 			<h2>AdminPage</h2>
-
-			<nav></nav>
+			<Form method='post'>
+				<button type='submit'>Create Event</button>
+			</Form>
 		</div>
 	)
 }
 
-export default AdminPage
+export const action = async ({ request }: ActionFunctionArgs) => {
+	// TODO:check for admin claims
+
+	const id = await genPostgresUUID()
+	return redirect(`/admin/events/${id}/edit`)
+}

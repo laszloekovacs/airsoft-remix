@@ -12,7 +12,6 @@
 		"drizzle-generate": "pnpm drizzle-kit generate",
 		"drizzle-migrate": "pnpm drizzle-kit migrate",
 		"drizzle-push": "pnpm drizzle-kit push",
-		"drizzle-pull": "pnpm drizzle-kit pull",
 		"lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
 		"typecheck": "tsc"
 	},

@@ -11,8 +11,12 @@ export const db = drizzle(pool)
 
 // admindb = drizzle(otherpool)
 
-// get an uuid from postgres database, move this function somewhere else
-export const genPostgresUUID = async () => {
+/**
+ * Get a random UUID from Postgres database.
+ * call server side
+ * @returns a string representing an UUID
+ */
+export const genPostgresUUID = async (): Promise<string> => {
 	const { rows } = await db.execute(sql`SELECT gen_random_uuid() as uuid`)
-	return rows[0].uuid
+	return rows[0].uuid as string
 }
