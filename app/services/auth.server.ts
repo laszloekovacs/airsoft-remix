@@ -29,18 +29,16 @@ const githubStrategy = new GitHubStrategy(
 
 		// if we found him, return him
 		if (user.length != 0) {
-			console.log('found user')
 			return user[0]
 		} else {
 			// if not found, send him to register or sign out
-			const newuser = {
+			const newuser: SessionUser = {
 				id: '',
 				name: profile._json.name,
 				email: profile._json.email,
 				avatar_url: profile._json.avatar_url
 			}
 
-			console.log('new user')
 			return newuser
 		}
 	}

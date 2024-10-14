@@ -3,9 +3,14 @@ import {
 	LoaderFunctionArgs,
 	redirect
 } from '@remix-run/node'
-import { json, useFetcher, useLoaderData } from '@remix-run/react'
+import {
+	json,
+	useFetcher,
+	useLoaderData,
+	useNavigation
+} from '@remix-run/react'
 import { eq } from 'drizzle-orm'
-import React from 'react'
+import React, { useState } from 'react'
 import { users } from '~/schema/schema.server'
 import { db } from '~/services/drizzle.server'
 import { destroySession, getSession } from '~/services/session.server'
@@ -26,7 +31,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		throw redirect('/')
 	}
 
-	// delete the session, but return the user
+	// delete the session, but return the partial user
 	const headers = {
 		'Set-Cookie': await destroySession(session)
 	}
@@ -37,6 +42,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function Onboarding() {
 	const { user } = useLoaderData<typeof loader>()
 	const fetcher = useFetcher<typeof action>()
+	const pending = fetcher.state !== 'idle'
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -53,28 +59,32 @@ export default function Onboarding() {
 
 			<fetcher.Form method='post' onSubmit={handleSubmit}>
 				<div className='flex flex-col gap-2'>
-					<label htmlFor='name'>felhasználónév</label>
-					<input
-						type='name'
-						name='name'
-						defaultValue={user.name}
-						required
-						minLength={MIN_NAME_LENGTH}
-					/>
-					{fetcher.data?.status == 'name_taken' && (
-						<div className='text-red-500'>{fetcher.data.message}</div>
-					)}
+					<fieldset disabled={pending}>
+						<label htmlFor='name'>felhasználónév</label>
+						<input
+							type='name'
+							name='name'
+							defaultValue={user.name}
+							required
+							minLength={MIN_NAME_LENGTH}
+						/>
+						{fetcher.data?.status == 'name_taken_error' && (
+							<div className='text-red-500'>{fetcher.data.message}</div>
+						)}
 
-					{fetcher.data?.status == 'min_length' && (
-						<div className='text-red-500'>
-							a felhasznalonev rövidebb mint 5 karakter
-						</div>
-					)}
+						{fetcher.data?.status == 'min_length_error' && (
+							<div className='text-red-500'>
+								a felhasznalonev rövidebb mint 5 karakter
+							</div>
+						)}
 
-					<button type='submit'>regisztrálok</button>
+						<button type='submit'>regisztrálok</button>
 
-					<label htmlFor='accept'>elfogadom a felhasznalasi feteteleket</label>
-					<input name='accept' type='checkbox' />
+						<label htmlFor='accept'>
+							elfogadom a felhasznalasi feteteleket
+						</label>
+						<input name='accept' type='checkbox' />
+					</fieldset>
 				</div>
 			</fetcher.Form>
 
@@ -102,18 +112,21 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	if (name.length < MIN_NAME_LENGTH) {
 		return json({
 			message: 'a felhasznalo neve rövidebb mint 5 karakter',
-			status: 'min_length'
+			status: 'min_length_error'
 		})
 	}
 
-	// check if the userame is avalable
+	// check if the userame is taken
 	const existing = await db
 		.select({ name: users.name })
 		.from(users)
 		.where(eq(users.name, name))
 
 	if (existing.length > 0) {
-		return json({ message: 'a felhasználonév foglalt!', status: 'name_taken' })
+		return json({
+			message: 'a felhasználonév foglalt!',
+			status: 'name_taken_error'
+		})
 	}
 
 	// record the new user in the database, go home
