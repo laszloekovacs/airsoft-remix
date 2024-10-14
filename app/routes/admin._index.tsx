@@ -4,7 +4,6 @@ import {
 	redirect
 } from '@remix-run/node'
 import { Form } from '@remix-run/react'
-import React from 'react'
 import { genPostgresUUID } from '~/services/drizzle.server'
 import { getSession } from '~/services/session.server'
 

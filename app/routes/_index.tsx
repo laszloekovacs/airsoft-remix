@@ -19,6 +19,7 @@ type EventListItem = {
 	created_at: Date
 	creator_name: string
 	creator_id: string
+	start_time: Date
 }
 
 export default function Index() {
@@ -47,6 +48,7 @@ const EventsTable = () => {
 			<ul>
 				{eventList.map(event => (
 					<li key={event.id}>
+						<time>{event.start_time.toString()}</time>
 						<p>{event.creator_name}</p>
 						<a href={`/events/${event.id}`}>{event.title}</a>
 					</li>
@@ -65,7 +67,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			text_mdx: events.text_mdx,
 			created_at: events.created_at,
 			creator_name: users.name,
-			creator_id: events.creator_id
+			creator_id: events.creator_id,
+			start_time: events.start_time
 		})
 		.from(events)
 		.orderBy(asc(events.created_at))

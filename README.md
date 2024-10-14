@@ -23,6 +23,8 @@ https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/appl
 - [x] added prosemirror test page
 - [x] add create event page
 - [x] events list on index page
+- [x] event listing
+- [x] added event detail page
 - [ ] update docker file env variables (github, db)
 - [ ] setup deployment on home server
 - [ ] use separate connection string(due to roles) for admins?
@@ -38,6 +40,5 @@ https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/appl
 - [ ] google, facebook auth
 - [ ] online indicator
 - [ ] image upload
-- [x] event listing
 - [ ] write some type assertion functions eg: () => is string
 - [ ] add event detail page
