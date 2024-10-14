@@ -3,14 +3,9 @@ import {
 	LoaderFunctionArgs,
 	redirect
 } from '@remix-run/node'
-import {
-	json,
-	useFetcher,
-	useLoaderData,
-	useNavigation
-} from '@remix-run/react'
+import { json, useFetcher, useLoaderData } from '@remix-run/react'
 import { eq } from 'drizzle-orm'
-import React, { useState } from 'react'
+import React from 'react'
 import { users } from '~/schema/schema.server'
 import { db } from '~/services/drizzle.server'
 import { destroySession, getSession } from '~/services/session.server'

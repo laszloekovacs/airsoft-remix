@@ -35,12 +35,20 @@ https://sergiodxa.github.io/remix-auth-github/
 - [x] add admin route
 - [x] add claims to users
 - [x] added prosemirror test page
+- [x] add create event page
 - [ ] update docker file env variables (github, db)
 - [ ] setup deployment on home server
-- [ ] add create event page
 - [ ] use separate connection string(due to roles) for admins?
 - [ ] create a new event post
 - [ ] admins should log in with different connection string / credentials
-- [ ] investigate prosemirror
+- [ ] investigate proseMirror
 - [ ] create a claim check function 
 - [ ] create an edit form page for events
+- [ ] signup to events
+- [ ] comments 
+- [ ] notifications
+- [ ] type of roles (user, admin, organizer)
+- [ ] google, facebook auth
+- [ ] online indicator
+- [ ] image upload
+- [ ] event listing
