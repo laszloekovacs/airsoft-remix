@@ -36,6 +36,7 @@ https://sergiodxa.github.io/remix-auth-github/
 - [x] add claims to users
 - [x] added prosemirror test page
 - [x] add create event page
+- [x] events list on index page
 - [ ] update docker file env variables (github, db)
 - [ ] setup deployment on home server
 - [ ] use separate connection string(due to roles) for admins?
@@ -53,3 +54,4 @@ https://sergiodxa.github.io/remix-auth-github/
 - [ ] image upload
 - [ ] event listing
 - [ ] write some type assertion functions eg: () => is string
+- [ ] add event detail page
