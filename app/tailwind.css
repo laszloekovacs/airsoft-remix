@@ -19,3 +19,7 @@ input,
 textarea {
 	@apply bg-gray-300 dark:bg-gray-800;
 }
+
+body {
+	font-size: 14px;
+}
