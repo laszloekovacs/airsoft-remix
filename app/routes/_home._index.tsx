@@ -44,19 +44,22 @@ const EventsTable = () => {
 	return (
 		<div>
 			<h2>Events</h2>
-
 			<ul>
 				{eventList.map(event => (
-					<li key={event.id}>
-						<time>{event.start_time.toString()}</time>
-						<p>{event.creator_name}</p>
-						<a href={`/events/${event.id}`}>{event.title}</a>
-					</li>
+					<EventsTableItem key={event.id} event={event} />
 				))}
 			</ul>
 		</div>
 	)
 }
+
+const EventsTableItem = ({ event }: { event: EventListItem }) => (
+	<li>
+		<time>{event.start_time.toString()}</time>
+		<p>{event.creator_name}</p>
+		<a href={`/events/${event.id}`}>{event.title}</a>
+	</li>
+)
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	// start streaming the events table.
