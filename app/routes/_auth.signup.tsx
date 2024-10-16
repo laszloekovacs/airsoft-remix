@@ -11,22 +11,27 @@ export default function Signup() {
 	const actionData = useActionData<typeof action>()
 
 	return (
-		<div>
-			<Form method='post'>
-				<label htmlFor='email'>Email</label>
-				<input type='email' name='email' />
+		<div className='flex flex-row gap-6'>
+			<img src='/public/img/spforces.jpg' className='w-1/2' />
+			<div className='grid place-content-center min-h-lvh'>
+				<Form method='post'>
+					<div className='flex flex-col gap-2 max-w-xs'>
+						<label htmlFor='email'>Email</label>
+						<input type='email' name='email' />
 
-				<label htmlFor='password'>Password</label>
-				<input type='password' name='password' />
+						<label htmlFor='password'>Password</label>
+						<input type='password' name='password' />
 
-				<button type='submit'>Signup</button>
-			</Form>
+						<button type='submit'>Signup</button>
+					</div>
+				</Form>
 
-			<p>
-				Mar rendelkezel fiokkal? <Link to='/login'>Lepj be</Link>
-			</p>
+				<p className='mt-8'>
+					Mar rendelkezel fiokkal? <Link to='/login'>Lepj be</Link>
+				</p>
 
-			<div>{actionData?.message}</div>
+				<div>{actionData?.message}</div>
+			</div>
 		</div>
 	)
 }
