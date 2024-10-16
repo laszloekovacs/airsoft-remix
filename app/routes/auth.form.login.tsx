@@ -3,7 +3,7 @@ import { authenticator } from '~/services/auth.server'
 
 // this is called by github oauth
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	return authenticator.authenticate('github', request, {
+	return authenticator.authenticate('form', request, {
 		successRedirect: '/',
 		failureRedirect: '/'
 	})

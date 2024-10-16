@@ -8,11 +8,10 @@
 		"build": "remix vite:build",
 		"start": "remix-serve ./build/server/index.js",
 		"test": "vitest run",
-		"drizzle-studio": "pnpm drizzle-kit studio",
-		"drizzle-generate": "pnpm drizzle-kit generate",
-		"drizzle-migrate": "pnpm drizzle-kit migrate",
-		"drizzle-push": "pnpm drizzle-kit push",
-		"typecheck": "tsc"
+		"drizzle-studio": "npm drizzle-kit studio",
+		"drizzle-generate": "npm drizzle-kit generate",
+		"drizzle-migrate": "npm drizzle-kit migrate",
+		"drizzle-push": "npm drizzle-kit push"
 	},
 	"dependencies": {
 		"@mdxeditor/editor": "^3.14.0",
