@@ -1,10 +1,11 @@
 import { createCookieSessionStorage, SessionData } from '@remix-run/node'
 
+// TODO: infer this type somehow
 export type AirsoftSessionData = {
 	id: string
 	name: string
 	email: string
-	avatar_url: string
+	avatar_url: string | null
 	claims: string[]
 } & SessionData
 

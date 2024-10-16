@@ -67,7 +67,13 @@ const formStrategy = new FormStrategy(async ({ form, context }) => {
 
 	// find the user
 	const user = await db
-		.select()
+		.select({
+			id: users.id,
+			name: users.name,
+			email: users.email,
+			avatar_url: users.avatar_url,
+			claims: users.claims
+		})
 		.from(users)
 		.where(and(eq(users.email, email), eq(users.password, password)))
 

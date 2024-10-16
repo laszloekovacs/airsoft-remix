@@ -10,9 +10,9 @@ export const users = pgTable('users', {
 	id: uuid().primaryKey().defaultRandom(),
 	name: text().notNull(),
 	email: text().notNull().unique(),
-	password: text(),
-	avatar_url: text().notNull(),
-	claims: text().array().default([]).notNull()
+	avatar_url: text(),
+	claims: text().array().default([]).notNull(),
+	password: text()
 })
 
 export const events = pgTable('events', {

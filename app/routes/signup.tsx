@@ -40,7 +40,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	// TODO: hash the password
 
 	// check if user already exists
-	const user = await db.select().from(users).where(eq(users.email, email))
+	const user = await db
+		.select({ em: users.email })
+		.from(users)
+		.where(eq(users.email, email))
 
 	if (user.length > 0) {
 		return {
@@ -59,5 +62,5 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	})
 
 	// TODO: send confirm email
-	return redirect('/login', { status: 201 })
+	return redirect('/login')
 }
