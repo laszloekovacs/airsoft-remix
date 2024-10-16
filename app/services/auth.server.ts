@@ -1,12 +1,18 @@
 import { Authenticator } from 'remix-auth'
-import { sessionStorage } from './session.server'
+import { AirsoftSessionData, sessionStorage } from './session.server'
 import { GitHubStrategy } from 'remix-auth-github'
+import { FormStrategy } from 'remix-auth-form'
+
 import { db } from './drizzle.server'
 import { eq } from 'drizzle-orm'
 import { users } from '~/schema/schema.server'
+import invariant from 'tiny-invariant'
+import { redirect } from '@remix-run/node'
 
 // TODO: add generic of a type that the authenticator will return
-export const authenticator = new Authenticator<SessionUser>(sessionStorage)
+export const authenticator = new Authenticator<AirsoftSessionData>(
+	sessionStorage
+)
 
 const githubStrategy = new GitHubStrategy(
 	{
@@ -33,7 +39,7 @@ const githubStrategy = new GitHubStrategy(
 			return user[0]
 		} else {
 			// if not found, send him to register or sign out
-			const newuser: SessionUser = {
+			const newuser: AirsoftSessionData = {
 				id: '',
 				name: profile._json.name,
 				email: profile._json.email,
@@ -46,6 +52,25 @@ const githubStrategy = new GitHubStrategy(
 	}
 )
 
-authenticator.use(githubStrategy, 'github')
+const formStrategy = new FormStrategy(async ({ form, context }) => {
+	const username = form.get('username') as string
+	const password = form.get('password') as string
 
-export type SessionUser = Required<typeof users.$inferInsert>
+	// TODO: validate probably better
+	invariant(typeof username == 'string', 'username is not a string')
+	invariant(username.length > 0, 'username is required')
+
+	invariant(typeof password == 'string', 'password is not a string')
+	invariant(password.length > 0, 'password is required')
+
+	// hash the password
+	//const hashedPassword = await hash(password)
+
+	// find the user
+	const user = await db.select().from(users).where(eq(users.email, username))
+
+	return user[0]
+})
+
+authenticator.use(formStrategy, 'form')
+authenticator.use(githubStrategy, 'github')

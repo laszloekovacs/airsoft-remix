@@ -1,6 +1,5 @@
 import { LoaderFunctionArgs } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import React from 'react'
+import { Link, useLoaderData } from '@remix-run/react'
 import { getSession } from '~/services/session.server'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -12,7 +11,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 const dash = () => {
 	const { session } = useLoaderData<typeof loader>()
 
-	return <pre>{JSON.stringify(session, null, 2)}</pre>
+	return (
+		<div>
+			<Link to='/auth/github/login'>Onboarding</Link>
+			<pre>{JSON.stringify(session, null, 2)}</pre>
+		</div>
+	)
 }
 
 export default dash

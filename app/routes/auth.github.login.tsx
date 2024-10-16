@@ -1,10 +1,7 @@
-import { ActionFunctionArgs, redirect } from '@remix-run/node'
+import { LoaderFunctionArgs } from '@remix-run/node'
 import { authenticator } from '~/services/auth.server'
 
-export const loader = () => {
-	return redirect('/')
-}
-
-export const action = ({ request }: ActionFunctionArgs) => {
+// call this from the app to login
+export const loader = ({ request }: LoaderFunctionArgs) => {
 	return authenticator.authenticate('github', request)
 }
