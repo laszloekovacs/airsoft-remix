@@ -3,23 +3,23 @@ import { Link, useLoaderData } from '@remix-run/react'
 import invariant from 'tiny-invariant'
 
 export const loader = ({ params, request }: LoaderFunctionArgs) => {
-	const reason = new URL(request.url).searchParams.get('reason')
-	invariant(reason, 'reason is required')
+	const status = new URL(request.url).searchParams.get('status')
+	invariant(status, 'status is required')
 
-	return { reason }
+	return { status }
 }
 
 const AuthSuccessPage = () => {
-	const { reason } = useLoaderData<typeof loader>()
+	const { status } = useLoaderData<typeof loader>()
 
-	if (reason == 'signup') {
+	if (status == 'signup') {
 		return (
 			<div>
 				<h2>Sikeresen regisztráltal!</h2>
 				<p>kuldtunk neked egy levelet amivel aktivalhatod a fiokod</p>
 				<Link to='/login'>Bejelentkezés</Link>
 
-				<pre>{JSON.stringify(reason, null, 2)}</pre>
+				<pre>{JSON.stringify(status, null, 2)}</pre>
 			</div>
 		)
 	} else {
@@ -29,7 +29,7 @@ const AuthSuccessPage = () => {
 
 				<Link to='/'>Vissza a folodalra</Link>
 
-				<pre>{JSON.stringify(reason, null, 2)}</pre>
+				<pre>{JSON.stringify(status, null, 2)}</pre>
 			</div>
 		)
 	}

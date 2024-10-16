@@ -29,7 +29,7 @@ export default function LoginPage() {
 
 export const action = async ({ request }: ActionFunctionArgs) => {
 	return authenticator.authenticate('form', request, {
-		successRedirect: '/',
-		failureRedirect: '/'
+		successRedirect: '/result?status=login',
+		failureRedirect: '/result?status=failure'
 	})
 }

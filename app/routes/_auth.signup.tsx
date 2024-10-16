@@ -69,5 +69,5 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	})
 
 	// TODO: send confirm email
-	return redirect('/success?reason=signup')
+	return redirect('/result?status=signup')
 }
