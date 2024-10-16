@@ -1,14 +1,12 @@
 import { Authenticator } from 'remix-auth'
-import { AirsoftSessionData, sessionStorage } from './session.server'
-import { GitHubStrategy } from 'remix-auth-github'
 import { FormStrategy } from 'remix-auth-form'
+import { GitHubStrategy } from 'remix-auth-github'
+import { AirsoftSessionData, sessionStorage } from './session.server'
 
-import { db } from './drizzle.server'
 import { and, eq } from 'drizzle-orm'
-import { users } from '~/schema/schema.server'
 import invariant from 'tiny-invariant'
-import { redirect } from '@remix-run/node'
-import { hash } from 'bcrypt'
+import { users } from '~/schema/schema.server'
+import { db } from './drizzle.server'
 
 // TODO: add generic of a type that the authenticator will return
 export const authenticator = new Authenticator<AirsoftSessionData>(
@@ -65,13 +63,13 @@ const formStrategy = new FormStrategy(async ({ form, context }) => {
 	invariant(password.length > 0, 'password is required')
 
 	// hash the password
-	const hashedPassword = await hash(password, 64)
+	//const hashedPassword = await hash(password, 64)
 
 	// find the user
 	const user = await db
 		.select()
 		.from(users)
-		.where(and(eq(users.email, email), eq(users.password, hashedPassword)))
+		.where(and(eq(users.email, email), eq(users.password, password)))
 
 	invariant(user.length == 1, 'user not found')
 
