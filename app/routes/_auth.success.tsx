@@ -12,15 +12,27 @@ export const loader = ({ params, request }: LoaderFunctionArgs) => {
 const AuthSuccessPage = () => {
 	const { reason } = useLoaderData<typeof loader>()
 
-	return (
-		<div>
-			<h2>Sikeresen regisztráltal!</h2>
-			<p>kuldtunk neked egy levelet amivel aktivalhatod a fiokod</p>
-			<Link to='/login'>Bejelentkezés</Link>
+	if (reason == 'signup') {
+		return (
+			<div>
+				<h2>Sikeresen regisztráltal!</h2>
+				<p>kuldtunk neked egy levelet amivel aktivalhatod a fiokod</p>
+				<Link to='/login'>Bejelentkezés</Link>
 
-			<pre>{JSON.stringify(reason, null, 2)}</pre>
-		</div>
-	)
+				<pre>{JSON.stringify(reason, null, 2)}</pre>
+			</div>
+		)
+	} else {
+		return (
+			<div>
+				<h2>Sikeres bejelentkezes</h2>
+
+				<Link to='/'>Vissza a folodalra</Link>
+
+				<pre>{JSON.stringify(reason, null, 2)}</pre>
+			</div>
+		)
+	}
 }
 
 export default AuthSuccessPage
