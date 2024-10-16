@@ -5,6 +5,7 @@ import { authenticator } from '~/services/auth.server'
 export default function LoginPage() {
 	return (
 		<div className='grid place-content-center min-h-lvh'>
+			<Link to='/'>vissza a fooldalra</Link>
 			<img src='/logo-light.png' alt='logo' width='128'></img>
 			<h2>Belepes emaillel</h2>
 
