@@ -45,3 +45,4 @@ https://coolify.am4.duckdns.org/project/egow0ggsw48gccco4o0wcww0/production/appl
 - [ ] add event detail page
 - [ ] investigate s3 storage, postgresql storage
 - [ ] investigate postgres triggers, events and policies 
+- [ ] email & password login with, registration, activation link, reset password, delete account
