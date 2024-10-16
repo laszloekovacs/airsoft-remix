@@ -4,10 +4,11 @@ import { GitHubStrategy } from 'remix-auth-github'
 import { FormStrategy } from 'remix-auth-form'
 
 import { db } from './drizzle.server'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { users } from '~/schema/schema.server'
 import invariant from 'tiny-invariant'
 import { redirect } from '@remix-run/node'
+import { hash } from 'bcrypt'
 
 // TODO: add generic of a type that the authenticator will return
 export const authenticator = new Authenticator<AirsoftSessionData>(
@@ -53,21 +54,26 @@ const githubStrategy = new GitHubStrategy(
 )
 
 const formStrategy = new FormStrategy(async ({ form, context }) => {
-	const username = form.get('username') as string
+	const email = form.get('email') as string
 	const password = form.get('password') as string
 
 	// TODO: validate probably better
-	invariant(typeof username == 'string', 'username is not a string')
-	invariant(username.length > 0, 'username is required')
+	invariant(typeof email == 'string', 'username is not a string')
+	invariant(email.length > 0, 'username is required')
 
 	invariant(typeof password == 'string', 'password is not a string')
 	invariant(password.length > 0, 'password is required')
 
 	// hash the password
-	//const hashedPassword = await hash(password)
+	const hashedPassword = await hash(password, 64)
 
 	// find the user
-	const user = await db.select().from(users).where(eq(users.email, username))
+	const user = await db
+		.select()
+		.from(users)
+		.where(and(eq(users.email, email), eq(users.password, hashedPassword)))
+
+	invariant(user.length == 1, 'user not found')
 
 	return user[0]
 })
