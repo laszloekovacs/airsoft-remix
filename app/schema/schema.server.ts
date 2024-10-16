@@ -11,7 +11,6 @@ import {
 	timestamp,
 	uuid
 } from 'drizzle-orm/pg-core'
-import { sql } from 'drizzle-orm/sql'
 
 export const users = pgTable('users', {
 	id: uuid().primaryKey().defaultRandom(),
@@ -33,13 +32,9 @@ export const events = pgTable('events', {
 			onDelete: 'cascade'
 		}),
 
-	created_at: timestamp({ withTimezone: true })
-		.notNull()
-		.default(sql`now()`),
+	created_at: timestamp({ withTimezone: true }).notNull().defaultNow(),
 
-	start_time: timestamp({ withTimezone: true })
-		.notNull()
-		.default(sql`now()`),
+	start_time: timestamp({ withTimezone: true }).notNull().defaultNow(),
 
 	location: text().notNull(),
 
