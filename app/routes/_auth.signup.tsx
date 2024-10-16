@@ -1,5 +1,5 @@
 import { ActionFunctionArgs, redirect } from '@remix-run/node'
-import { Form, useActionData } from '@remix-run/react'
+import { Form, Link, useActionData } from '@remix-run/react'
 import { eq } from 'drizzle-orm'
 import invariant from 'tiny-invariant'
 import { users } from '~/schema/schema.server'
@@ -21,6 +21,10 @@ export default function Signup() {
 
 				<button type='submit'>Signup</button>
 			</Form>
+
+			<p>
+				Mar rendelkezel fiokkal? <Link to='/login'>Lepj be</Link>
+			</p>
 
 			<div>{actionData?.message}</div>
 		</div>
@@ -65,5 +69,5 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	})
 
 	// TODO: send confirm email
-	return redirect('/login')
+	return redirect('/success?reason=signup')
 }

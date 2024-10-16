@@ -1,5 +1,5 @@
 import { ActionFunctionArgs } from '@remix-run/node'
-import { Form } from '@remix-run/react'
+import { Form, Link } from '@remix-run/react'
 import { authenticator } from '~/services/auth.server'
 
 export default function LoginPage() {
@@ -16,6 +16,10 @@ export default function LoginPage() {
 				<input type='password' name='password' id='password' required />
 
 				<input type='submit' value='Belepes' name='login' id='login' />
+
+				<p>
+					Nincs Fiokod? <Link to='/signup'>Regisztrálj!</Link>
+				</p>
 
 				<h2 className='mt-8'>Social login</h2>
 			</Form>

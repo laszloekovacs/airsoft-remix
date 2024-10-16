@@ -3,7 +3,14 @@
  * @description Drizzle documentation: https://orm.drizzle.team/docs/overview
  */
 
-import { json, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import {
+	boolean,
+	json,
+	pgTable,
+	text,
+	timestamp,
+	uuid
+} from 'drizzle-orm/pg-core'
 import { sql } from 'drizzle-orm/sql'
 
 export const users = pgTable('users', {
@@ -12,7 +19,9 @@ export const users = pgTable('users', {
 	email: text().notNull().unique(),
 	avatar_url: text(),
 	claims: text().array().default([]).notNull(),
-	password: text()
+	password: text(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
+	activated: boolean().default(false)
 })
 
 export const events = pgTable('events', {
