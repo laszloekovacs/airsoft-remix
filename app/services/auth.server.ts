@@ -7,6 +7,7 @@ import { and, eq } from 'drizzle-orm'
 import invariant from 'tiny-invariant'
 import { users } from '~/schema/schema.server'
 import { db } from './drizzle.server'
+import { hashPassword } from '~/util/crypto.server'
 
 // TODO: add generic of a type that the authenticator will return
 export const authenticator = new Authenticator<AirsoftSessionData>(
@@ -63,7 +64,7 @@ const formStrategy = new FormStrategy(async ({ form, context }) => {
 	invariant(password.length > 0, 'password is required')
 
 	// hash the password
-	//const hashedPassword = await hash(password, 64)
+	const hashedPassword = await hashPassword(password)
 
 	// find the user
 	const user = await db
@@ -75,7 +76,12 @@ const formStrategy = new FormStrategy(async ({ form, context }) => {
 			claims: users.claims
 		})
 		.from(users)
-		.where(and(eq(users.email, email), eq(users.password, password)))
+		.where(
+			and(
+				eq(users.email, email),
+				eq(users.password, JSON.stringify(hashedPassword))
+			)
+		)
 
 	invariant(user.length == 1, 'user not found')
 

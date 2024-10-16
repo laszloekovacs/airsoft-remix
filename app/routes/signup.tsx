@@ -4,6 +4,7 @@ import { eq } from 'drizzle-orm'
 import invariant from 'tiny-invariant'
 import { users } from '~/schema/schema.server'
 import { db } from '~/services/drizzle.server'
+import { hashPassword } from '~/util/crypto.server'
 // redirect if already logged in
 
 export default function Signup() {
@@ -52,10 +53,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 		}
 	}
 
+	const hashedPassword = await hashPassword(password)
+
 	// new email, create user
 	await db.insert(users).values({
 		email: email,
-		password: password,
+		password: JSON.stringify(hashedPassword),
 		claims: [],
 		name: email,
 		avatar_url: ''
