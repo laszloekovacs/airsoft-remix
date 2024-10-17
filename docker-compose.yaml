@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  app:
+    image: ghcr.io/laszloekovacs/laszloekovacs/airsoft-remix:latest
+    environment:
+      DATABASE_URL: postgres://airsoft:airsoft@db/airsoft
+      MINIO_URL: http://minio:9000
+      MINIO_ACCESS_KEY: airsoft
+      MINIO_SECRET_KEY: airsoft
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - minio
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: airsoft
+      POSTGRES_PASSWORD: airsoft
+      POSTGRES_DB: airsoft
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ACCESS_KEY: airsoft
+      MINIO_SECRET_KEY: airsoft
+    volumes:
+      - minio-data:/data
+    ports:
+      - "9000:9000"
+
+
+volumes:
+  db-data:
+  minio-data:
