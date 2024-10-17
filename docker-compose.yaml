@@ -1,8 +1,7 @@
 version: '3.9'
 
 services:
-  app:
-    container_name: airsoft-remix
+  airsoft-remix:
     image: ghcr.io/laszloekovacs/laszloekovacs/airsoft-remix:latest
     environment:
       - SERVICE_FQDN_AIRSOFT_3000
@@ -14,18 +13,19 @@ services:
 #    ports:
 #      - "0:3000"
     depends_on:
-      - db
+      - postgres
       - minio
 
-  db:
+  postgres:
     image: postgres:17
     container_name: airsoft-postgres
     environment:
+      - SERVICE_FQDN_5432
       - POSTGRES_USER=${SERVICE_USER_POSTGRES}
       - POSTGRES_PASSWORD=${SERVICE_PASSWORD_POSTGRES}
       - POSTGRES_DB=${POSTGRES_DB:-airsoft}
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test:
         - CMD-SHELL
@@ -58,6 +58,6 @@ services:
       retries: 10
 
 volumes:
-  db-data:
+  postgres-data:
   minio-data:
 
