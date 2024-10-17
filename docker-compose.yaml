@@ -2,40 +2,62 @@ version: '3.9'
 
 services:
   app:
+    container_name: airsoft-remix
     image: ghcr.io/laszloekovacs/laszloekovacs/airsoft-remix:latest
     environment:
-      DATABASE_URL: postgres://airsoft:airsoft@db/airsoft
-      MINIO_URL: http://minio:9000
-      MINIO_ACCESS_KEY: airsoft
-      MINIO_SECRET_KEY: airsoft
-    ports:
-      - "3000:3000"
+      - SERVICE_FQDN_AIRSOFT_3000
+      - AIRSOFT_SERVER_URL=$AIRSOFT_SERVER_URL
+      - DATABASE_URL=${DATABASE_URL:-none}
+      - MINIO_URL=${MINIO_URL:-none}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-none}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-none}
+#    ports:
+#      - "0:3000"
     depends_on:
       - db
       - minio
 
   db:
     image: postgres:17
+    container_name: airsoft-postgres
     environment:
-      POSTGRES_USER: airsoft
-      POSTGRES_PASSWORD: airsoft
-      POSTGRES_DB: airsoft
+      - POSTGRES_USER=${SERVICE_USER_POSTGRES}
+      - POSTGRES_PASSWORD=${SERVICE_PASSWORD_POSTGRES}
+      - POSTGRES_DB=${POSTGRES_DB:-airsoft}
     volumes:
       - db-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}'
+      interval: 5s
+      timeout: 20s
+      retries: 10
+#    ports:
+#      - "5432:5432"
 
   minio:
-    image: minio/minio
+    image: 'quay.io/minio/minio:latest'
+    command: 'server /data --console-address ":9001"'
     environment:
-      MINIO_ACCESS_KEY: airsoft
-      MINIO_SECRET_KEY: airsoft
+      - SERVICE_FQDN_MINIO_9001
+      - MINIO_SERVER_URL=$MINIO_SERVER_URL
+      - MINIO_BROWSER_REDIRECT_URL=$MINIO_BROWSER_REDIRECT_URL
+      - MINIO_ROOT_USER=$SERVICE_USER_MINIO
+      - MINIO_ROOT_PASSWORD=$SERVICE_PASSWORD_MINIO
     volumes:
-      - minio-data:/data
-    ports:
-      - "9000:9000"
-
+      - 'minio-data:/data'
+    healthcheck:
+      test:
+        - CMD
+        - mc
+        - ready
+        - local
+      interval: 5s
+      timeout: 20s
+      retries: 10
 
 volumes:
   db-data:
   minio-data:
+
