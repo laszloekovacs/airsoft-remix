@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm'
 import invariant from 'tiny-invariant'
 import { users } from '~/schema/schema.server'
 import { db } from '~/services/drizzle.server'
-import { hashPassword } from '~/util/crypto.server'
+import { hashPassword } from '~/services/crypto.server'
 // redirect if already logged in
 
 export default function Signup() {

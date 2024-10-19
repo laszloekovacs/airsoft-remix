@@ -7,7 +7,7 @@ import { and, eq } from 'drizzle-orm'
 import invariant from 'tiny-invariant'
 import { users } from '~/schema/schema.server'
 import { db } from './drizzle.server'
-import { hashPassword } from '~/util/crypto.server'
+import { hashPassword } from '~/services/crypto.server'
 
 // TODO: add generic of a type that the authenticator will return
 export const authenticator = new Authenticator<AirsoftSessionData>(
