@@ -19,8 +19,7 @@ export const users = pgTable('users', {
 	avatar_url: text(),
 	claims: text().array().default([]).notNull(),
 	password: text(),
-	created_at: timestamp({ withTimezone: true }).defaultNow(),
-	activated: boolean().default(false)
+	created_at: timestamp({ withTimezone: true }).defaultNow()
 })
 
 export const events = pgTable('events', {
