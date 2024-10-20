@@ -1,10 +1,11 @@
 import { sql } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import pkg from 'pg'
+import env from './env.server'
 const { Pool } = pkg
 
 const pool = new Pool({
-	connectionString: process.env.DATABASE_URL!
+	connectionString: env.DATABASE_URL!
 })
 
 export const db = drizzle(pool)

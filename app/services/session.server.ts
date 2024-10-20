@@ -1,4 +1,5 @@
 import { createCookieSessionStorage, SessionData } from '@remix-run/node'
+import env from './env.server'
 
 // TODO: infer this type somehow
 export type AirsoftSessionData = {
@@ -18,7 +19,7 @@ export const sessionStorage = createCookieSessionStorage<
 		sameSite: 'lax', // only sent to same site
 		path: '/', // available on all routes
 		httpOnly: true, // `httpOnly` means that the cookie is only accessible over the http(s) protocol and not via JavaScript, which helps protect against cross-site scripting (XSS) attacks.
-		secrets: [process.env.SESSION_SECRET!],
+		secrets: [env.SESSION_SECRET!],
 		secure: true
 	}
 })

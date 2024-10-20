@@ -8,6 +8,7 @@ import invariant from 'tiny-invariant'
 import { users } from '~/schema/schema.server'
 import { db } from './drizzle.server'
 import { hashPassword } from '~/services/crypto.server'
+import env from './env.server'
 
 // TODO: add generic of a type that the authenticator will return
 export const authenticator = new Authenticator<AirsoftSessionData>(
@@ -16,9 +17,9 @@ export const authenticator = new Authenticator<AirsoftSessionData>(
 
 const githubStrategy = new GitHubStrategy(
 	{
-		clientId: process.env.GITHUB_CLIENT_ID!,
-		clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-		redirectURI: process.env.GITHUB_REDIRECT_URL!
+		clientId: env.GITHUB_CLIENT_ID!,
+		clientSecret: env.GITHUB_CLIENT_SECRET!,
+		redirectURI: env.GITHUB_REDIRECT_URL!
 	},
 	async ({ profile, tokens, request, context }) => {
 		//return user data from database using profile
