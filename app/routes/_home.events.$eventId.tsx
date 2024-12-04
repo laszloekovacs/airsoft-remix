@@ -13,7 +13,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		.from(events)
 		.where(eq(events.id, params.eventId))
 
-	return json({ event })
+	return { event }
 }
 
 export default function EventDetailPage() {
