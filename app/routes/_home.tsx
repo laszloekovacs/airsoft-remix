@@ -38,7 +38,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 					</main>
 
 					<footer>
-						<span>Airsoft Naptár c. 2025</span>
+						<span>© {new Date().getFullYear()} Airsoft Naptar</span>
 						<div>
 							<Link to='/dashboard'>Admin felület</Link>
 						</div>
