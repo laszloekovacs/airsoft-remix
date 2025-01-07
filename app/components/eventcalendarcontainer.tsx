@@ -14,12 +14,14 @@ const EventsList = () => {
 		{
 			id: 1,
 			name: 'Event 1',
-			date: '2021-09-01'
+			date: '2021-09-01',
+			img: 'https://picsum.photos/200'
 		},
 		{
 			id: 2,
 			name: 'Event 2',
-			date: '2021-09-02'
+			date: '2021-09-02',
+			img: 'https://picsum.photos/200'
 		}
 	]
 
@@ -35,13 +37,14 @@ const EventsList = () => {
 const EventsListItem = ({
 	event
 }: {
-	event: { id: number; name: string; date: string }
+	event: { id: number; name: string; date: string; img: string }
 }) => {
 	return (
-		<li>
-			<h2>
-				<Link to={`/events/${event.id}`}>{event.name}</Link>
-			</h2>
+		<li className='border p-4'>
+			<Link to={`/events/${event.id}`}>
+				<h2>{event.name}</h2>
+				<img src={event.img} alt={event.name} />
+			</Link>
 			<p>{event.date}</p>
 		</li>
 	)

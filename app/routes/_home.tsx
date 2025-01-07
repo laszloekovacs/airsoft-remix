@@ -22,6 +22,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 		dateStyle: 'medium',
 		timeStyle: 'short'
 	})
+	const copyDate = new Date().getFullYear()
+
 	return (
 		<div className='bg-stone-100'>
 			<div className='container mx-auto px-2'>
@@ -38,7 +40,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 					</main>
 
 					<footer>
-						<span>© {new Date().getFullYear()} Airsoft Naptar</span>
+						<span>© {copyDate} Airsoft Naptar</span>
 						<div>
 							<Link to='/dashboard'>Admin felület</Link>
 						</div>
