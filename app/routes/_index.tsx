@@ -1,22 +1,28 @@
 import { Link } from 'react-router'
 import type { Route } from './+types/_index'
 import { SessionMenuButton } from '~/components/sessionmenu'
+import PageFooter from '~/components/pagefooter'
 
 export function meta({}: Route.MetaArgs) {
 	return [
-		{ title: 'New React Router App' },
-		{ name: 'description', content: 'Welcome to React Router!' }
+		{ title: 'Airsoft Naptár' },
+		{ name: 'description', content: 'Airsoft esemény naptár' }
 	]
 }
 
 export default function Home() {
 	return (
 		<div>
-			<h1>Home</h1>
+			<Link to='/'>
+				<h1>Airsoft Naptár</h1>
+			</Link>
+
+			<div></div>
+
 			<div>
 				<SessionMenuButton />
 			</div>
-			<Link to='/dashboard'>Dashboard</Link>
+			<PageFooter />
 		</div>
 	)
 }
