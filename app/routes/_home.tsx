@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import { Link, Outlet } from 'react-router'
 import type { Route } from './+types/_index'
 import { SessionMenuButton } from '~/components/sessionmenu'
 
@@ -21,7 +21,7 @@ export default function Home() {
 				</header>
 
 				<main>
-					<EventsTableContainer />
+					<Outlet />
 				</main>
 
 				<footer>
@@ -31,15 +31,6 @@ export default function Home() {
 					</div>
 				</footer>
 			</div>
-		</div>
-	)
-}
-
-const EventsTableContainer = () => {
-	return (
-		<div>
-			<h2>Jövendő események</h2>
-			<p>nincs megjeleníthető esemény</p>
 		</div>
 	)
 }
