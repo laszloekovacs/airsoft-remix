@@ -1,7 +1,11 @@
-import React from 'react'
+import { EventCalendarContainer } from '~/components/eventcalendarcontainer'
 
 const HomeIndex = () => {
-	return <div>HomeIndex</div>
+	return (
+		<div>
+			<EventCalendarContainer />
+		</div>
+	)
 }
 
 export default HomeIndex
