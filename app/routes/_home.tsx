@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router'
-import type { Route } from './+types/_index'
+import type { Route } from './+types/_home'
 import { SessionMenuButton } from '~/components/sessionmenu'
 
 export function meta({}: Route.MetaArgs) {
@@ -11,25 +11,27 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
 	return (
-		<div className='container mx-auto px-2'>
-			<div className='grid min-h-screen grid-rows-[auto,1fr,auto] py-2'>
-				<header className='flex flex-row justify-between pb-4'>
-					<Link to='/'>
-						<h1>Airsoft Naptár</h1>
-					</Link>
-					<SessionMenuButton />
-				</header>
+		<div className='bg-stone-100'>
+			<div className='container mx-auto px-2'>
+				<div className='grid min-h-screen grid-rows-[auto,1fr,auto] py-2'>
+					<header className='flex flex-row justify-between pb-4'>
+						<Link to='/'>
+							<h1>Airsoft Naptár</h1>
+						</Link>
+						<SessionMenuButton />
+					</header>
 
-				<main>
-					<Outlet />
-				</main>
+					<main>
+						<Outlet />
+					</main>
 
-				<footer>
-					<span>PageFooter</span>
-					<div>
-						<Link to='/dashboard'>Dashboard</Link>
-					</div>
-				</footer>
+					<footer>
+						<span>Airsoft Naptár c. 2025</span>
+						<div>
+							<Link to='/dashboard'>Admin felület</Link>
+						</div>
+					</footer>
+				</div>
 			</div>
 		</div>
 	)

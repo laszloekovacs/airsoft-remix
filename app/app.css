@@ -4,9 +4,17 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+	@apply bg-white dark:bg-gray-950;
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+	@media (prefers-color-scheme: dark) {
+		color-scheme: dark;
+	}
+}
+
+a {
+	@apply text-blue-600 dark:text-blue-400;
+}
+
+a:hover {
+	@apply text-blue-700 dark:text-blue-300 underline;
 }
