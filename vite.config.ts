@@ -12,6 +12,7 @@ export default defineConfig({
 	},
 	plugins: [reactRouter(), tsconfigPaths()],
 	server: {
-		port: 3000
+		port: 3000,
+		host: '0.0.0.0'
 	}
 })
