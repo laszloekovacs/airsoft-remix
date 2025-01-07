@@ -18,3 +18,7 @@ a {
 a:hover {
 	@apply text-blue-700 dark:text-blue-300 underline;
 }
+
+button {
+	@apply border p-2 border-neutral-500;
+}
