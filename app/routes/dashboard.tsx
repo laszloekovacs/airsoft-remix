@@ -1,8 +1,9 @@
-import { Link, type LoaderFunctionArgs } from 'react-router'
-import { authClient } from '~/lib/auth.client'
+import { Link } from 'react-router'
+import type { Route } from './+types/dashboard'
+import { getBuildDate } from '~/lib/build.server'
 import { auth } from '~/lib/auth.server'
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
 
 	if (!session) {
@@ -11,14 +12,21 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		console.log(session)
 	}
 
-	return { status: 'ok' }
+	const build = getBuildDate().toLocaleDateString('en-US')
+
+	return { status: 'ok', build }
 }
 
-export default function Dashboard() {
+export default function Dashboard({ loaderData }: Route.ComponentProps) {
+	const { build } = loaderData
+
 	return (
 		<div>
 			<h1>Dashboard</h1>
+
 			<Link to='/'>Home</Link>
+
+			<p>{build}</p>
 		</div>
 	)
 }

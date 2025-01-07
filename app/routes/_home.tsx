@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router'
 import type { Route } from './+types/_home'
 import { SessionMenuButton } from '~/components/sessionmenu'
+import { getBuildDate } from '~/lib/build.server'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -9,7 +10,18 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
-export default function Home() {
+export function loader({ params }: Route.LoaderArgs) {
+	const buildDate = getBuildDate()
+
+	return { buildDate }
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+	const { buildDate } = loaderData
+	const buildDateString = buildDate.toLocaleString('hu-HU', {
+		dateStyle: 'medium',
+		timeStyle: 'short'
+	})
 	return (
 		<div className='bg-stone-100'>
 			<div className='container mx-auto px-2'>
@@ -30,6 +42,7 @@ export default function Home() {
 						<div>
 							<Link to='/dashboard'>Admin felület</Link>
 						</div>
+						<span>verzio: {buildDateString}</span>
 					</footer>
 				</div>
 			</div>

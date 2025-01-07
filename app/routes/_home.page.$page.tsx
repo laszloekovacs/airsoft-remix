@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import type { Route } from './+types/_home._index.page.$page'
+import type { Route } from './+types/_home.page.$page'
 
 export function meta({}: Route.MetaArgs) {
 	return [
