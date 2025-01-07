@@ -1,7 +1,6 @@
 import { Link } from 'react-router'
 import type { Route } from './+types/_index'
 import { SessionMenuButton } from '~/components/sessionmenu'
-import PageFooter from '~/components/pagefooter'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -12,17 +11,35 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
 	return (
-		<div>
-			<Link to='/'>
-				<h1>Airsoft Naptár</h1>
-			</Link>
+		<div className='container mx-auto px-2'>
+			<div className='grid min-h-screen grid-rows-[auto,1fr,auto] py-2'>
+				<header className='flex flex-row justify-between pb-4'>
+					<Link to='/'>
+						<h1>Airsoft Naptár</h1>
+					</Link>
+					<SessionMenuButton />
+				</header>
 
-			<div></div>
+				<main>
+					<EventsTableContainer />
+				</main>
 
-			<div>
-				<SessionMenuButton />
+				<footer>
+					<span>PageFooter</span>
+					<div>
+						<Link to='/dashboard'>Dashboard</Link>
+					</div>
+				</footer>
 			</div>
-			<PageFooter />
+		</div>
+	)
+}
+
+const EventsTableContainer = () => {
+	return (
+		<div>
+			<h2>Jövendő események</h2>
+			<p>nincs megjeleníthető esemény</p>
 		</div>
 	)
 }
