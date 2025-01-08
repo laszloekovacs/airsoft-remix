@@ -1,9 +1,9 @@
-import path from 'node:path'
-import fs from 'node:fs/promises'
 import React, { useEffect } from 'react'
 import { Form, redirect } from 'react-router'
-import { auth } from '~/lib/auth.server'
+//import { auth } from '~/lib/auth.server'
 import type { Route } from './+types/dashboard.post'
+import { parseFormData, FileUpload } from '@mjackson/form-data-parser'
+import { LocalFileStorage } from '@mjackson/file-storage/local'
 
 export default function PostPage() {
 	return (
@@ -60,20 +60,19 @@ const FileSelector = () => {
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
-	const session = await auth.api.getSession(request)
-	const form = await request.formData()
-	const file = form.get('file') as File
+	//const session = await auth.api.getSession(request)
+	//const username = session?.user?.name || 'guest'
 
-	const username = session?.user?.name
+	const uploadHandler = async (fileUpload: FileUpload) => {
+		const fileStorage = new LocalFileStorage('./upload/content')
 
-	// the path to the post will be: /uploads/year/user/filename.ext
-	const filepath = `/uploads/${new Date().getFullYear()}/${username}/${
-		file.name
-	}`
+		const key = './upload/file.webp'
 
-	// save the file to the server with node fs
-	const buffer = await file.arrayBuffer()
-	await fs.writeFile(path.join(__dirname, filepath), Buffer.from(buffer))
+		await fileStorage.set(key, fileUpload)
+		return fileStorage.get(key)
+	}
 
+	const formData = await parseFormData(request, uploadHandler)
+	// do something with the form data
 	return redirect('/dashboard')
 }
