@@ -43,6 +43,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 						<span>© {copyDate} Airsoft Naptar</span>
 						<div>
 							<Link to='/dashboard'>Admin felület</Link>
+							<br />
+							<Link to='/user/u'>user</Link>
 						</div>
 						<span>verzio: {buildDateString}</span>
 					</footer>

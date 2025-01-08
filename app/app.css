@@ -22,3 +22,17 @@ a:hover {
 button {
 	@apply border p-2 border-neutral-500;
 }
+
+input[type='text'],
+textarea {
+	@apply border p-2 border-neutral-500;
+}
+
+input[type='text']:focus,
+textarea:focus {
+	@apply border-blue-500;
+}
+
+input[type='submit'] {
+	@apply bg-transparent text-blue-400 p-2;
+}

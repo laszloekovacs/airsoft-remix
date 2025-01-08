@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import type { Route } from './+types/dashboard'
 import { getBuildDate } from '~/lib/build.server'
 import { auth } from '~/lib/auth.server'
+import { Outlet } from 'react-router'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -25,6 +26,12 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 			<h1>Dashboard</h1>
 
 			<Link to='/'>Home</Link>
+			<br />
+			<Link to='/dashboard/post'>new post</Link>
+
+			<main>
+				<Outlet />
+			</main>
 
 			<p>{build}</p>
 		</div>
