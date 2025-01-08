@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router'
 import type { Route } from './+types/_home'
-import { SessionMenuButton } from '~/components/sessionmenu'
+import { SessionMenuButton } from '~/components/session-menu'
 import { getBuildDate } from '~/lib/build.server'
 
 export function meta({}: Route.MetaArgs) {
