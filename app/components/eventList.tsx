@@ -41,7 +41,7 @@ const EventsListItem = ({
 }) => {
 	return (
 		<li className='border p-4'>
-			<Link to={`/events/${event.id}`}>
+			<Link to={`/event/${event.id}`}>
 				<h2>{event.name}</h2>
 				<img src={event.img} alt={event.name} />
 			</Link>

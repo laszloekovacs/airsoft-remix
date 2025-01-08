@@ -1,4 +1,4 @@
-import { EventCalendarContainer } from '~/components/eventcalendarcontainer'
+import { EventCalendarContainer } from '~/components/eventList'
 
 const HomeIndex = () => {
 	return (

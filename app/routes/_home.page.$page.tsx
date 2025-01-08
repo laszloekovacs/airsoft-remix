@@ -1,5 +1,5 @@
 import type { Route } from './+types/_home.page.$page'
-import { EventCalendarContainer } from '~/components/eventcalendarcontainer'
+import { EventCalendarContainer } from '~/components/eventList'
 
 export function meta({}: Route.MetaArgs) {
 	return [
