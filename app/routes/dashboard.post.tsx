@@ -52,7 +52,7 @@ const FileSelector = () => {
 				encType='multipart/form-data'
 				onChange={handleChange}>
 				<input type='file' name='file' />
-				<input type='text' name='title' placeholder='Esemény neve' />
+				<input type='text' name='title' placeholder='Esemény neve' required />
 				<button type='submit'>Feltöltés</button>
 			</Form>
 		</div>
