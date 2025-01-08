@@ -9,8 +9,6 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 	if (!session) {
 		console.log('No session found')
-	} else {
-		console.log(session)
 	}
 
 	const build = getBuildDate().toLocaleDateString('en-US')
