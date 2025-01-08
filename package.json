@@ -9,6 +9,7 @@
 		"typecheck": "react-router typegen && tsc"
 	},
 	"dependencies": {
+		"@mjackson/file-storage": "^0.4.0",
 		"@react-router/fs-routes": "^7.1.1",
 		"@react-router/node": "^7.1.1",
 		"@react-router/serve": "^7.1.1",
