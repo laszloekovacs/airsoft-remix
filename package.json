@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.723.0",
+		"@aws-sdk/s3-request-presigner": "^3.723.0",
 		"@react-router/fs-routes": "^7.1.1",
 		"@react-router/node": "^7.1.1",
 		"@react-router/serve": "^7.1.1",
