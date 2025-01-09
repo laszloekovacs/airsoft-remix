@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react'
 import { Form, redirect } from 'react-router'
-
 import type { Route } from './+types/dashboard.post'
-import { parseFormData, FileUpload } from '@mjackson/form-data-parser'
-import { LocalFileStorage } from '@mjackson/file-storage/local'
 
 export default function PostPage() {
 	return (
@@ -60,19 +57,6 @@ const FileSelector = () => {
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
-	//const session = await auth.api.getSession(request)
-	//const username = session?.user?.name || 'guest'
-
-	const uploadHandler = async (fileUpload: FileUpload) => {
-		const fileStorage = new LocalFileStorage('./upload/content')
-
-		const key = './upload/file.webp'
-
-		await fileStorage.set(key, fileUpload)
-		return fileStorage.get(key)
-	}
-
-	const formData = await parseFormData(request, uploadHandler)
 	// do something with the form data
 	return redirect('/dashboard')
 }
