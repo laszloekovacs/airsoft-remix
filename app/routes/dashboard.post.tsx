@@ -74,7 +74,8 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
 			method: 'PUT',
 			body: file,
 			headers: {
-				'Content-Type': 'image/jpeg'
+				'Content-Type': 'image/jpeg',
+				Origin: 'http://172.22.48.1:3000'
 			}
 		})
 
