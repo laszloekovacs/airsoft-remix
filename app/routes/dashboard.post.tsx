@@ -1,23 +1,43 @@
 import React, { useEffect } from 'react'
-import { Form, redirect, useActionData } from 'react-router'
+import { Form } from 'react-router'
 import type { Route } from './+types/dashboard.post'
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
-export default function PostPage({ loaderData }: Route.ComponentProps) {
-	return (
-		<div>
-			<h2>Új esemény</h2>
+export const loader = async ({ request }: Route.LoaderArgs) => {
+	// configure s3 client
+	const s3 = new S3Client({
+		region: process.env.S3_REGION!,
+		endpoint: process.env.S3_ENDPOINT!,
+		credentials: {
+			accessKeyId: process.env.S3_ACCESS_KEY!,
+			secretAccessKey: process.env.S3_SECRET!
+		}
+	})
 
-			<UploadForm />
-		</div>
-	)
+	const bucketName = process.env.S3_BUCKET!
+	const objectKey = `/user/tu.jpg`
+	const fileType = 'image/jpeg'
+
+	// create upload command
+	const command = new PutObjectCommand({
+		Bucket: bucketName,
+		Key: objectKey,
+		ContentType: fileType
+	})
+	const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 60 * 60 })
+	console.log('created presigned key: ' + presignedUrl)
+
+	return { presignedUrl }
 }
 
-const UploadForm = () => {
+export const action = async ({ request }: Route.ActionArgs) => {}
+
+export default function PostPage({ loaderData }: Route.ComponentProps) {
+	const { presignedUrl } = loaderData
+
 	const [file, setFile] = React.useState<File | null>(null)
 	const [fileUrl, setFileUrl] = React.useState<string | null>(null)
-	const [presignedUrl, setPresignedUrl] = React.useState<string | null>(null)
 
 	useEffect(() => {
 		if (!file) {
@@ -36,36 +56,33 @@ const UploadForm = () => {
 		const target = event.target as HTMLInputElement
 		const file = target.files?.[0]
 
-		if (!file) {
-			return
+		if (file) {
+			setFile(file)
 		}
-
-		setFile(file)
 	}
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault()
-
-		// request a presigned url
-		const response = await fetch('/dashboard/post', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				fileName: file!.name,
-				fileType: file!.type
-			})
-		})
-		if (!response.ok) {
-			console.error('Failed to get presigned url')
+		if (!file) {
 			return
 		}
 
-		const { presignedUrl } = await response.json()
-		console.log('received presigned key: ' + presignedUrl)
-		// set presigned key
-		setPresignedUrl(presignedUrl)
+		const formData = new FormData(event.target as HTMLFormElement)
+		formData.append('file', file)
+
+		const uploadResponse = await fetch(presignedUrl!, {
+			method: 'PUT',
+			body: file,
+			headers: {
+				'Content-Type': 'image/jpeg'
+			}
+		})
+
+		if (uploadResponse.ok) {
+			console.log('Uploaded successfully')
+		} else {
+			console.error('Upload failed')
+		}
 	}
 
 	return (
@@ -77,49 +94,16 @@ const UploadForm = () => {
 				)}
 			</div>
 			<Form
-				onSubmit={handleSubmit}
 				method='post'
 				encType='multipart/form-data'
-				onChange={handleChange}>
-				<input type='file' name='file' />
+				onChange={handleChange}
+				onSubmit={handleSubmit}>
+				<input type='file' name='file' accept='image/jpeg' />
 				<input type='text' name='title' placeholder='Esemény neve' required />
 				<button type='submit'>Feltöltés</button>
 			</Form>
 		</div>
 	)
-}
-
-export const action = async ({ request }: Route.ActionArgs) => {
-	const { fileName, fileType } = await request.json()
-
-	// configure s3 client
-	const s3 = new S3Client({
-		region: 'europe',
-		endpoint: process.env.S3_ENDPOINT!,
-		credentials: {
-			accessKeyId: process.env.S3_ACCESS_KEY!,
-			secretAccessKey: process.env.S3_SECRET!
-		}
-	})
-
-	const bucketName = process.env.S3_BUCKET!
-	const objectKey = `accounts/user/year/${fileName}`
-
-	// create upload command
-	const command = new PutObjectCommand({
-		Bucket: bucketName,
-		Key: objectKey,
-		ContentType: fileType
-	})
-
-	const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 60 * 60 })
-	console.log('created presigned key: ' + presignedUrl)
-
-	return { presignedUrl }
-}
-
-export const loader = async ({ request }: Route.LoaderArgs) => {
-	return { status: 200, message: 'ok' }
 }
 
 //https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/

@@ -35,3 +35,10 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 		</div>
 	)
 }
+
+export function meta({}: Route.MetaArgs) {
+	return [
+		{ title: 'Airsoft Admin' },
+		{ name: 'description', content: 'Airsoft esemény naptár' }
+	]
+}
