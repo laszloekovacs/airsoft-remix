@@ -7,7 +7,7 @@ export const testingTable = sqliteTable('testing', {
 })
 
 export const uploadLogs = sqliteTable('upload_logs', {
-	id: text('id').primaryKey().generatedAlwaysAs('ROWID'),
+	id: text('id').primaryKey(),
 	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 	key: text('key').notNull()
 })
