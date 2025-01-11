@@ -6,7 +6,8 @@
 		"dev": "bun run --bun react-router dev",
 		"build": "bun run --bun react-router build",
 		"start": "bun run --bun react-router-serve ./build/server/index.js",
-		"gen-scema": "bunx --bun @better-auth/cli generate"
+		"gen-scema": "bunx --bun @better-auth/cli generate",
+		"drizzle-push": "npx drizzle-kit push"
 	},
 	"dependencies": {
 		"@react-router/fs-routes": "^7.1.1",
