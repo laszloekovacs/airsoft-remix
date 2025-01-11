@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Form } from 'react-router'
+import { Form, redirect } from 'react-router'
 import type { Route } from './+types/dashboard.post'
 import { db } from '~/lib/db.server'
 import { uploadLogs } from '~/schema'
@@ -57,8 +57,8 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	db.insert(uploadLogs).values({
 		key: attachment.name,
-		createdAt: Date.now()
+		createdAt: new Date()
 	})
 
-	return new Response('success')
+	return redirect(`/event/${attachment.name}`)
 }
