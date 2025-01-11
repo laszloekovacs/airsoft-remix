@@ -1,5 +1,3 @@
-import { drizzle } from 'drizzle-orm/bun-sqlite'
-import { Database } from 'bun:sqlite'
+import { drizzle } from 'drizzle-orm/libsql'
 
-const database = new Database(process.env.DB_FILE_NAME!)
-export const db = drizzle({ client: database })
+export const db = drizzle({ connection: { url: process.env.DB_FILE_NAME! } })

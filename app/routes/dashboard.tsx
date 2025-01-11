@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import type { Route } from './+types/dashboard'
 import { getBuildDate } from '~/lib/build.server'
-import { auth } from '~/lib/auth.server'
+import { auth } from '~/lib/auth'
 import { Outlet } from 'react-router'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
