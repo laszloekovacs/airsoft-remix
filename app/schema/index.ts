@@ -1,22 +1,21 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+import { user } from './auth-schema'
 
-export const testingTable = sqliteTable('testing', {
-	id: text('id').primaryKey(),
-	name: text('name').notNull(),
-	age: integer('age').notNull()
-})
-
-export const uploadLogs = sqliteTable('upload_logs', {
-	id: integer().primaryKey(),
-	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-	key: text().notNull()
+export const group = sqliteTable('group', {
+	id: text().primaryKey(),
+	name: text().notNull(),
+	metadata: text()
 })
 
 export const post = sqliteTable('post', {
-	id: text().primaryKey(),
+	id: integer('id').primaryKey(),
 	title: text().notNull(),
 	content: text(),
-	attachment: text(),
+	attachment: text().notNull(),
 	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
+	userId: text('user_id')
+		.references(() => user.id)
+		.notNull(),
+	groupId: text('group_id').references(() => group.id)
 })

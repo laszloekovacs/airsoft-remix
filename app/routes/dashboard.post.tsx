@@ -2,7 +2,9 @@ import React, { useEffect } from 'react'
 import { Form, redirect } from 'react-router'
 import type { Route } from './+types/dashboard.post'
 import { db } from '~/lib/db.server'
-import { uploadLogs } from '~/schema'
+import { post } from '~/schema'
+import { auth } from '~/lib/auth.server'
+import invariant from 'tiny-invariant'
 
 export default function PostPage({ loaderData }: Route.ComponentProps) {
 	const [file, setFile] = React.useState<File | null>(null)
@@ -41,24 +43,42 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
 	)
 }
 
-// bun can handle multipart formdata, no need to install a package
 export const action = async ({ request }: Route.ActionArgs) => {
+	const sessionData = await auth.api.getSession({ headers: request.headers })
+	invariant(sessionData, 'no session data')
+	const { session } = sessionData
+
 	const formData = await request.formData()
-	const title = formData.get('title')
-
+	const title = formData.get('title') as string
 	const attachment = formData.get('attachment') as File
-	if (!attachment) throw new Error('No attachment')
 
-	// TODO: generate sensible file name
-	// check for file size at the client and the server
-	// record it to the database
+	invariant(title, 'no title')
+	invariant(attachment, 'no attachment')
 
-	await Bun.write(`./data/content/${attachment.name}`, attachment)
+	// reject large files
+	if (attachment.size > 2 * 1024 * 1024) {
+		throw new Error('File too large, max 2mb is allowed')
+	}
 
-	await db.insert(uploadLogs).values({
-		key: attachment.name,
-		createdAt: new Date()
+	const { userId } = session
+
+	// generate filename, pattern: ./data/content/{year}/{userId}-{timestamp}.{ext}
+	const base = './data/content'
+	const key = `${base}/${new Date().getFullYear()}/${userId}-${Date.now()}.${attachment.name
+		.split('.')
+		.pop()}`
+
+	// write file
+	await Bun.write(key, attachment)
+
+	// record it in the database
+	await db.insert(post).values({
+		title,
+		attachment: key,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		postedBy: userId
 	})
 
-	return redirect(`/event/${attachment.name}`)
+	return redirect('/')
 }
