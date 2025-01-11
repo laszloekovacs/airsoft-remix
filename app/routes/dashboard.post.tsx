@@ -26,17 +26,32 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
-			<h2>Uj esemény</h2>
+			<h2>új esemény</h2>
 			<div>
-				{fileUrl && (
-					<img src={fileUrl} alt='Kép' style={{ maxWidth: '100%' }} />
-				)}
+				{fileUrl && <img className='max-w-full' src={fileUrl} alt='Kép' />}
 			</div>
 			<Form method='post' encType='multipart/form-data' onChange={handleChange}>
-				<input type='file' name='file' accept='image/jpeg' required />
+				<input type='file' name='attachment' accept='image/jpeg' required />
 				<input type='text' name='title' placeholder='Esemény neve' required />
 				<button type='submit'>Feltöltés</button>
 			</Form>
 		</div>
 	)
+}
+
+// bun can handle multipart formdata, no need to install a package
+export const action = async ({ request }: Route.ActionArgs) => {
+	const formData = await request.formData()
+	const title = formData.get('title')
+
+	const attachment = formData.get('attachment') as File
+	if (!attachment) throw new Error('No attachment')
+
+	// TODO: generate sensible file name
+	// check for file size at the client and the server
+	// record it to the database
+
+	await Bun.write(`./data/content/${attachment.name}`, attachment)
+
+	return new Response('success')
 }
