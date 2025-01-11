@@ -3,14 +3,11 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "react-router dev",
-		"build": "react-router build",
-		"start": "react-router-serve ./build/server/index.js",
-		"typecheck": "react-router typegen && tsc"
+		"dev": "bun run react-router dev",
+		"build": "bun run react-router build",
+		"start": "bun run react-router-serve ./build/server/index.js"
 	},
 	"dependencies": {
-		"@aws-sdk/client-s3": "^3.723.0",
-		"@aws-sdk/s3-request-presigner": "^3.723.0",
 		"@react-router/fs-routes": "^7.1.1",
 		"@react-router/node": "^7.1.1",
 		"@react-router/serve": "^7.1.1",
@@ -26,7 +23,6 @@
 	},
 	"devDependencies": {
 		"@react-router/dev": "^7.1.1",
-		"@types/formidable": "^3.4.5",
 		"@types/node": "^22.10.5",
 		"@types/react": "^19.0.3",
 		"@types/react-dom": "^19.0.2",
