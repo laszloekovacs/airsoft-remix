@@ -22,5 +22,16 @@ export const auth = betterAuth({
 			clientId: process.env.GITHUB_CLIENT_ID!,
 			clientSecret: process.env.GITHUB_CLIENT_SECRET!
 		}
+	},
+	user: {
+		deleteUser: {
+			enabled: true
+		}
+	},
+	account: {
+		accountLinking: {
+			enabled: true,
+			trustedProviders: ['github']
+		}
 	}
 })
