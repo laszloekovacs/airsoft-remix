@@ -21,52 +21,19 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
 
 	const handleChange = async (event: React.FormEvent) => {
 		const target = event.target as HTMLInputElement
-		const file = target.files?.[0]
-
-		if (file) {
-			setFile(file)
-		}
-	}
-
-	const handleSubmit = async (event: React.FormEvent) => {
-		event.preventDefault()
-		if (!file) {
-			return
-		}
-
-		const formData = new FormData(event.target as HTMLFormElement)
-		formData.append('file', file)
-
-		const uploadResponse = await fetch(presignedUrl!, {
-			method: 'PUT',
-			body: file,
-			headers: {
-				'Content-Type': 'image/jpeg',
-				Origin: 'http://localhost:3000'
-			}
-		})
-
-		if (uploadResponse.ok) {
-			console.log('Uploaded successfully')
-		} else {
-			console.error('Upload failed')
-		}
+		setFile(target.files?.[0] ?? null)
 	}
 
 	return (
 		<div>
-			{presignedUrl && <span>{presignedUrl}</span>}
+			<h2>Uj esemény</h2>
 			<div>
 				{fileUrl && (
 					<img src={fileUrl} alt='Kép' style={{ maxWidth: '100%' }} />
 				)}
 			</div>
-			<Form
-				method='post'
-				encType='multipart/form-data'
-				onChange={handleChange}
-				onSubmit={handleSubmit}>
-				<input type='file' name='file' accept='image/jpeg' />
+			<Form method='post' encType='multipart/form-data' onChange={handleChange}>
+				<input type='file' name='file' accept='image/jpeg' required />
 				<input type='text' name='title' placeholder='Esemény neve' required />
 				<button type='submit'>Feltöltés</button>
 			</Form>
