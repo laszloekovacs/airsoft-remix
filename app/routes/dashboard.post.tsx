@@ -1,40 +1,9 @@
 import React, { useEffect } from 'react'
 import { Form } from 'react-router'
 import type { Route } from './+types/dashboard.post'
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-
-export const loader = async ({ request }: Route.LoaderArgs) => {
-	// configure s3 client
-	const s3 = new S3Client({
-		region: process.env.S3_REGION!,
-		endpoint: process.env.S3_ENDPOINT!,
-		credentials: {
-			accessKeyId: process.env.S3_ACCESS_KEY!,
-			secretAccessKey: process.env.S3_SECRET!
-		}
-	})
-
-	const bucketName = process.env.S3_BUCKET!
-	const objectKey = `/user/tu.jpg`
-	const fileType = 'image/jpeg'
-
-	// create upload command
-	const command = new PutObjectCommand({
-		Bucket: bucketName,
-		Key: objectKey,
-		ContentType: fileType
-	})
-	const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 60 * 60 })
-	console.log('created presigned key: ' + presignedUrl)
-
-	return { presignedUrl }
-}
-
-export const action = async ({ request }: Route.ActionArgs) => {}
 
 export default function PostPage({ loaderData }: Route.ComponentProps) {
-	const { presignedUrl } = loaderData
+	const presignedUrl = 'helo'
 
 	const [file, setFile] = React.useState<File | null>(null)
 	const [fileUrl, setFileUrl] = React.useState<string | null>(null)

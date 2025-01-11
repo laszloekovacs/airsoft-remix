@@ -3,9 +3,10 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "bun run react-router dev",
+		"dev": "bun run --bun react-router dev",
 		"build": "bun run react-router build",
-		"start": "bun run react-router-serve ./build/server/index.js"
+		"start": "bun run react-router-serve ./build/server/index.js",
+		"gen-scema": "bunx --bun @better-auth/cli generate ./db/auth-schema.ts"
 	},
 	"dependencies": {
 		"@react-router/fs-routes": "^7.1.1",
