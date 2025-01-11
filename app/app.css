@@ -9,6 +9,8 @@ body {
 	@media (prefers-color-scheme: dark) {
 		color-scheme: dark;
 	}
+
+	@apply text-black dark:text-white;
 }
 
 a {

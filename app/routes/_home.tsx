@@ -25,7 +25,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 	const copyDate = new Date().getFullYear()
 
 	return (
-		<div className='bg-stone-100'>
+		<div>
 			<div className='container mx-auto px-2'>
 				<div className='grid min-h-screen grid-rows-[auto,1fr,auto] py-2'>
 					<header className='flex flex-row justify-between pb-4'>
@@ -44,7 +44,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 						<div>
 							<Link to='/dashboard'>Admin felület</Link>
 							<br />
-							<Link to='/user/u'>user</Link>
+							<Link to='/user'>user</Link>
 						</div>
 						<span>verzio: {buildDateString}</span>
 					</footer>

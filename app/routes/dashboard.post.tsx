@@ -3,8 +3,6 @@ import { Form } from 'react-router'
 import type { Route } from './+types/dashboard.post'
 
 export default function PostPage({ loaderData }: Route.ComponentProps) {
-	const presignedUrl = 'helo'
-
 	const [file, setFile] = React.useState<File | null>(null)
 	const [fileUrl, setFileUrl] = React.useState<string | null>(null)
 
@@ -75,5 +73,3 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
 		</div>
 	)
 }
-
-//https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/
