@@ -1,7 +1,7 @@
-import { integer, pgTable, text } from 'drizzle-orm/pg-core'
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
 
-export const testingTable = pgTable('testing_table', {
-	id: integer().primaryKey().generatedAlwaysAsIdentity(),
-	name: text(),
-	age: integer()
+export const testingTable = sqliteTable('testing', {
+	id: text('id').primaryKey(),
+	name: text('name').notNull(),
+	age: integer('age').notNull()
 })
