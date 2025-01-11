@@ -5,3 +5,9 @@ export const testingTable = sqliteTable('testing', {
 	name: text('name').notNull(),
 	age: integer('age').notNull()
 })
+
+export const uploadLogs = sqliteTable('upload_logs', {
+	id: text('id').primaryKey().generatedAlwaysAs('ROWID'),
+	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+	key: text('key').notNull()
+})

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { Form } from 'react-router'
 import type { Route } from './+types/dashboard.post'
+import { db } from '~/lib/db.server'
+import { uploadLogs } from '~/schema'
 
 export default function PostPage({ loaderData }: Route.ComponentProps) {
 	const [file, setFile] = React.useState<File | null>(null)
@@ -52,6 +54,11 @@ export const action = async ({ request }: Route.ActionArgs) => {
 	// record it to the database
 
 	await Bun.write(`./data/content/${attachment.name}`, attachment)
+
+	db.insert(uploadLogs).values({
+		key: attachment.name,
+		createdAt: Date.now()
+	})
 
 	return new Response('success')
 }
