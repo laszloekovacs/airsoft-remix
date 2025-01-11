@@ -55,7 +55,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	await Bun.write(`./data/content/${attachment.name}`, attachment)
 
-	db.insert(uploadLogs).values({
+	await db.insert(uploadLogs).values({
 		key: attachment.name,
 		createdAt: new Date()
 	})
