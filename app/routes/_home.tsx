@@ -12,17 +12,17 @@ export function meta({}: Route.MetaArgs) {
 
 export function loader({ params }: Route.LoaderArgs) {
 	const buildDate = getBuildDate()
-
-	return { buildDate }
-}
-
-export default function Home({ loaderData }: Route.ComponentProps) {
-	const { buildDate } = loaderData
 	const buildDateString = buildDate.toLocaleString('hu-HU', {
 		dateStyle: 'medium',
 		timeStyle: 'short'
 	})
 	const copyDate = new Date().getFullYear()
+
+	return { buildDateString, copyDate }
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+	const { buildDateString, copyDate } = loaderData
 
 	return (
 		<div>
@@ -30,6 +30,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 				<div className='grid min-h-screen grid-rows-[auto,1fr,auto] py-2'>
 					<header className='flex flex-row justify-between pb-4'>
 						<Link to='/'>
+							<img src='/logo/ac.png' alt='logo' className='h-20' />
 							<h1>Airsoft Naptár</h1>
 						</Link>
 						<SessionMenuButton />

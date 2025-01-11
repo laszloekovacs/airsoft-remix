@@ -15,7 +15,7 @@ const EventsList = () => {
 			id: 1,
 			name: 'Event 1',
 			date: '2021-09-01',
-			img: 'https://picsum.photos/200'
+			img: 'data/content/card1.jpg'
 		},
 		{
 			id: 2,

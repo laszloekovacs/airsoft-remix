@@ -11,3 +11,12 @@ export const uploadLogs = sqliteTable('upload_logs', {
 	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 	key: text().notNull()
 })
+
+export const post = sqliteTable('post', {
+	id: text().primaryKey(),
+	title: text().notNull(),
+	content: text(),
+	attachment: text(),
+	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
+})
