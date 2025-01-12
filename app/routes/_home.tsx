@@ -33,6 +33,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 							<img src='/logo/ac.png' alt='logo' className='h-20' />
 							<h1>Airsoft Naptár</h1>
 						</Link>
+						<Link to='/user'>Profil</Link>
 						<SessionMenuButton />
 					</header>
 

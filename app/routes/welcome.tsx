@@ -1,7 +1,11 @@
 import React from 'react'
 
 const welcome = () => {
-	return <div>welcome</div>
+	return (
+		<div>
+			<p>új felhasználó regisztráció</p>
+		</div>
+	)
 }
 
 export default welcome

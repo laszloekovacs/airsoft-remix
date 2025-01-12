@@ -2,7 +2,7 @@ import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
 import { user } from './auth-schema'
 
 export const group = sqliteTable('group', {
-	id: text().primaryKey(),
+	id: integer().primaryKey(),
 	name: text().notNull(),
 	metadata: text()
 })
