@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router'
 import type { Route } from './+types/_home'
-import { SessionMenuButton } from '~/components/session-menu'
+import { SessionMenuButton } from '~/components/session.client'
 import { getBuildDate } from '~/lib/build.server'
 
 export function meta({}: Route.MetaArgs) {
@@ -34,7 +34,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 							<h1>Airsoft Naptár</h1>
 						</Link>
 						<Link to='/user'>Profil</Link>
-						<SessionMenuButton />
+						{
+							//<SessionMenuButton />
+						}
 					</header>
 
 					<main>

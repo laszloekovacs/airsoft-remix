@@ -30,12 +30,12 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 			<div>
 				<h2>Csoportjaim</h2>
 				<Link to='/user/group/create'>létrehozás</Link>
-				<GroupsList groups={groups} />
 			</div>
 		</div>
 	)
 }
-
+/*
+//<GroupsList groups={groups} />
 const GroupsList = ({ groups }: any[]) => {
 	return (
 		<ul>
@@ -47,3 +47,4 @@ const GroupsList = ({ groups }: any[]) => {
 		</ul>
 	)
 }
+*/
