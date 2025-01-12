@@ -43,7 +43,7 @@ export const auth = betterAuth({
 		}
 	},
 	advanced: {
-		cookiePrefix: 'airsoft-'
+		cookiePrefix: 'airsoft'
 	},
 	plugins: [
 		customSession(async ({ user, session }) => {
@@ -54,20 +54,5 @@ export const auth = betterAuth({
 				session
 			}
 		})
-	],
-	databaseHooks: {
-		user: {
-			create: {
-				before: async user => {
-					// check if user agreed to TOS
-					console.log('new signup')
-
-					// TODO: throw an api error and handle it if user doesn't agree
-					return {
-						data: user
-					}
-				}
-			}
-		}
-	}
+	]
 })
