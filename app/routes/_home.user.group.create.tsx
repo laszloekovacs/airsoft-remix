@@ -5,6 +5,7 @@ import invariant from 'tiny-invariant'
 import { Form } from 'react-router'
 import { db } from '~/lib/db.server'
 import { group } from '~/schema'
+import { redirect } from 'react-router'
 
 export default function GroupCreate() {
 	return (
@@ -33,7 +34,11 @@ export const action = async ({ request }: Route.ActionArgs) => {
 	invariant(groupname, 'no groupname')
 
 	/// create a group in the database
-	db.insert(group).values({
+	await db.insert(group).values({
 		name: groupname
 	})
+
+	console.log('group created')
+
+	return redirect('/user')
 }

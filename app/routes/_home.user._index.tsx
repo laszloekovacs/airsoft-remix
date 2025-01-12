@@ -1,41 +1,49 @@
 import { auth } from '~/lib/auth.server'
 import type { Route } from './+types/_home.user._index'
 import { Link } from 'react-router'
+import invariant from 'tiny-invariant'
+import { group } from '~/schema'
+import { db } from '~/lib/db.server'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
+	invariant(session, 'no session data')
+	const { user } = session
+	invariant(user, 'no user')
 
-	return JSON.parse(JSON.stringify(session))
+	// list of groups
+	const groups = await db.select().from(group)
+
+	return {
+		user: user,
+		groups
+	}
 }
 
 export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
-	const { user } = loaderData
+	const { user, groups } = loaderData
 
 	return (
 		<div>
 			<h2>UserIndexPage</h2>
 			<pre>{JSON.stringify(user, null, 2)}</pre>
-			<GroupsContainer />
+			<div>
+				<h2>Szervezeteim</h2>
+				<Link to='/user/group/create'>létrehozás</Link>
+				<GroupsList groups={groups} />
+			</div>
 		</div>
 	)
 }
 
-const GroupsContainer = () => {
-	return (
-		<div>
-			<h2>Szervezeteim</h2>
-			<Link to='/user/group/create'>létrehozás</Link>
-			<GroupsList />
-		</div>
-	)
-}
-
-const GroupsList = () => {
+const GroupsList = ({ groups }: any[]) => {
 	return (
 		<ul>
-			<li>group 1</li>
-			<li>group 2</li>
-			<li>group 3</li>
+			{groups.map(group => (
+				<li key={group.id}>
+					<Link to={`/user/group/${group.id}`}>{group.name}</Link>
+				</li>
+			))}
 		</ul>
 	)
 }
