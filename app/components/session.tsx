@@ -1,7 +1,7 @@
 import { authClient } from '~/lib/auth.client'
 
 export const SessionMenuButton = () => {
-	const { data: session, isPending, error } = authClient.useSession()
+	//const { data, isPending, error } = useSession()
 
 	const signIn = async () => {
 		authClient.signIn.social({
