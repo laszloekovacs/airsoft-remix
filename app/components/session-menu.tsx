@@ -4,14 +4,13 @@ export function SessionMenuButton() {
 	const signIn = async () => {
 		authClient.signIn.social({
 			provider: 'github',
-			//newUserCallbackURL: '/welcome',
-			errorCallbackURL: '/welcome'
+			newUserCallbackURL: '/welcome'
 		})
 	}
 
 	return (
 		<>
-			<button onClick={signIn}>Session</button>
+			<button onClick={signIn}>Bejeletkezés</button>
 		</>
 	)
 }
