@@ -28,7 +28,7 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 			<h2>UserIndexPage</h2>
 			<pre>{JSON.stringify(user, null, 2)}</pre>
 			<div>
-				<h2>Szervezeteim</h2>
+				<h2>Csoportjaim</h2>
 				<Link to='/user/group/create'>létrehozás</Link>
 				<GroupsList groups={groups} />
 			</div>
