@@ -1,5 +1,6 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import { customSession } from 'better-auth/plugins'
 import { db } from '~/lib/db.server'
 import { account, session, user, verification } from '~/schema/auth-schema'
 
@@ -26,12 +27,47 @@ export const auth = betterAuth({
 	user: {
 		deleteUser: {
 			enabled: true
+		},
+		additionalFields: {
+			claims: {
+				type: 'string',
+				required: false,
+				input: false
+			}
 		}
 	},
 	account: {
 		accountLinking: {
 			enabled: true,
 			trustedProviders: ['github']
+		}
+	},
+	advanced: {
+		cookiePrefix: 'airsoft-'
+	},
+	plugins: [
+		customSession(async ({ user, session }) => {
+			const claims = 'todo'
+			return {
+				claims,
+				user,
+				session
+			}
+		})
+	],
+	databaseHooks: {
+		user: {
+			create: {
+				before: async user => {
+					// check if user agreed to TOS
+					console.log('new signup')
+
+					// TODO: throw an api error and handle it if user doesn't agree
+					return {
+						data: user
+					}
+				}
+			}
 		}
 	}
 })
