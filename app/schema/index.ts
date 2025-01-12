@@ -8,14 +8,12 @@ export const group = sqliteTable('group', {
 })
 
 export const post = sqliteTable('post', {
-	id: integer('id').primaryKey(),
+	id: integer().primaryKey(),
 	title: text().notNull(),
 	content: text(),
 	attachment: text().notNull(),
-	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
-	userId: text('user_id')
-		.references(() => user.id)
-		.notNull(),
-	groupId: text('group_id').references(() => group.id)
+	createdAt: integer({ mode: 'timestamp' }).notNull(),
+	updatedAt: integer({ mode: 'timestamp' }).notNull(),
+	userId: text().references(() => user.id),
+	groupId: text().references(() => group.id)
 })

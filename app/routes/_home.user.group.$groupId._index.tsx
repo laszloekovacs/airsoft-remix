@@ -1,9 +1,9 @@
 import React from 'react'
-import type { Route } from './+types/_home.user.group.$id._index'
+import type { Route } from './+types/_home.user.group.$groupId._index'
 import { Link } from 'react-router'
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
-	const id = parseInt(params.id)
+	const id = parseInt(params.groupId)
 
 	return { id }
 }
