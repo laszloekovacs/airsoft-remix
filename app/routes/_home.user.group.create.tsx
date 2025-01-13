@@ -44,7 +44,6 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	/// create a group in the database
 	await db.insert(group).values({
-		id: 'grpod',
 		name: groupname
 	})
 	return redirect('/user')

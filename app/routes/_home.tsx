@@ -2,6 +2,8 @@ import { Link, Outlet } from 'react-router'
 import type { Route } from './+types/_home'
 import { SessionMenuButton } from '~/components/session'
 import { getBuildDate } from '~/lib/build.server'
+import { auth } from '~/lib/auth.server'
+import invariant from 'tiny-invariant'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -10,7 +12,7 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
-export function loader({ params }: Route.LoaderArgs) {
+export async function loader({ params, request }: Route.LoaderArgs) {
 	const buildDate = getBuildDate()
 	const buildDateString = buildDate.toLocaleString('hu-HU', {
 		dateStyle: 'medium',
@@ -18,11 +20,16 @@ export function loader({ params }: Route.LoaderArgs) {
 	})
 	const copyDate = new Date().getFullYear()
 
-	return { buildDateString, copyDate }
+	const session = await auth.api.getSession({ headers: request.headers })
+	invariant(session, 'no session data')
+	const { user } = session
+	invariant(user, 'no user')
+
+	return { buildDateString, copyDate, username: session.user.email }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const { buildDateString, copyDate } = loaderData
+	const { buildDateString, copyDate, username } = loaderData
 
 	return (
 		<div>
@@ -34,7 +41,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 							<h1>Airsoft Naptár</h1>
 						</Link>
 						<Link to='/user'>Profil</Link>
-						{<SessionMenuButton />}
+						{<SessionMenuButton username={username} />}
 					</header>
 
 					<main>

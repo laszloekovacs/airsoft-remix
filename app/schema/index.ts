@@ -4,7 +4,6 @@ import { user } from './auth-schema'
 export const group = sqliteTable('group', {
 	id: text().primaryKey(),
 	name: text().notNull()
-	//createdAt: integer({ mode: 'timestamp' }).notNull()
 })
 
 export const post = sqliteTable('post', {
