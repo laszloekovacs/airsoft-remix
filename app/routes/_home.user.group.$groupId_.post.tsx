@@ -4,6 +4,7 @@ import invariant from 'tiny-invariant'
 import { db } from '~/lib/db.server'
 import { post } from '~/schema'
 import { auth } from '~/lib/auth.server'
+import { storage_write } from '~/lib/storage.server'
 
 export default function PostPage() {
 	return (
@@ -43,21 +44,14 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	}
 
 	// generate a template path for the attachment
-	const base = './data/content'
 	const year = new Date().getFullYear()
 	const timestamp = Date.now()
 	const ext = attachment.name.split('.').pop()
 
-	const key = `${base}/${year}/${groupId}-${timestamp}.${ext}`
-
-	console.log({
-		key,
-		title,
-		attachment
-	})
+	const key = `${year}/${groupId}-${timestamp}.${ext}`
 
 	// write file to disk
-	await Bun.write(key, attachment)
+	await storage_write(key, attachment)
 
 	// record it in the database
 	await db.insert(post).values({
