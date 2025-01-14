@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router'
+import { Link, Outlet, redirect } from 'react-router'
 import type { Route } from './+types/_home'
 import { SessionMenuButton } from '~/components/session'
 import { getBuildDate } from '~/lib/build.server'
@@ -21,15 +21,13 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 	const copyDate = new Date().getFullYear()
 
 	const session = await auth.api.getSession({ headers: request.headers })
-	invariant(session, 'no session data')
-	const { user } = session
-	invariant(user, 'no user')
+	const user = session?.user
 
-	return { buildDateString, copyDate, username: session.user.email }
+	return { buildDateString, copyDate, user }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const { buildDateString, copyDate, username } = loaderData
+	const { buildDateString, copyDate, user } = loaderData
 
 	return (
 		<div>
@@ -41,7 +39,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 							<h1>Airsoft Naptár</h1>
 						</Link>
 						<Link to='/user'>Profil</Link>
-						{<SessionMenuButton username={username} />}
+						{<SessionMenuButton username={user?.email || 'logodd'} />}
 					</header>
 
 					<main>
