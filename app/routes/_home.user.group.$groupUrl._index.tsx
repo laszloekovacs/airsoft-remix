@@ -3,6 +3,8 @@ import { Link } from 'react-router'
 import { db } from '~/lib/db.server'
 import { post } from '~/schema'
 
+type postType = typeof post.$inferSelect
+
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const posts = await db.select().from(post)
 
@@ -19,7 +21,7 @@ export default function GroupDetailsPage({ loaderData }: Route.ComponentProps) {
 
 			<div>
 				<PostsListContainer id={groupUrl} />
-				<PostList posts={posts} />
+				<PostList posts={posts} groupUrl={groupUrl} />
 			</div>
 		</div>
 	)
@@ -33,15 +35,19 @@ const PostsListContainer = ({ id }: { id: string }) => {
 	)
 }
 
-const PostList = ({ posts }: { posts: any }) => {
+const PostList = ({
+	posts,
+	groupUrl
+}: {
+	posts: postType[]
+	groupUrl: string
+}) => {
 	return (
 		<div>
 			<h3>post list</h3>
-			{posts.map((post: any) => (
-				<div key={post.id}>
-					<Link to={`/user/group/${post.group_id}/post/${post.id}`}>
-						{post.title}
-					</Link>
+			{posts.map((p: postType) => (
+				<div key={p.id}>
+					<Link to={`/user/group/${groupUrl}/post/${p.id}`}>{p.title}</Link>
 				</div>
 			))}
 		</div>
