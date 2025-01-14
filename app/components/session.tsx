@@ -13,7 +13,7 @@ export const SessionMenuButton = ({ username }: { username: string }) => {
 	if (username) {
 		return (
 			<div>
-				<button onClick={() => authClient.signOut()}>{username}</button>
+				<button>{username}</button>
 			</div>
 		)
 	}
