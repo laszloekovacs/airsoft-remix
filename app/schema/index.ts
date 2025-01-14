@@ -10,6 +10,7 @@ export const group = pgTable('group', {
 export const post = pgTable('post', {
 	id: uuid().primaryKey().defaultRandom(),
 	title: text().notNull(),
+	titleUrl: text().notNull().unique(),
 	content: text(),
 	attachment: text().notNull(),
 	createdAt: timestamp().defaultNow(),

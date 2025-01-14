@@ -1,4 +1,4 @@
-import type { Route } from './+types/_home.user.group.$groupUrl._index'
+import type { Route } from './+types/_home.user.group.$groupUrl_._index'
 import { Link } from 'react-router'
 import { db } from '~/lib/db.server'
 import { post } from '~/schema'
@@ -47,7 +47,9 @@ const PostList = ({
 			<h3>post list</h3>
 			{posts.map((p: postType) => (
 				<div key={p.id}>
-					<Link to={`/user/group/${groupUrl}/post/${p.id}`}>{p.title}</Link>
+					<Link to={`/user/group/${groupUrl}/post/${p.titleUrl}`}>
+						{p.title}
+					</Link>
 				</div>
 			))}
 		</div>

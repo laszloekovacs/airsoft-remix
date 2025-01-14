@@ -7,6 +7,9 @@ import { auth } from '~/lib/auth.server'
 import { storage_write } from '~/lib/storage.server'
 import { eq } from 'drizzle-orm'
 import { useEffect, useState } from 'react'
+import { generateUrlName } from '~/lib/generate-url-name'
+
+const MAX_ATTACHMENT_SIZE = 2 * 1024 * 1024
 
 export default function PostAdInGroupPage() {
 	const [file, setFile] = useState<File | null>(null)
@@ -69,18 +72,19 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	invariant(attachment, 'no attachment')
 
 	// reject large files
-	if (attachment.size > 2 * 1024 * 1024) {
+	if (attachment.size > MAX_ATTACHMENT_SIZE) {
 		throw new Error('File too large, max 2mb is allowed')
 	}
 
+	// generate an url friendly title
+	const titleUrl = generateUrlName(title)
+
 	// generate a template path for the attachment
 	const year = new Date().getFullYear()
-	const timestamp = Date.now()
-	const hexTimestamp = timestamp.toString(16)
-
+	const hexTimestamp = Date.now().toString(16)
 	const ext = attachment.name.split('.').pop()
 
-	const key = `${year}/${groupUrl}_${hexTimestamp}.${ext}`
+	const key = `${year}/${groupUrl}_${titleUrl}_${hexTimestamp}.${ext}`
 
 	// write file to disk
 	const bytes = await storage_write(key, attachment)
@@ -89,25 +93,26 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 		throw new Error('Failed to write file to disk')
 	}
 
-	// lookup the groupId from the url
-	const used_group = await db
+	// lookup the groups Id from the url
+	const current_group = await db
 		.select()
 		.from(group)
 		.where(eq(group.url, groupUrl))
 
-	if (used_group.length !== 1) {
+	if (current_group.length !== 1) {
 		throw new Error('Group not found')
 	}
 
-	const group_id = used_group[0].id
+	const group_id = current_group[0].id
 
 	// record it in the database
 	await db.insert(post).values({
 		title: title,
 		attachment: key,
 		userId: session.user.id,
-		groupId: group_id
+		groupId: group_id,
+		titleUrl: titleUrl
 	})
 
-	return redirect(`/user/group/${groupUrl}`)
+	return redirect(`/user/group/${groupUrl}/${titleUrl}`)
 }
