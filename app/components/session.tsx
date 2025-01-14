@@ -1,7 +1,12 @@
+import { useNavigate } from 'react-router'
 import { authClient } from '~/lib/auth.client'
 
-export const SessionMenuButton = ({ username }: { username: string }) => {
-	//const { data, isPending, error } = useSession()
+type Props = {
+	username: string | null
+}
+
+export const SessionMenuButton = ({ username }: Props) => {
+	const navigator = useNavigate()
 
 	const signIn = async () => {
 		authClient.signIn.social({
@@ -10,17 +15,27 @@ export const SessionMenuButton = ({ username }: { username: string }) => {
 		})
 	}
 
+	const signout = async () => {
+		authClient.signOut({
+			fetchOptions: {
+				onSuccess: () => {
+					navigator('/bye')
+				}
+			}
+		})
+	}
+
 	if (username) {
 		return (
 			<div>
-				<button>{username}</button>
+				<button onClick={() => signout()}>{username}</button>
+			</div>
+		)
+	} else {
+		return (
+			<div>
+				<button onClick={signIn}>Bejeletkezés</button>
 			</div>
 		)
 	}
-
-	return (
-		<div>
-			<button onClick={signIn}>Bejeletkezés</button>
-		</div>
-	)
 }

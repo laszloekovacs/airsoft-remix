@@ -21,13 +21,13 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 	const copyDate = new Date().getFullYear()
 
 	const session = await auth.api.getSession({ headers: request.headers })
-	const user = session?.user
+	const user_email = session?.user.email
 
-	return { buildDateString, copyDate, user }
+	return { buildDateString, copyDate, user_email }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const { buildDateString, copyDate, user } = loaderData
+	const { buildDateString, copyDate, user_email } = loaderData
 
 	return (
 		<div>
@@ -39,7 +39,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 							<h1>Airsoft Naptár</h1>
 						</Link>
 						<Link to='/user'>Profil</Link>
-						{<SessionMenuButton username={user?.email || 'logodd'} />}
+						{<SessionMenuButton username={user_email} />}
 					</header>
 
 					<main>
