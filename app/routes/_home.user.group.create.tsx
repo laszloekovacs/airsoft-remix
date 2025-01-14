@@ -3,6 +3,7 @@ import { auth } from '~/lib/auth.server'
 import { db } from '~/lib/db.server'
 import { group } from '~/schema'
 import type { Route } from './+types/_home.user.group.create'
+import { generateUrlName } from '~/lib/generate-url-name'
 
 export default function GroupCreate() {
 	return (
@@ -43,19 +44,4 @@ export const action = async ({ request }: Route.ActionArgs) => {
 		throw new Error('database error: could not create group')
 
 	return redirect('/user')
-}
-function generateUrlName(title: string) {
-	// 1. Remove accents and special characters
-	const normalizedTitle = title.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-
-	// 2. Replace spaces with hyphens
-	const hyphenatedTitle = normalizedTitle.replace(/\s+/g, '-')
-
-	// 3. Convert to lowercase
-	const lowercaseTitle = hyphenatedTitle.toLowerCase()
-
-	// 4. Remove non-alphanumeric characters
-	const urlName = lowercaseTitle.replace(/[^a-z0-9-]/g, '')
-
-	return urlName
 }

@@ -6,12 +6,42 @@ import { post, group } from '~/schema'
 import { auth } from '~/lib/auth.server'
 import { storage_write } from '~/lib/storage.server'
 import { eq } from 'drizzle-orm'
+import { useEffect, useState } from 'react'
 
-export default function PostPage() {
+export default function PostAdInGroupPage() {
+	const [file, setFile] = useState<File | null>(null)
+	const [fileUrl, setFileUrl] = useState<string | null>(null)
+
+	useEffect(() => {
+		if (!file) {
+			return
+		}
+
+		const fileUrl = URL.createObjectURL(file)
+		setFileUrl(fileUrl)
+
+		return () => {
+			URL.revokeObjectURL(fileUrl)
+		}
+	}, [file])
+
+	const handleFileSelected = async (event: React.FormEvent) => {
+		const target = event.target as HTMLInputElement
+		setFile(target.files?.[0] ?? null)
+	}
+
 	return (
 		<div>
 			<h2>új esemény létrehozása</h2>
-			<Form method='POST' encType='multipart/form-data'>
+			<div>
+				<span>elonezet</span>
+				{fileUrl && <img className='max-w-full' src={fileUrl} alt='elonezet' />}
+			</div>
+
+			<Form
+				method='POST'
+				encType='multipart/form-data'
+				onChange={handleFileSelected}>
 				<input type='text' name='title' placeholder='esemény neve' required />
 
 				<p>esemény plakátja</p>
@@ -46,14 +76,18 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	// generate a template path for the attachment
 	const year = new Date().getFullYear()
 	const timestamp = Date.now()
+	const hexTimestamp = timestamp.toString(16)
+
 	const ext = attachment.name.split('.').pop()
 
-	const key = `${year}/${groupUrl}-${timestamp}.${ext}`
-	console.log(key)
+	const key = `${year}/${groupUrl}_${hexTimestamp}.${ext}`
 
 	// write file to disk
 	const bytes = await storage_write(key, attachment)
-	console.log(bytes)
+
+	if (bytes == 0) {
+		throw new Error('Failed to write file to disk')
+	}
 
 	// lookup the groupId from the url
 	const used_group = await db
