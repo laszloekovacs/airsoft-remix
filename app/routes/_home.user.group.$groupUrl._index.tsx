@@ -39,7 +39,7 @@ const PostList = ({ posts }: { posts: any }) => {
 			<h3>post list</h3>
 			{posts.map((post: any) => (
 				<div key={post.id}>
-					<Link to={`/user/group/${post.groupUrl}/post/${post.id}`}>
+					<Link to={`/user/group/${post.group_id}/post/${post.id}`}>
 						{post.title}
 					</Link>
 				</div>

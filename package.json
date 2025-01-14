@@ -8,7 +8,7 @@
 		"start": "bun run --bun react-router-serve ./build/server/index.js",
 		"gen-scema": "npx @better-auth/cli generate --config ./app/lib/auth.server.ts",
 		"drizzle-push": "npx drizzle-kit push",
-		"studio": "npx drizzle-kit studio"
+		"studio": "bunx drizzle-kit studio"
 	},
 	"dependencies": {
 		"@react-router/fs-routes": "^7.1.1",
