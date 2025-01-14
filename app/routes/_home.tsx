@@ -14,20 +14,17 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ params, request }: Route.LoaderArgs) {
 	const buildDate = getBuildDate()
-	const buildDateString = buildDate.toLocaleString('hu-HU', {
-		dateStyle: 'medium',
-		timeStyle: 'short'
-	})
-	const copyDate = new Date().getFullYear()
 
+	// returns email, if logged in aka session is not null
 	const session = await auth.api.getSession({ headers: request.headers })
-	const user_email = session?.user.email
+	const user_email = session?.user.email || null
+	const user_image_url = session?.user.image || null
 
-	return { buildDateString, copyDate, user_email }
+	return { buildDate, user_email, user_image_url }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const { buildDateString, copyDate, user_email } = loaderData
+	const { buildDate, user_email, user_image_url } = loaderData
 
 	return (
 		<div>
@@ -39,7 +36,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 							<h1>Airsoft Naptár</h1>
 						</Link>
 						<Link to='/user'>Profil</Link>
-						{<SessionMenuButton username={user_email} />}
+						<SessionMenuButton
+							userEmail={user_email}
+							imageUrl={user_image_url}
+						/>
 					</header>
 
 					<main>
@@ -47,13 +47,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 					</main>
 
 					<footer>
-						<span>© {copyDate} Airsoft Naptar</span>
+						<span>© {new Date().getFullYear()} Airsoft Naptar</span>
 						<div>
 							<Link to='/dashboard'>Admin felület</Link>
-							<br />
-							<Link to='/user'>user</Link>
 						</div>
-						<span>verzio: {buildDateString}</span>
+						<span>
+							verzio:{' '}
+							{buildDate.toLocaleString('hu-HU', {
+								dateStyle: 'medium',
+								timeStyle: 'short'
+							})}
+						</span>
 					</footer>
 				</div>
 			</div>

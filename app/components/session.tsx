@@ -2,10 +2,11 @@ import { useNavigate } from 'react-router'
 import { authClient } from '~/lib/auth.client'
 
 type Props = {
-	username: string | null
+	userEmail: string | null
+	imageUrl: string | null
 }
 
-export const SessionMenuButton = ({ username }: Props) => {
+export const SessionMenuButton = ({ userEmail, imageUrl }: Props) => {
 	const navigator = useNavigate()
 
 	const signIn = async () => {
@@ -25,10 +26,10 @@ export const SessionMenuButton = ({ username }: Props) => {
 		})
 	}
 
-	if (username) {
+	if (userEmail) {
 		return (
 			<div>
-				<button onClick={() => signout()}>{username}</button>
+				<button onClick={() => signout()}>{userEmail}</button>
 			</div>
 		)
 	} else {
