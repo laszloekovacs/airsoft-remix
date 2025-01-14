@@ -1,7 +1,7 @@
-const content_basepath = './data/content/'
-
 export const storage_write = async (key: string, attachment: File) => {
+	const content_basepath = './upload/content/'
 	const path = content_basepath + key
 
-	return await Bun.write(key, path)
+	const bytes = await Bun.write(path, key)
+	return bytes
 }

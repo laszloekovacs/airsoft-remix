@@ -27,7 +27,7 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
 	invariant(session, 'no session data')
 
-	const { groupId } = params
+	const { groupUrl } = params
 
 	const formData = await request.formData()
 	invariant(formData, 'no form data')
@@ -48,21 +48,19 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	const timestamp = Date.now()
 	const ext = attachment.name.split('.').pop()
 
-	const key = `${year}/${groupId}-${timestamp}.${ext}`
+	const key = `${year}/${groupUrl}-${timestamp}.${ext}`
+	console.log(key)
 
 	// write file to disk
-	await storage_write(key, attachment)
+	const bytes = await storage_write(key, attachment)
+	console.log(bytes)
 
 	// record it in the database
 	await db.insert(post).values({
-		id: 'helldps',
 		title: title,
 		attachment: key,
-		createdAt: new Date(),
-		updatedAt: new Date(),
-		groupId: params.groupId,
 		userId: session.user.id
 	})
 
-	return redirect(`/user/group/${groupId}`)
+	return redirect(`/user/group/${groupUrl}`)
 }
