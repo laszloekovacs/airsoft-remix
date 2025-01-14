@@ -4,6 +4,7 @@ const ByePage = () => {
 	return (
 		<div>
 			<div>Viszlát!</div>
+			<p>sikeresen kileptel.</p>
 			<Link to='/'>Home</Link>
 		</div>
 	)
