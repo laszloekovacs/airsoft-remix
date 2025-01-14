@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { authClient } from '~/lib/auth.client'
 
 type Props = {
@@ -8,13 +8,6 @@ type Props = {
 
 export const SessionMenuButton = ({ userEmail, imageUrl }: Props) => {
 	const navigator = useNavigate()
-
-	const signIn = async () => {
-		authClient.signIn.social({
-			provider: 'github',
-			newUserCallbackURL: '/welcome'
-		})
-	}
 
 	const signout = async () => {
 		authClient.signOut({
@@ -29,13 +22,15 @@ export const SessionMenuButton = ({ userEmail, imageUrl }: Props) => {
 	if (userEmail) {
 		return (
 			<div>
-				<button onClick={() => signout()}>{userEmail}</button>
+				{imageUrl && <img src={imageUrl} alt='user' className='w-10' />}
+				<p>{userEmail}</p>
+				<button onClick={() => signout()}>kilép</button>
 			</div>
 		)
 	} else {
 		return (
 			<div>
-				<button onClick={signIn}>Bejeletkezés</button>
+				<Link to='/login'>bejelentkezés</Link>
 			</div>
 		)
 	}
