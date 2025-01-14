@@ -48,18 +48,18 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	return redirect('/user')
 }
-
 function generateUrlName(title: string) {
-	// lower case
-	// remove accents and special characters
-	// replace spaces with hyphens
-	// remove non-alphanumeric characters
-	const url = title
-		.toLowerCase()
-		.normalize('NFD')
-		.replace(/[\u0300-\u036f]/g, '')
-		.replace(/\s+/g, '-')
-		.replace(/[^a-z0-9-]/g, '')
+	// 1. Remove accents and special characters
+	const normalizedTitle = title.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
-	return url
+	// 2. Replace spaces with hyphens
+	const hyphenatedTitle = normalizedTitle.replace(/\s+/g, '-')
+
+	// 3. Convert to lowercase
+	const lowercaseTitle = hyphenatedTitle.toLowerCase()
+
+	// 4. Remove non-alphanumeric characters
+	const urlName = lowercaseTitle.replace(/[^a-z0-9-]/g, '')
+
+	return urlName
 }
