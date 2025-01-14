@@ -1,9 +1,10 @@
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { integer, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 import { user } from './auth-schema'
 
 export const group = pgTable('group', {
 	id: uuid().primaryKey().defaultRandom(),
-	name: text().notNull()
+	name: text().notNull(),
+	url: text().notNull().unique()
 })
 
 export const post = pgTable('post', {
@@ -15,10 +16,4 @@ export const post = pgTable('post', {
 	updatedAt: timestamp().defaultNow(),
 	userId: text('user_id').references(() => user.id)
 	//groupId: uuid('group_id').references(() => group.id)
-})
-
-export const user_group = pgTable('user_group', {
-	id: uuid().primaryKey().defaultRandom(),
-	userId: text('user_id').references(() => user.id)
-	//	groupId: uuid('group_id').references(() => group.id)
 })

@@ -9,13 +9,13 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
 	invariant(session, 'no session data')
 	const { user } = session
-	invariant(user, 'no user')
 
 	// list of groups
 	const groups = await db.select().from(group)
+	console.log('groups', groups)
 
 	return {
-		user: user,
+		user,
 		groups
 	}
 }
@@ -30,11 +30,12 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 			<div>
 				<h2>Csoportjaim</h2>
 				<Link to='/user/group/create'>létrehozás</Link>
+				<GroupsList groups={groups} />
 			</div>
 		</div>
 	)
 }
-/*
+
 //<GroupsList groups={groups} />
 const GroupsList = ({ groups }: any[]) => {
 	return (
@@ -47,4 +48,3 @@ const GroupsList = ({ groups }: any[]) => {
 		</ul>
 	)
 }
-*/
