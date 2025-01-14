@@ -6,7 +6,7 @@
 		"dev": "bun run --bun react-router dev",
 		"build": "bun run --bun react-router build",
 		"start": "bun run --bun react-router-serve ./build/server/index.js",
-		"gen-scema": "bunx --bun @better-auth/cli generate --config ./app/lib/auth.server.ts",
+		"gen-scema": "npx @better-auth/cli generate --config ./app/lib/auth.server.ts",
 		"drizzle-push": "npx drizzle-kit push",
 		"studio": "bunx drizzle-kit studio"
 	},
@@ -15,10 +15,10 @@
 		"@react-router/node": "^7.1.1",
 		"@react-router/serve": "^7.1.1",
 		"better-auth": "^1.1.10",
-		"better-sqlite3": "^11.7.2",
 		"drizzle-kit": "^0.30.1",
 		"drizzle-orm": "^0.38.3",
 		"isbot": "^5.1.20",
+		"pg": "^8.13.1",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router": "^7.1.1",
@@ -27,6 +27,7 @@
 	"devDependencies": {
 		"@react-router/dev": "^7.1.1",
 		"@types/bun": "^1.1.16",
+		"@types/pg": "^8.11.10",
 		"@types/react": "^19.0.3",
 		"@types/react-dom": "^19.0.2",
 		"autoprefixer": "^10.4.20",

@@ -7,7 +7,7 @@
 	],
 	"compilerOptions": {
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],
-		"types": ["bun", "vite/client", "react-router"],
+		"types": ["bun", "vite/client", "react-router", "pg"],
 		"target": "ES2022",
 		"module": "ES2022",
 		"moduleResolution": "bundler",

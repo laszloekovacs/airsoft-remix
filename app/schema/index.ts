@@ -1,24 +1,24 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { user } from './auth-schema'
 
-export const group = sqliteTable('group', {
-	id: text().primaryKey(),
+export const group = pgTable('group', {
+	id: text().primaryKey().generatedAlwaysAs('uuid_generate_v4()'),
 	name: text().notNull()
 })
 
-export const post = sqliteTable('post', {
-	id: text().primaryKey(),
+export const post = pgTable('post', {
+	id: text().primaryKey().generatedAlwaysAs('uuid_generate_v4()'),
 	title: text().notNull(),
 	content: text(),
 	attachment: text().notNull(),
-	createdAt: integer({ mode: 'timestamp' }).notNull(),
-	updatedAt: integer({ mode: 'timestamp' }).notNull(),
+	createdAt: timestamp().defaultNow(),
+	updatedAt: timestamp().defaultNow(),
 	userId: text('user_id').references(() => user.id),
 	groupId: text('group_id').references(() => group.id)
 })
 
-export const user_group = sqliteTable('user_group', {
-	id: integer().primaryKey(),
+export const user_group = pgTable('user_group', {
+	id: text().primaryKey().generatedAlwaysAs('uuid_generate_v4()'),
 	userId: text('user_id').references(() => user.id),
 	groupId: text('group_id').references(() => group.id)
 })
