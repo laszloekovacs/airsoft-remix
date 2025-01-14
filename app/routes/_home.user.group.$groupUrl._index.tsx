@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Route } from './+types/_home.user.group.$groupId._index'
+import type { Route } from './+types/_home.user.group.$groupUrl._index'
 import { Link } from 'react-router'
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {

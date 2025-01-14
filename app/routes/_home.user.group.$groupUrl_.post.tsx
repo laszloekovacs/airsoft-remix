@@ -1,5 +1,5 @@
 import { Form, redirect } from 'react-router'
-import type { Route } from './+types/_home.user.group.$groupId_.post'
+import type { Route } from './+types/_home.user.group.$groupUrl_.post'
 import invariant from 'tiny-invariant'
 import { db } from '~/lib/db.server'
 import { post } from '~/schema'

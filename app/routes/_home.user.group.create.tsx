@@ -29,22 +29,37 @@ export default function GroupCreate() {
 export const action = async ({ request }: Route.ActionArgs) => {
 	const sessionData = await auth.api.getSession({ headers: request.headers })
 
+	// no session data, return to login page
+	if (!sessionData) {
+		return redirect('/login')
+	}
+
 	const formData = await request.formData()
 	const groupname = formData.get('groupname') as string
 
-	// check if the group already exists in the database
-	const groupExists = await db
-		.select()
-		.from(group)
-		.where(eq(group.name, groupname))
-
-	if (groupExists.length > 0) {
-		return { status: 'error', message: 'mar letezik ilyen csoport' }
-	}
-
 	/// create a group in the database
-	await db.insert(group).values({
+	const result = await db.insert(group).values({
+		url: generateUrlName(groupname),
 		name: groupname
 	})
+
+	if (result.rowCount !== 1)
+		throw new Error('database error: could not create group')
+
 	return redirect('/user')
+}
+
+function generateUrlName(title: string) {
+	// lower case
+	// remove accents and special characters
+	// replace spaces with hyphens
+	// remove non-alphanumeric characters
+	const url = title
+		.toLowerCase()
+		.normalize('NFD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.replace(/\s+/g, '-')
+		.replace(/[^a-z0-9-]/g, '')
+
+	return url
 }
