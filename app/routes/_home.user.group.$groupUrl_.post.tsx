@@ -2,9 +2,10 @@ import { Form, redirect } from 'react-router'
 import type { Route } from './+types/_home.user.group.$groupUrl_.post'
 import invariant from 'tiny-invariant'
 import { db } from '~/lib/db.server'
-import { post } from '~/schema'
+import { post, group } from '~/schema'
 import { auth } from '~/lib/auth.server'
 import { storage_write } from '~/lib/storage.server'
+import { eq } from 'drizzle-orm'
 
 export default function PostPage() {
 	return (
@@ -55,11 +56,24 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	const bytes = await storage_write(key, attachment)
 	console.log(bytes)
 
+	// lookup the groupId from the url
+	const used_group = await db
+		.select()
+		.from(group)
+		.where(eq(group.url, groupUrl))
+
+	if (used_group.length !== 1) {
+		throw new Error('Group not found')
+	}
+
+	const group_id = used_group[0].id
+
 	// record it in the database
 	await db.insert(post).values({
 		title: title,
 		attachment: key,
-		userId: session.user.id
+		userId: session.user.id,
+		groupId: group_id
 	})
 
 	return redirect(`/user/group/${groupUrl}`)

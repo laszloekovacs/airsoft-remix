@@ -1,4 +1,4 @@
-import { integer, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 import { user } from './auth-schema'
 
 export const group = pgTable('group', {
@@ -14,6 +14,6 @@ export const post = pgTable('post', {
 	attachment: text().notNull(),
 	createdAt: timestamp().defaultNow(),
 	updatedAt: timestamp().defaultNow(),
-	userId: text('user_id').references(() => user.id)
-	//groupId: uuid('group_id').references(() => group.id)
+	userId: text('user_id').references(() => user.id),
+	groupId: uuid('group_id').references(() => group.id)
 })
