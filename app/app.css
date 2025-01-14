@@ -12,7 +12,7 @@ body {
 
 	@apply text-black dark:text-white;
 
-	@apply text-[14px] font-sans;
+	@apply text-[14px] font-serif;
 }
 
 a {

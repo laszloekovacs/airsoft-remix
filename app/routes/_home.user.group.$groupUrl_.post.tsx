@@ -18,7 +18,6 @@ export default function PostPage() {
 				<input type='file' name='attachment' accept='image/jpeg' />
 				<br />
 				<input type='submit' value='létrehozás' />
-				<button>submut</button>
 			</Form>
 		</div>
 	)
