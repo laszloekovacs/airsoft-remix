@@ -3,19 +3,19 @@ import type { Route } from './+types/_home.user.group.$groupUrl._index'
 import { Link } from 'react-router'
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
-	return { id: params.groupId }
+	return { groupUrl: params.groupUrl }
 }
 
 export default function GroupDetailsPage({ loaderData }: Route.ComponentProps) {
-	const { id } = loaderData
+	const { groupUrl } = loaderData
 
 	return (
 		<div>
-			<span>{id}</span>
+			<span>{groupUrl}</span>
 			<h2>Csoport hirdetései</h2>
 
 			<div>
-				<PostsListContainer id={id} />
+				<PostsListContainer id={groupUrl} />
 			</div>
 		</div>
 	)

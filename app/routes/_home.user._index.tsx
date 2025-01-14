@@ -12,7 +12,6 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 	// list of groups
 	const groups = await db.select().from(group)
-	console.log('groups', groups)
 
 	return {
 		user,
@@ -42,7 +41,7 @@ const GroupsList = ({ groups }: any[]) => {
 		<ul>
 			{groups.map(group => (
 				<li key={group.id}>
-					<Link to={`/user/group/${group.id}`}>{group.name}</Link>
+					<Link to={`/user/group/${group.url}`}>{group.name}</Link>
 				</li>
 			))}
 		</ul>
