@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Route } from './+types/_home.event.$id'
+import type { Route } from './+types/_home.event_.$id'
 import { Link, useNavigate } from 'react-router'
 
 export const loader = async () => {
