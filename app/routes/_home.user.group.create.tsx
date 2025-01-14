@@ -1,12 +1,8 @@
-import React from 'react'
+import { Form, redirect } from 'react-router'
 import { auth } from '~/lib/auth.server'
-import type { Route } from './+types/_home.user.group.create'
-import invariant from 'tiny-invariant'
-import { Form } from 'react-router'
 import { db } from '~/lib/db.server'
 import { group } from '~/schema'
-import { redirect } from 'react-router'
-import { eq } from 'drizzle-orm'
+import type { Route } from './+types/_home.user.group.create'
 
 export default function GroupCreate() {
 	return (
@@ -18,9 +14,9 @@ export default function GroupCreate() {
 					type='text'
 					name='groupname'
 					required
-					placeholder='csoport neve'
+					placeholder='pl: városi airsoft csoport'
 				/>
-				<input type='submit' />
+				<input type='submit' value='létrehoz' />
 			</Form>
 		</div>
 	)
