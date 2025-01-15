@@ -22,6 +22,11 @@ export const auth = betterAuth({
 			enabled: true,
 			clientId: process.env.GITHUB_CLIENT_ID!,
 			clientSecret: process.env.GITHUB_CLIENT_SECRET!
+		},
+		discord: {
+			enabled: true,
+			clientId: process.env.DISCORD_CLIENT_ID!,
+			clientSecret: process.env.DISCORD_CLIENT_SECRET!
 		}
 	},
 	user: {

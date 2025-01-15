@@ -1,9 +1,9 @@
 import { authClient } from '~/lib/auth.client'
 
 const LoginPage = () => {
-	const signIn = async () => {
+	const signIn = async (provider: 'github' | 'discord') => {
 		authClient.signIn.social({
-			provider: 'github',
+			provider: provider,
 			newUserCallbackURL: '/welcome'
 		})
 	}
@@ -11,7 +11,9 @@ const LoginPage = () => {
 	return (
 		<div>
 			<h1>Bejelentkezés</h1>
-			<button onClick={() => signIn()}>belépés github fiókkal</button>
+			<button onClick={() => signIn('github')}>belépés github fiókkal</button>
+			<br />
+			<button onClick={() => signIn('discord')}>belépés discord fiókkal</button>
 		</div>
 	)
 }
