@@ -2,6 +2,7 @@ import React from 'react'
 import type { Route } from './+types/_home.event_.$id'
 import { Link, useNavigate } from 'react-router'
 
+// TODO: infer from db type
 export const loader = async () => {
 	const eventData = {
 		title: 'Event Title',
