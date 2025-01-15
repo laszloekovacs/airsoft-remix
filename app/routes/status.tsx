@@ -4,20 +4,16 @@ import { db } from '~/lib/db.server'
 
 export const loader = async () => {
 	try {
-		if (!process.env.GITHUB_CLIENT_ID) {
+		if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
 			throw new Error('GITHUB_CLIENT_ID is not defined')
 		}
 
-		if (!process.env.GITHUB_CLIENT_SECRET) {
-			throw new Error('GITHUB_CLIENT_SECRET is not defined')
+		if (!process.env.DISCORD_CLIENT_ID || !process.env.DISCORD_CLIENT_SECRET) {
+			throw new Error('DISCORD_CLIENT_ID is not defined')
 		}
 
-		if (!process.env.BETTER_AUTH_SECRET) {
+		if (!process.env.BETTER_AUTH_SECRET || !process.env.BETTER_AUTH_URL) {
 			throw new Error('BETTER_AUTH_SECRET is not defined')
-		}
-
-		if (!process.env.BETTER_AUTH_URL) {
-			throw new Error('BETTER_AUTH_URL is not defined')
 		}
 
 		if (!process.env.BASE_URL) {
