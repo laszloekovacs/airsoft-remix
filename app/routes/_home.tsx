@@ -1,9 +1,8 @@
-import { Link, Outlet, redirect } from 'react-router'
-import type { Route } from './+types/_home'
+import { Link, Outlet } from 'react-router'
 import { SessionMenuButton } from '~/components/session'
-import { getBuildDate } from '~/lib/build.server'
 import { auth } from '~/lib/auth.server'
-import invariant from 'tiny-invariant'
+import { getBuildDate } from '~/lib/build.server'
+import type { Route } from './+types/_home'
 
 export function meta({}: Route.MetaArgs) {
 	return [

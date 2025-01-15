@@ -8,35 +8,33 @@ import { db } from '~/lib/db.server'
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
 	invariant(session, 'no session data')
-	const { user } = session
 
 	// list of groups
-	const groups = await db.select().from(group)
+	const groupList = await db.select().from(group)
 
 	return {
-		user,
-		groups
+		groupList
 	}
 }
 
 export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
-	const { user, groups } = loaderData
+	const { groupList } = loaderData
 
 	return (
 		<div>
-			<h2>UserIndexPage</h2>
-			<pre>{JSON.stringify(user, null, 2)}</pre>
+			<h2>Szervező oldal</h2>
+
 			<div>
 				<h2>Csoportjaim</h2>
 				<Link to='/user/group/create'>létrehozás</Link>
-				<GroupsList groups={groups} />
+				<GroupsList groups={groupList} />
 			</div>
 		</div>
 	)
 }
 
 //<GroupsList groups={groups} />
-const GroupsList = ({ groups }: any[]) => {
+const GroupsList = ({ groups }: { groups: any[] }) => {
 	return (
 		<ul>
 			{groups.map(group => (
