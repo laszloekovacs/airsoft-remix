@@ -1,6 +1,5 @@
 import { EventCalendarContainer } from '~/components/event-list'
 import type { Route } from './+types/_home._index'
-import { Outlet } from 'react-router'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	// extract 'page' search param
