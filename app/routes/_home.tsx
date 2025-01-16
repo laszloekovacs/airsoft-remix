@@ -46,12 +46,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 					</main>
 
 					<footer>
-						<span>© {new Date().getFullYear()} Airsoft Naptar</span>
-						<div>
-							<Link to='/dashboard'>Admin felület</Link>
-						</div>
+						<hr />
+						<p>© {new Date().getFullYear()} Airsoft Naptár</p>
+
 						<span>
-							verzio:{' '}
+							verzió:{' '}
 							{buildDate.toLocaleString('hu-HU', {
 								dateStyle: 'medium',
 								timeStyle: 'short'

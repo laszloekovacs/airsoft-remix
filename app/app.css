@@ -17,7 +17,7 @@ body {
 
 	@apply text-black dark:text-white;
 
-	@apply text-[14.5px];
+	@apply text-[14px];
 }
 
 a {
