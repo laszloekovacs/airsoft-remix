@@ -8,10 +8,7 @@ import {
 	timestamp,
 	uuid
 } from 'drizzle-orm/pg-core'
-
-// reexport the tables
-import { user, account, session, verification } from './auth-schema'
-export { user, session, account, verification }
+import { user } from './auth-schema'
 
 export const group = pgTable('group', {
 	id: uuid().primaryKey().defaultRandom(),

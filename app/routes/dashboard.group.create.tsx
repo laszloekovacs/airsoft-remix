@@ -7,6 +7,8 @@ import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
 import { delay } from '~/lib/delay'
 
+const MIN_GROUP_NAME_LENGTH = 3
+
 export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 	const navigation = useNavigation()
 	const navigate = useNavigate()
@@ -24,8 +26,10 @@ export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 			})
 
 			const timeoutHandle = setTimeout(() => {
-				navigate(`/dashboard/group/${actionData.generatedName}`)
-			}, 2000)
+				navigate(`/dashboard/group/${actionData.generatedName}`, {
+					replace: true
+				})
+			}, 5000)
 
 			return () => clearTimeout(timeoutHandle)
 		}
@@ -49,6 +53,9 @@ export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 					type='text'
 					name='groupName'
 					required
+					min={MIN_GROUP_NAME_LENGTH}
+					max={256}
+					autoFocus
 					placeholder='pl: városi airsoft csoport'
 					value={formState.groupName}
 					onChange={groupNameChangeHandler}
@@ -59,7 +66,9 @@ export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 
 			<div>
 				{actionData?.isCreated && (
-					<p className='text-green-600'>Sikeresen letrehozva</p>
+					<p className='text-green-600'>
+						<span>Sikeresen letrehozva, atiranyitjuk {5} masodperc mulva</span>
+					</p>
 				)}
 			</div>
 
@@ -87,7 +96,8 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	const formData = await request.formData()
 	const groupName = Object.fromEntries(formData).groupName.toString()
-	if (groupName.length < 3) throw new Error('Group name too short')
+	if (groupName.length < MIN_GROUP_NAME_LENGTH)
+		throw new Error('Group name too short')
 
 	const generatedName = generateUrlName(groupName)
 
