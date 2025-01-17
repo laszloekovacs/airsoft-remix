@@ -19,7 +19,7 @@ export const group = pgTable('group', {
 		.references(() => user.id)
 })
 
-export const groupUser = pgTable('group_user', {
+export const groupUserMap = pgTable('group_user_map', {
 	id: uuid().primaryKey().defaultRandom(),
 	userId: text('user_id')
 		.notNull()

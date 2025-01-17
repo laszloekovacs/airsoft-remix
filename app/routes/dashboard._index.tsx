@@ -1,28 +1,25 @@
-import { Link } from 'react-router'
+import { Link, redirect } from 'react-router'
 import { auth } from '~/lib/auth.server'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard._index'
-
-type groupSelectType = typeof group.$inferSelect
+import { db } from '~/lib/db.server'
+import { eq } from 'drizzle-orm'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
-	if (!session) throw new Response(null, { status: 401 })
+	if (!session) return redirect('/login')
 
-	//TODO return the list of groups this user is part of
-	const groupList = null
-	/*
-	await db
+	//TODO return the list of groups this user is owner of
+	const myGroups = await db
 		.select()
 		.from(group)
-		.innerJoin(groupUser, eq(group.id, groupUser.groupId))
-		.where(eq(groupUser.userId, session.user.id))
-*/
-	return { groupList }
+		.where(eq(group.createdBy, session.user.id))
+
+	return { myGroups }
 }
 
 export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
-	const { groupList } = loaderData
+	const { myGroups } = loaderData
 
 	return (
 		<div>
@@ -32,13 +29,12 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 				<h2>Csoportjaim</h2>
 				<br />
 				<Link to='group/create'>új csoport létrehozása</Link>
-				{groupList && <GroupsList groups={groupList} />}
+				{myGroups && <GroupsList groups={myGroups} />}
 			</div>
 		</div>
 	)
 }
 
-//<GroupsList groups={groups} />
 const GroupsList = ({ groups }: { groups: (typeof group.$inferSelect)[] }) => {
 	return (
 		<ul>
