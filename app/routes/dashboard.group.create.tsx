@@ -6,6 +6,15 @@ import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
 import { useDeferredValue, useState } from 'react'
 
+export const loader = async ({ request }: Route.LoaderArgs) => {
+	const formData = await request.formData()
+	const groupName = formData.get('groupName')?.toString()
+
+	if (!groupName) return null
+
+	return { formData }
+}
+
 export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 	const [formState, setFormState] = useState({
 		groupName: ''
