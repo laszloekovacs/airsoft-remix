@@ -1,16 +1,16 @@
-import { Form, redirect } from 'react-router'
+import { data, Form } from 'react-router'
 import { auth } from '~/lib/auth.server'
 import { db } from '~/lib/db.server'
 import { generateUrlName } from '~/lib/generate-url-name'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
 
-export default function GroupCreate() {
+export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 	return (
 		<div>
 			<p>új csoport létrehozása</p>
 
-			<Form method='post'>
+			<Form method='POST'>
 				<input
 					type='text'
 					name='groupName'
@@ -18,6 +18,7 @@ export default function GroupCreate() {
 					placeholder='pl: városi airsoft csoport'
 				/>
 				<input type='submit' value='létrehoz' />
+				<input type='reset' value='mégsem' />
 			</Form>
 		</div>
 	)
@@ -25,25 +26,28 @@ export default function GroupCreate() {
 
 export const action = async ({ request }: Route.ActionArgs) => {
 	const sessionData = await auth.api.getSession({ headers: request.headers })
-
-	// no session data, return to login page
-	if (!sessionData) {
-		return redirect('/login')
-	}
+	if (!sessionData) throw new Response(null, { status: 401 })
+	// TODO handle missing session
+	// check permissions
 
 	const formData = await request.formData()
-	//Object.fromEntries(formData)
-	const groupname = formData.get('groupName') as string
+	const groupName = formData.get('groupName')?.toString()
+	if (!groupName) throw new Error('no group name')
 
-	/// create a group in the database
-	const result = await db.insert(group).values({
-		createdBy: sessionData.user.id,
-		urlPath: generateUrlName(groupname),
-		name: groupname
-	})
+	const generatedName = generateUrlName(groupName)
 
-	if (result.rowCount !== 1)
-		throw new Error('database error: could not create group')
+	const queryResult = await db
+		.insert(group)
+		.values({
+			name: groupName,
+			urlPath: generatedName,
+			createdBy: sessionData.user.id
+		})
+		.onConflictDoNothing()
 
-	return redirect('/user')
+	if (queryResult.rowCount === 0) {
+		return data(null, { status: 400 })
+	}
+
+	return data({ groupUrlPath: generatedName }, { status: 201 })
 }
