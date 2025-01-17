@@ -19,7 +19,7 @@ export const group = pgTable('group', {
 		.references(() => user.id)
 })
 
-export const members = pgTable('members', {
+export const groupMembers = pgTable('group_members', {
 	id: uuid().primaryKey().defaultRandom(),
 	userId: text('user_id')
 		.notNull()
