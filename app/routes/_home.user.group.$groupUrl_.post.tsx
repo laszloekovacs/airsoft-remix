@@ -4,7 +4,7 @@ import invariant from 'tiny-invariant'
 import { db } from '~/lib/db.server'
 import { post, group } from '~/schema'
 import { auth } from '~/lib/auth.server'
-import { storage_write } from '~/lib/storage.server'
+import { WriteToStorage } from '~/lib/storage.server'
 import { eq } from 'drizzle-orm'
 import { useEffect, useState } from 'react'
 import { generateUrlName } from '~/lib/generate-url-name'
@@ -87,7 +87,7 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	const key = `${year}/${groupUrl}_${titleUrl}_${hexTimestamp}.${ext}`
 
 	// write file to disk
-	const bytes = await storage_write(key, attachment)
+	const bytes = await WriteToStorage(key, attachment)
 
 	if (bytes == 0) {
 		throw new Error('Failed to write file to disk')
