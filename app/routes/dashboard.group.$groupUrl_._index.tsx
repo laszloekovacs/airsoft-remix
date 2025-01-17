@@ -1,12 +1,12 @@
-import type { Route } from './+types/_home.user.group.$groupUrl_._index'
 import { Link } from 'react-router'
 import { db } from '~/lib/db.server'
-import { post } from '~/schema'
+import { event } from '~/schema'
+import type { Route } from './+types/dashboard.group.$groupUrl_._index'
 
-type postType = typeof post.$inferSelect
+type postType = typeof event.$inferSelect
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
-	const posts = await db.select().from(post)
+	const posts = await db.select().from(event)
 
 	return { groupUrl: params.groupUrl, posts }
 }
@@ -30,7 +30,7 @@ export default function GroupDetailsPage({ loaderData }: Route.ComponentProps) {
 const PostsListContainer = ({ id }: { id: string }) => {
 	return (
 		<div>
-			<Link to={`/user/group/${id}/post`}>new post</Link>
+			<Link to={`/dashboard/group/${id}/post`}>new post</Link>
 		</div>
 	)
 }
@@ -47,7 +47,7 @@ const PostList = ({
 			<h3>post list</h3>
 			{posts.map((p: postType) => (
 				<div key={p.id}>
-					<Link to={`/user/group/${groupUrl}/post/${p.titleUrl}`}>
+					<Link to={`/dashboard/group/${groupUrl}/post/${p.titleUrl}`}>
 						{p.title}
 					</Link>
 				</div>

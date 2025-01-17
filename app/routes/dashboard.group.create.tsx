@@ -1,9 +1,9 @@
 import { Form, redirect } from 'react-router'
 import { auth } from '~/lib/auth.server'
 import { db } from '~/lib/db.server'
-import { group } from '~/schema'
-import type { Route } from './+types/_home.user.group.create'
 import { generateUrlName } from '~/lib/generate-url-name'
+import { group } from '~/schema'
+import type { Route } from './+types/dashboard.group.create'
 
 export default function GroupCreate() {
 	return (
@@ -13,7 +13,7 @@ export default function GroupCreate() {
 			<Form method='post'>
 				<input
 					type='text'
-					name='groupname'
+					name='groupName'
 					required
 					placeholder='pl: városi airsoft csoport'
 				/>
@@ -33,12 +33,12 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	const formData = await request.formData()
 	//Object.fromEntries(formData)
-	const groupname = formData.get('groupname') as string
+	const groupname = formData.get('groupName') as string
 
 	/// create a group in the database
 	const result = await db.insert(group).values({
 		createdBy: sessionData.user.id,
-		url: generateUrlName(groupname),
+		urlPath: generateUrlName(groupname),
 		name: groupname
 	})
 

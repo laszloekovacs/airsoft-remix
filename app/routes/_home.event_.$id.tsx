@@ -1,6 +1,5 @@
-import React from 'react'
+import { useNavigate } from 'react-router'
 import type { Route } from './+types/_home.event_.$id'
-import { Link, useNavigate } from 'react-router'
 
 // TODO: infer from db type
 export const loader = async () => {

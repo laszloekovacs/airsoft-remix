@@ -1,7 +1,7 @@
 import { Link, Outlet } from 'react-router'
 import { SessionMenuButton } from '~/components/session'
 import { auth } from '~/lib/auth.server'
-import { getBuildDate } from '~/lib/build.server'
+
 import type { Route } from './+types/_home'
 
 export function meta({}: Route.MetaArgs) {
@@ -12,18 +12,16 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader({ params, request }: Route.LoaderArgs) {
-	const buildDate = getBuildDate()
-
 	// returns email, if logged in aka session is not null
 	const session = await auth.api.getSession({ headers: request.headers })
 	const userEmail = session?.user.email || null
 	const userProfileUrl = session?.user.image || null
 
-	return { buildDate, userEmail, userProfileUrl }
+	return { userEmail, userProfileUrl }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const { buildDate, userEmail, userProfileUrl } = loaderData
+	const { userEmail, userProfileUrl } = loaderData
 
 	return (
 		<div>
@@ -34,7 +32,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 							<img src='/logo/ac.png' alt='logo' className='h-20' />
 							<h1>Airsoft Naptár</h1>
 						</Link>
-						<Link to='/user'>Profil</Link>
+						<Link to='/dashboard'>Profil</Link>
 						<SessionMenuButton
 							userEmail={userEmail}
 							imageUrl={userProfileUrl}
@@ -48,16 +46,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 					<footer>
 						<hr />
 						<p>© {new Date().getFullYear()} Airsoft Naptár</p>
-
-						<span>
-							<span>verzió: </span>
-							{buildDate
-								? buildDate.toLocaleString('hu-HU', {
-										dateStyle: 'medium',
-										timeStyle: 'short'
-								  })
-								: '...'}
-						</span>
 					</footer>
 				</div>
 			</div>

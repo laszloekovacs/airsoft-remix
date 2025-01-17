@@ -1,13 +1,13 @@
-import { Form, redirect } from 'react-router'
-import type { Route } from './+types/_home.user.group.$groupUrl_.post'
-import invariant from 'tiny-invariant'
-import { db } from '~/lib/db.server'
-import { post, group } from '~/schema'
-import { auth } from '~/lib/auth.server'
-import { WriteToStorage } from '~/lib/storage.server'
 import { eq } from 'drizzle-orm'
 import { useEffect, useState } from 'react'
+import { Form, redirect } from 'react-router'
+import invariant from 'tiny-invariant'
+import { auth } from '~/lib/auth.server'
+import { db } from '~/lib/db.server'
 import { generateUrlName } from '~/lib/generate-url-name'
+import { WriteToStorage } from '~/lib/storage.server'
+import { event, group } from '~/schema'
+import type { Route } from './+types/dashboard.group.$groupUrl_.post'
 
 const MAX_ATTACHMENT_SIZE = 2 * 1024 * 1024
 
@@ -97,7 +97,7 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	const current_group = await db
 		.select()
 		.from(group)
-		.where(eq(group.url, groupUrl))
+		.where(eq(group.urlPath, groupUrl))
 
 	if (current_group.length !== 1) {
 		throw new Error('Group not found')
@@ -106,13 +106,19 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	const group_id = current_group[0].id
 
 	// record it in the database
-	await db.insert(post).values({
-		title: title,
+	await db.insert(event).values({
+		title,
+		location: '',
+		description: '',
+		startDate: new Date(),
+		startTime: new Date(),
+		urlPath: titleUrl,
 		attachment: key,
 		userId: session.user.id,
 		groupId: group_id,
-		titleUrl: titleUrl
+		createdBy: session.user.id,
+		group: group_id
 	})
 
-	return redirect(`/user/group/${groupUrl}/${titleUrl}`)
+	return redirect(`/dashboard/group/${groupUrl}/${titleUrl}`)
 }
