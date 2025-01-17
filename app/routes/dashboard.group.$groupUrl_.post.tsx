@@ -5,7 +5,7 @@ import invariant from 'tiny-invariant'
 import { auth } from '~/lib/auth.server'
 import { db } from '~/lib/db.server'
 import { generateUrlName } from '~/lib/generate-url-name'
-import { WriteToStorage } from '~/lib/storage.server'
+import { writeToStorage } from '~/lib/storage.server'
 import { event, group } from '~/schema'
 import type { Route } from './+types/dashboard.group.$groupUrl_.post'
 
@@ -87,7 +87,7 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	const key = `${year}/${groupUrl}_${titleUrl}_${hexTimestamp}.${ext}`
 
 	// write file to disk
-	const bytes = await WriteToStorage(key, attachment)
+	const bytes = await writeToStorage(key, attachment)
 
 	if (bytes == 0) {
 		throw new Error('Failed to write file to disk')

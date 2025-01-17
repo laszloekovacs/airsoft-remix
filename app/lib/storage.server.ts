@@ -1,4 +1,4 @@
-export const WriteToStorage = async (key: string, attachment: File) => {
+export const writeToStorage = async (key: string, attachment: File) => {
 	const content_basepath = './upload/content/'
 	const path = content_basepath + key
 
