@@ -7,11 +7,13 @@ import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
 
 const MIN_GROUP_NAME_LENGTH = 3
+const MAX_GROUP_NAME_LENGTH = 256
+const REDIRECT_TIMEOUT = 5000
 
 export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 	const navigation = useNavigation()
 	const navigate = useNavigate()
-	const [formState, setFormState] = useState({
+	const [formState, setFormState] = useState<{ groupName: string }>({
 		groupName: ''
 	})
 
@@ -28,7 +30,7 @@ export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 				navigate(`/dashboard/group/${actionData.generatedName}`, {
 					replace: true
 				})
-			}, 5000)
+			}, REDIRECT_TIMEOUT)
 
 			return () => clearTimeout(timeoutHandle)
 		}
@@ -49,11 +51,12 @@ export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 
 			<Form method='POST'>
 				<input
+					aria-label='Csoport neve'
 					type='text'
 					name='groupName'
 					required
 					min={MIN_GROUP_NAME_LENGTH}
-					max={256}
+					max={MAX_GROUP_NAME_LENGTH}
 					autoFocus
 					placeholder='pl: városi airsoft csoport'
 					value={formState.groupName}
@@ -68,6 +71,9 @@ export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 					<p className='text-green-600'>
 						<span>Sikeresen letrehozva, atiranyitjuk {5} masodperc mulva</span>
 					</p>
+				)}
+				{actionData?.error && (
+					<p className='text-red-600'>{actionData.error}</p>
 				)}
 			</div>
 
@@ -95,8 +101,18 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	const formData = await request.formData()
 	const groupName = Object.fromEntries(formData).groupName.toString()
+
 	if (groupName.length < MIN_GROUP_NAME_LENGTH)
-		throw new Error('Group name too short')
+		return {
+			isCreated: false,
+			error: 'A csoport neve minimum 3 karakter kell hogy legyen'
+		}
+
+	if (groupName.length > MAX_GROUP_NAME_LENGTH)
+		return {
+			isCreated: false,
+			error: 'A csoport neve maximum 256 karakter lehet'
+		}
 
 	const generatedName = generateUrlName(groupName)
 
@@ -111,7 +127,10 @@ export const action = async ({ request }: Route.ActionArgs) => {
 		.onConflictDoNothing()
 
 	if (queryResult.rowCount === 0) {
-		throw new Error('Could not create, Group already exists')
+		return {
+			isCreated: false,
+			error: 'A csoport már létezik'
+		}
 	}
 
 	return { isCreated: true, generatedName }
