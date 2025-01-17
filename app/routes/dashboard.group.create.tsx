@@ -1,32 +1,14 @@
+import { useState } from 'react'
 import { data, Form } from 'react-router'
 import { auth } from '~/lib/auth.server'
 import { db } from '~/lib/db.server'
 import { generateUrlName } from '~/lib/generate-url-name'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
-import { useDeferredValue, useState } from 'react'
-import { eq } from 'drizzle-orm'
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
-	const url = new URL(request.url)
-	const query = url.searchParams.get('q')
-
-	if (query) {
-		const groups = await db.select().from(group).where(eq(group.name, query))
-
-		return data({ query, groups })
-	}
-
-	return data({ query, groups: [] })
-}
-
-export default function CreateGroupPage({
-	actionData,
-	loaderData
-}: Route.ComponentProps) {
-	const { query, groups } = loaderData
+export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 	const [formState, setFormState] = useState({
-		groupName: query || ''
+		groupName: ''
 	})
 
 	const groupNameChangeHandler = (
@@ -83,6 +65,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	const generatedName = generateUrlName(groupName)
 
+	// create the group, dont throw if it already exists
 	const queryResult = await db
 		.insert(group)
 		.values({

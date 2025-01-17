@@ -1,8 +1,6 @@
-import { eq } from 'drizzle-orm'
 import { Link } from 'react-router'
 import { auth } from '~/lib/auth.server'
-import { db } from '~/lib/db.server'
-import { group, groupUser } from '~/schema'
+import { group } from '~/schema'
 import type { Route } from './+types/dashboard._index'
 
 type groupSelectType = typeof group.$inferSelect
