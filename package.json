@@ -6,7 +6,7 @@
 		"dev": "bun run --bun react-router dev",
 		"build": "bun run --bun react-router build",
 		"start": "bun run --bun react-router-serve ./build/server/index.js",
-		"gen-scema": "npx @better-auth/cli generate --config ./app/lib/auth.server.ts",
+		"gen-scema": "bunx @better-auth/cli generate --config ./app/lib/auth.server.ts",
 		"drizzle-push": "npx drizzle-kit push",
 		"studio": "npx drizzle-kit studio"
 	},

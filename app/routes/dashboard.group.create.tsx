@@ -27,8 +27,9 @@ export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
 export const action = async ({ request }: Route.ActionArgs) => {
 	const sessionData = await auth.api.getSession({ headers: request.headers })
 	if (!sessionData) throw new Response(null, { status: 401 })
-	// TODO handle missing session
-	// check permissions
+
+	// check permission
+	//if (sessionData.claims.)
 
 	const formData = await request.formData()
 	const groupName = formData.get('groupName')?.toString()

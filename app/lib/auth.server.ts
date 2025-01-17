@@ -35,7 +35,7 @@ export const auth = betterAuth({
 		},
 		additionalFields: {
 			claims: {
-				type: 'string',
+				type: 'string[]',
 				required: false,
 				input: false
 			}

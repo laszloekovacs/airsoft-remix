@@ -20,6 +20,7 @@ export const session = pgTable('session', {
 	ipAddress: text('ip_address'),
 	userAgent: text('user_agent'),
 	userId: text('user_id')
+		.array()
 		.notNull()
 		.references(() => user.id)
 })
