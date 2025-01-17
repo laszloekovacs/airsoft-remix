@@ -16,14 +16,14 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
 	// returns email, if logged in aka session is not null
 	const session = await auth.api.getSession({ headers: request.headers })
-	const user_email = session?.user.email || null
-	const user_image_url = session?.user.image || null
+	const userEmail = session?.user.email || null
+	const userProfileUrl = session?.user.image || null
 
-	return { buildDate, user_email, user_image_url }
+	return { buildDate, userEmail, userProfileUrl }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const { buildDate, user_email, user_image_url } = loaderData
+	const { buildDate, userEmail, userProfileUrl } = loaderData
 
 	return (
 		<div>
@@ -36,8 +36,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 						</Link>
 						<Link to='/user'>Profil</Link>
 						<SessionMenuButton
-							userEmail={user_email}
-							imageUrl={user_image_url}
+							userEmail={userEmail}
+							imageUrl={userProfileUrl}
 						/>
 					</header>
 
@@ -50,11 +50,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 						<p>© {new Date().getFullYear()} Airsoft Naptár</p>
 
 						<span>
-							verzió:{' '}
-							{buildDate.toLocaleString('hu-HU', {
-								dateStyle: 'medium',
-								timeStyle: 'short'
-							})}
+							<span>verzió: </span>
+							{buildDate
+								? buildDate.toLocaleString('hu-HU', {
+										dateStyle: 'medium',
+										timeStyle: 'short'
+								  })
+								: '...'}
 						</span>
 					</footer>
 				</div>

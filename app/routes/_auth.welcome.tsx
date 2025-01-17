@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 
-const welcome = () => {
+const WelcomePage = () => {
 	return (
 		<div>
 			<p>új felhasználó regisztráció</p>
@@ -9,4 +9,4 @@ const welcome = () => {
 	)
 }
 
-export default welcome
+export default WelcomePage
