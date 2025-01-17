@@ -5,7 +5,6 @@ import { db } from '~/lib/db.server'
 import { generateUrlName } from '~/lib/generate-url-name'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
-import { delay } from '~/lib/delay'
 
 const MIN_GROUP_NAME_LENGTH = 3
 
@@ -100,8 +99,6 @@ export const action = async ({ request }: Route.ActionArgs) => {
 		throw new Error('Group name too short')
 
 	const generatedName = generateUrlName(groupName)
-
-	delay(1000)
 
 	// create the group, dont throw if it already exists
 	const queryResult = await db
