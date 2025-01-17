@@ -1,5 +1,4 @@
 import { auth } from '~/lib/auth.server'
-import type { Route } from './+types/_home.user._index'
 import { Link } from 'react-router'
 import invariant from 'tiny-invariant'
 import { group } from '~/schema'

@@ -32,10 +32,12 @@ export const action = async ({ request }: Route.ActionArgs) => {
 	}
 
 	const formData = await request.formData()
+	//Object.fromEntries(formData)
 	const groupname = formData.get('groupname') as string
 
 	/// create a group in the database
 	const result = await db.insert(group).values({
+		createdBy: sessionData.user.id,
 		url: generateUrlName(groupname),
 		name: groupname
 	})
