@@ -1,23 +1,25 @@
+import { eq } from 'drizzle-orm'
 import { Link } from 'react-router'
-import invariant from 'tiny-invariant'
 import { auth } from '~/lib/auth.server'
 import { db } from '~/lib/db.server'
 import { group, groupUser } from '~/schema'
 import type { Route } from './+types/dashboard._index'
-import { eq } from 'drizzle-orm'
 
 type groupSelectType = typeof group.$inferSelect
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
-	invariant(session, 'no session data')
+	if (!session) throw new Response(null, { status: 401 })
 
 	//TODO return the list of groups this user is part of
-	const groupList = await db
+	const groupList = null
+	/*
+	await db
 		.select()
 		.from(group)
+		.innerJoin(groupUser, eq(group.id, groupUser.groupId))
 		.where(eq(groupUser.userId, session.user.id))
-
+*/
 	return { groupList }
 }
 
@@ -31,15 +33,15 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 			<div>
 				<h2>Csoportjaim</h2>
 				<br />
-				<Link to='dashboard/group/create'>új csoport létrehozása</Link>
-				<GroupsList groups={groupList} />
+				<Link to='group/create'>új csoport létrehozása</Link>
+				{groupList && <GroupsList groups={groupList} />}
 			</div>
 		</div>
 	)
 }
 
 //<GroupsList groups={groups} />
-const GroupsList = ({ groups }: { groups: groupSelectType[] }) => {
+const GroupsList = ({ groups }: { groups: (typeof group.$inferSelect)[] }) => {
 	return (
 		<ul>
 			{groups.map(group => (

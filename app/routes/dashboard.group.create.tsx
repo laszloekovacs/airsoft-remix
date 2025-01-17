@@ -5,21 +5,29 @@ import { generateUrlName } from '~/lib/generate-url-name'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
 import { useDeferredValue, useState } from 'react'
+import { eq } from 'drizzle-orm'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-	const formData = await request.formData()
-	const groupName = formData.get('groupName')?.toString()
+	const url = new URL(request.url)
+	const query = url.searchParams.get('q')
 
-	if (!groupName) return null
+	if (query) {
+		const groups = await db.select().from(group).where(eq(group.name, query))
 
-	return { formData }
+		return data({ query, groups })
+	}
+
+	return data({ query, groups: [] })
 }
 
-export default function CreateGroupPage({ actionData }: Route.ComponentProps) {
+export default function CreateGroupPage({
+	actionData,
+	loaderData
+}: Route.ComponentProps) {
+	const { query, groups } = loaderData
 	const [formState, setFormState] = useState({
-		groupName: ''
+		groupName: query || ''
 	})
-	const [defferedGroupName] = useDeferredValue(formState.groupName)
 
 	const groupNameChangeHandler = (
 		event: React.ChangeEvent<HTMLInputElement>
