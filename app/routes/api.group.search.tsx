@@ -1,24 +1,21 @@
-import type { ActionFunctionArgs } from 'react-router'
+import { like } from 'drizzle-orm'
+import type { ActionFunction, LoaderFunction } from 'react-router'
 import { db } from '~/lib/db.server'
 import { group } from '~/schema'
-import { like } from 'drizzle-orm'
 
-export const action = async ({ request }: ActionFunctionArgs) => {
-	const formData = await request.formData()
-	const groupName = formData.get('groupName')?.toString() ?? null
-
-	if (!groupName)
-		return {
-			matches: []
-		}
+export const action: ActionFunction = async ({ request }) => {
+	const data = await request.formData()
+	const groupName = data.get('groupName')
 
 	console.log(groupName)
 
-	// search for the group name
-	const matches = await db
+	const result = await db
 		.select()
 		.from(group)
 		.where(like(group.name, `${groupName}%`))
 
-	return { matches }
+	return new Response(JSON.stringify(result), {
+		status: 200,
+		headers: { 'Content-Type': 'application/json' }
+	})
 }

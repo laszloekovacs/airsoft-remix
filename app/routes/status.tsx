@@ -1,6 +1,8 @@
 import { user } from '~/schema/auth-schema'
-import type { Route } from './+types/status'
 import { db } from '~/lib/db.server'
+import type { Route } from './+types/status'
+import { Form, useFetcher } from 'react-router'
+import { useDeferredValue, useEffect, useState } from 'react'
 
 export const loader = async () => {
 	try {
@@ -39,10 +41,38 @@ export const loader = async () => {
 }
 
 const StatusPage = ({ loaderData }: Route.ComponentProps) => {
+	const [searchTerm, setSearchTerm] = useState('')
+	const [data, setData] = useState('')
+
+	useEffect(() => {
+		if (searchTerm) {
+			const form = new FormData()
+			form.append('groupName', searchTerm)
+
+			fetch('/api/group/search', {
+				method: 'POST',
+				body: form
+			})
+				.then(res => res.json())
+				.then(data => setData(data))
+		}
+	}, [searchTerm])
+
 	return (
 		<div>
 			<h1>{loaderData.status}</h1>
 			<p>{loaderData.message}</p>
+			{<pre>{JSON.stringify(data, null, 2)}</pre>}
+			<Form action='/api/group/search' method='POST'>
+				<label htmlFor='groupName'>Group name</label>
+				<input
+					type='text'
+					name='groupName'
+					id='groupName'
+					value={searchTerm}
+					onChange={e => setSearchTerm(e.target.value)}
+				/>
+			</Form>
 		</div>
 	)
 }
