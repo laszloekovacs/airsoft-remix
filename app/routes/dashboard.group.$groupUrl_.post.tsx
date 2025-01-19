@@ -8,8 +8,9 @@ import { generateUrlName } from '~/lib/generate-url-name'
 import { writeToStorage } from '~/lib/storage.server'
 import { event, group } from '~/schema'
 import type { Route } from './+types/dashboard.group.$groupUrl_.post'
+import { encodeBase62 } from '~/lib/base62'
 
-const MAX_ATTACHMENT_SIZE = 2 * 1024 * 1024
+const MAX_ATTACHMENT_SIZE = 1 * 1024 * 1024
 
 export default function PostAdInGroupPage() {
 	const [file, setFile] = useState<File | null>(null)
@@ -73,18 +74,19 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 
 	// reject large files
 	if (attachment.size > MAX_ATTACHMENT_SIZE) {
-		throw new Error('File too large, max 2mb is allowed')
+		throw new Error(`File too large, max ${MAX_ATTACHMENT_SIZE} bytes allowed`)
 	}
 
 	// generate an url friendly title
 	const titleUrl = generateUrlName(title)
 
 	// generate a template path for the attachment
-	const year = new Date().getFullYear()
-	const hexTimestamp = Date.now().toString(16)
+	const timestamp = Date.now()
+	const year = new Date(timestamp).getFullYear()
+	const encodedTimestamp = encodeBase62(timestamp)
 	const ext = attachment.name.split('.').pop()
 
-	const key = `${year}/${groupUrl}_${titleUrl}_${hexTimestamp}.${ext}`
+	const key = `${year}/${groupUrl}_${titleUrl}_${encodedTimestamp}.${ext}`
 
 	// write file to disk
 	const bytes = await writeToStorage(key, attachment)
@@ -107,15 +109,16 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 
 	// record it in the database
 	await db.insert(event).values({
-		title,
-		location: '',
-		description: '',
-		startDate: new Date(),
-		startTime: new Date(),
 		urlPath: titleUrl,
+		title,
+		description: '',
 		attachment: key,
-		userId: session.user.id,
-		groupId: group_id,
+		createdAt: new Date(timestamp),
+		updatedAt: new Date(timestamp),
+		startTime: new Date(),
+		startDate: new Date(),
+		location: '',
+		isPublished: false,
 		createdBy: session.user.id,
 		group: group_id
 	})
