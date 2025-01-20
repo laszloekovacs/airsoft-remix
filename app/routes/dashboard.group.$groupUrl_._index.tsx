@@ -1,12 +1,12 @@
 import { Link } from 'react-router'
-import { db } from '~/lib/db.server'
+import { drizzleClient } from '~/lib/db.server'
 import { event } from '~/schema'
 import type { Route } from './+types/dashboard.group.$groupUrl_._index'
 
 type postType = typeof event.$inferSelect
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
-	const posts = await db.select().from(event)
+	const posts = await drizzleClient.select().from(event)
 
 	return { groupUrl: params.groupUrl, posts }
 }

@@ -2,7 +2,7 @@ import { Link, redirect } from 'react-router'
 import { auth } from '~/lib/auth.server'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard._index'
-import { db } from '~/lib/db.server'
+import { drizzleClient } from '~/lib/db.server'
 import { eq } from 'drizzle-orm'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
@@ -10,7 +10,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 	if (!session) return redirect('/login')
 
 	//TODO return the list of groups this user is owner of
-	const myGroups = await db
+	const myGroups = await drizzleClient
 		.select()
 		.from(group)
 		.where(eq(group.createdBy, session.user.id))

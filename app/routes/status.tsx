@@ -1,5 +1,5 @@
 import { user } from '~/schema/auth-schema'
-import { db } from '~/lib/db.server'
+import { drizzleClient } from '~/lib/db.server'
 import type { Route } from './+types/status'
 import { Form, useFetcher } from 'react-router'
 import { useDeferredValue, useEffect, useState } from 'react'
@@ -23,7 +23,7 @@ export const loader = async () => {
 		}
 
 		// try to do a select
-		const result = await db.select().from(user).limit(1)
+		const result = await drizzleClient.select().from(user).limit(1)
 
 		if (result.length === 0) {
 			throw new Error('database error: could not find any users')

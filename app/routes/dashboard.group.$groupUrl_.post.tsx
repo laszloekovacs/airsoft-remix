@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Form, redirect } from 'react-router'
 import invariant from 'tiny-invariant'
 import { auth } from '~/lib/auth.server'
-import { db } from '~/lib/db.server'
+import { drizzleClient } from '~/lib/db.server'
 import { generateUrlName } from '~/lib/generate-url-name'
 import { writeToStorage } from '~/lib/storage.server'
 import { event, group } from '~/schema'
@@ -96,7 +96,7 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	}
 
 	// lookup the groups Id from the url
-	const current_group = await db
+	const current_group = await drizzleClient
 		.select()
 		.from(group)
 		.where(eq(group.urlPath, groupUrl))
@@ -108,7 +108,7 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 	const group_id = current_group[0].id
 
 	// record it in the database
-	await db.insert(event).values({
+	await drizzleClient.insert(event).values({
 		urlPath: titleUrl,
 		title,
 		description: '',

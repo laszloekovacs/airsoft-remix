@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Form, useNavigate, useNavigation } from 'react-router'
 import { auth } from '~/lib/auth.server'
-import { db } from '~/lib/db.server'
+import { drizzleClient } from '~/lib/db.server'
 import { generateUrlName } from '~/lib/generate-url-name'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
@@ -117,7 +117,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 	const generatedName = generateUrlName(groupName)
 
 	// create the group, dont throw if it already exists
-	const queryResult = await db
+	const queryResult = await drizzleClient
 		.insert(group)
 		.values({
 			name: groupName,
