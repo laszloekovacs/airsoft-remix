@@ -1,15 +1,25 @@
 import { Link } from 'react-router'
+import type { event as CalendarEvent } from '~/schema'
 
-export const EventCalendarContainer = () => {
+export const EventCalendarContainer = ({
+	events
+}: {
+	events: (typeof CalendarEvent.$inferSelect)[]
+}) => {
 	return (
 		<div>
 			<h2>Események</h2>
-			<EventsList />
+			{events && events.length > 0 && <EventsList events={events} />}
 		</div>
 	)
 }
 
-const EventsList = () => {
+const EventsList = ({
+	events
+}: {
+	events: (typeof CalendarEvent.$inferSelect)[]
+}) => {
+	/*
 	const events = [
 		{
 			id: 1,
@@ -30,7 +40,7 @@ const EventsList = () => {
 			img: 'https://picsum.photos/200'
 		}
 	]
-
+*/
 	return (
 		<ul className='flex flex-col space-y-4'>
 			{events.map(event => (
@@ -43,15 +53,14 @@ const EventsList = () => {
 const EventsListItem = ({
 	event
 }: {
-	event: { id: number; name: string; date: string; img: string }
+	event: typeof CalendarEvent.$inferSelect
 }) => {
 	return (
 		<li className='border p-4'>
 			<Link to={`/event/${event.id}`}>
-				<h2>{event.name}</h2>
-				<img src={event.img} alt={event.name} />
+				<h2>{event.title}</h2>
+				<img src={event.attachment} alt={event.attachment} />
 			</Link>
-			<p>{event.date}</p>
 		</li>
 	)
 }
