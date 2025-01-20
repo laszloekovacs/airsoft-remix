@@ -113,15 +113,13 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 		title,
 		description: '',
 		attachment: key,
-		createdAt: new Date(timestamp),
-		updatedAt: new Date(timestamp),
-		startTime: new Date(),
-		startDate: new Date(),
+		startTime: '12:30',
+		startDate: '2001-01-01',
 		location: '',
 		isPublished: false,
 		createdBy: session.user.id,
 		group: group_id
 	})
-
+	// TODO: create handler for this path
 	return redirect(`/dashboard/group/${groupUrl}/${titleUrl}`)
 }
