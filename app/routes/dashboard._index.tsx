@@ -23,14 +23,10 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
-			<h2>Szervező oldal</h2>
-
-			<div>
-				<h2>Csoportjaim</h2>
-				<br />
-				<Link to='group/create'>új csoport létrehozása</Link>
-				{myGroups && <GroupsList groups={myGroups} />}
-			</div>
+			<h2>Csoportjaim</h2>
+			<br />
+			<Link to='group/create'>új csoport létrehozása</Link>
+			{myGroups && <GroupsList groups={myGroups} />}
 		</div>
 	)
 }

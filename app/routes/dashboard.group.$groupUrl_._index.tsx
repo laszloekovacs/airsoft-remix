@@ -19,10 +19,8 @@ export default function GroupDetailsPage({ loaderData }: Route.ComponentProps) {
 			<span>{groupUrl}</span>
 			<h2>Csoport hirdetései</h2>
 
-			<div>
-				<PostsListContainer id={groupUrl} />
-				<PostList posts={posts} groupUrl={groupUrl} />
-			</div>
+			<PostsListContainer id={groupUrl} />
+			<PostList posts={posts} groupUrl={groupUrl} />
 		</div>
 	)
 }
@@ -43,15 +41,15 @@ const PostList = ({
 	groupUrl: string
 }) => {
 	return (
-		<div>
+		<ul>
 			<h3>post list</h3>
 			{posts.map((p: postType) => (
-				<div key={p.id}>
+				<li key={p.id}>
 					<Link to={`/dashboard/group/${groupUrl}/${p.urlPath}`}>
 						{p.title}
 					</Link>
-				</div>
+				</li>
 			))}
-		</div>
+		</ul>
 	)
 }
