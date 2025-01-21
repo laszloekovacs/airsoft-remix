@@ -28,8 +28,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 			<div className='grid min-h-screen grid-rows-[auto,1fr,auto] py-2'>
 				<header className='flex flex-row justify-between pb-4'>
 					<Link to='/'>
-						<img src='/logo/ac.png' alt='logo' className='h-20' />
-						<h1>Airsoft Naptár</h1>
+						<div className='flex flex-row	items-center'>
+							<img src='/logo/ac.png' alt='logo' className='h-20' />
+							<h1 className='text-4xl'>Airsoft Naptár</h1>
+						</div>
 					</Link>
 					<Link to='/dashboard'>szervezői oldal</Link>
 					<SessionMenuButton userEmail={userEmail} imageUrl={userProfileUrl} />
