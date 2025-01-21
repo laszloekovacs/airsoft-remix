@@ -19,7 +19,7 @@ export const group = pgTable('group', {
 		.references(() => user.id)
 })
 
-export const groupUserMap = pgTable('group_user_map', {
+export const membership = pgTable('membership', {
 	id: uuid().primaryKey().defaultRandom(),
 	userId: text('user_id')
 		.notNull()
@@ -45,7 +45,11 @@ export const event = pgTable('event', {
 	group: uuid('group').references(() => group.id)
 })
 
-export const attendanceStatus = pgEnum('status', ['skipping', 'going', 'maybe'])
+export const attendanceStatusEnum = pgEnum('status', [
+	'skipping',
+	'going',
+	'maybe'
+])
 
 export const attendees = pgTable('attendees', {
 	id: uuid().primaryKey().defaultRandom(),
@@ -55,5 +59,5 @@ export const attendees = pgTable('attendees', {
 	eventId: uuid('event_id')
 		.notNull()
 		.references(() => event.id),
-	status: attendanceStatus('status').notNull().default('skipping')
+	status: attendanceStatusEnum('status').notNull().default('skipping')
 })
