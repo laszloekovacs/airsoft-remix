@@ -12,7 +12,7 @@ export const action: ActionFunction = async ({ request }) => {
 	const result = await drizzleClient
 		.select()
 		.from(group)
-		.where(like(group.name, `${groupName}%`))
+		.where(like(group.name, `%${groupName}%`))
 
 	return new Response(JSON.stringify(result), {
 		status: 200,
