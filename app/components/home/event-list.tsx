@@ -57,9 +57,12 @@ const EventsListItem = ({
 }) => {
 	return (
 		<li className='border p-4'>
-			<Link to={`/event/${event.id}`}>
+			<Link to={`/event/${event.urlPath}`}>
 				<h2>{event.title}</h2>
-				<img src={event.attachment} alt={event.attachment} />
+				<img
+					src={`/upload/content/${event.attachment}`}
+					alt={event.attachment}
+				/>
 			</Link>
 		</li>
 	)

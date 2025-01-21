@@ -1,32 +1,30 @@
 import { useNavigate } from 'react-router'
 import type { Route } from './+types/_home.event_.$id'
+import { event as CalendarEvent } from '~/schema'
+import { drizzleClient } from '~/lib/db.server'
+import { eq } from 'drizzle-orm'
 
 // TODO: infer from db type
-export const loader = async () => {
-	const eventData = {
-		title: 'Event Title',
-		description: 'Event Description',
-		date: '1982.04.13',
-		location: 'Event Location',
-		organizer: 'Peter',
-		imgurl: 'http://www.picsum.photos/200/300'
-	}
+export const loader = async ({ request, params }: Route.LoaderArgs) => {
+	const eventData = await drizzleClient
+		.select()
+		.from(CalendarEvent)
+		.where(eq(CalendarEvent.urlPath, params.id))
 
-	return eventData
+	return { eventData: eventData[0] }
 }
 
 const EventPage = ({ loaderData }: Route.ComponentProps) => {
-	const { title, description, date, organizer, imgurl } = loaderData
+	const { title, description, attachment } = loaderData.eventData
 	const navigate = useNavigate()
 
 	return (
 		<div>
 			<button onClick={() => navigate(-1)}>vissza</button>
 
-			<p>{date}</p>
 			<h2>{title}</h2>
-			<h3>szervező: {organizer}</h3>
-			<img src={imgurl} alt='Event Image' />
+
+			<img src={`/upload/content/${attachment}`} alt='Event Image' />
 			<div>
 				<div>{description}</div>
 			</div>
