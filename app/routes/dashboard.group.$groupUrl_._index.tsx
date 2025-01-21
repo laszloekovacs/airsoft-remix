@@ -47,7 +47,7 @@ const PostList = ({
 			<h3>post list</h3>
 			{posts.map((p: postType) => (
 				<div key={p.id}>
-					<Link to={`/dashboard/group/${groupUrl}/post/${p.titleUrl}`}>
+					<Link to={`/dashboard/group/${groupUrl}/${p.urlPath}`}>
 						{p.title}
 					</Link>
 				</div>
