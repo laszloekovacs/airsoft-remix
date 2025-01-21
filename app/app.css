@@ -13,7 +13,6 @@ body {
 
 	background-color: #f9f7ee;
 	color: #141414;
-	@apply text-[14px];
 }
 
 div {
@@ -30,7 +29,7 @@ a:hover {
 }
 
 button {
-	@apply border p-2 border-neutral-500;
+	@apply border px-2 bg-blue-950 text-neutral-200;
 }
 
 input[type='text'],
