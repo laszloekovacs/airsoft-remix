@@ -62,6 +62,7 @@ const EventsListItem = ({
 				<img
 					src={`/upload/content/${event.attachment}`}
 					alt={event.attachment}
+					width={'50%'}
 				/>
 			</Link>
 		</li>

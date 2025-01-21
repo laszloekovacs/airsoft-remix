@@ -15,7 +15,7 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 }
 
 const EventPage = ({ loaderData }: Route.ComponentProps) => {
-	const { title, description, attachment } = loaderData.eventData
+	const { title, description, attachment, createdBy } = loaderData.eventData
 	const navigate = useNavigate()
 
 	return (
@@ -24,9 +24,14 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 
 			<h2>{title}</h2>
 
-			<img src={`/upload/content/${attachment}`} alt='Event Image' />
+			<img
+				src={`/upload/content/${attachment}`}
+				alt='Event Image'
+				width={'50%'}
+			/>
 			<div>
-				<div>{description}</div>
+				<p>{description}</p>
+				<p>{createdBy}</p>
 			</div>
 		</div>
 	)
