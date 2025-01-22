@@ -10,7 +10,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 		.from(user)
 		.where(eq(user.id, params.userId))
 
-	if (!userData) {
+	if (userData.length == 0) {
 		throw new Response('User not found', { status: 404 })
 	}
 
@@ -25,6 +25,7 @@ const UserProfilePage = ({ loaderData }: Route.ComponentProps) => {
 
 			<p>
 				<strong>Név:</strong> {user.name}
+				{user.image && <img src={user?.image} alt={user.name} />}
 			</p>
 		</div>
 	)

@@ -3,7 +3,7 @@ import { Form } from 'react-router'
 import { drizzleClient } from '~/lib/db.server'
 import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/status'
-import styles from './ist.module.css'
+import styles from './status.module.css'
 
 export const loader = async () => {
 	try {
