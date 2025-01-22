@@ -31,6 +31,7 @@ export const SessionMenuButton = ({ userEmail, imageUrl }: Props) => {
 
 				<div popover='auto' id='session-menu'>
 					<p>{userEmail}</p>
+					<Link to='/user/me'>profil</Link>
 					<hr />
 					<button onClick={() => signout()}>kilép</button>
 				</div>
