@@ -73,6 +73,20 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 					onChange={e => setSearchTerm(e.target.value)}
 				/>
 			</Form>
+
+			<button popoverTarget='socials'>open</button>
+			<div popover='auto' id='socials'>
+				<p>the popover</p>
+				<button popoverTarget='socials' popoverTargetAction='hide'>
+					close
+				</button>
+			</div>
+			<dialog open>
+				<p>Greetings, one and all!</p>
+				<form method='dialog'>
+					<button>OK</button>
+				</form>
+			</dialog>
 		</div>
 	)
 }
