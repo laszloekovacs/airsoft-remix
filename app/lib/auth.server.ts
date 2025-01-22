@@ -2,14 +2,19 @@ import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { customSession } from 'better-auth/plugins'
 import { drizzleClient } from '~/lib/db.server'
-import { account, session, user, verification } from '~/schema/auth-schema'
+import {
+	account,
+	session,
+	user as authUser,
+	verification
+} from '~/schema/auth-schema'
 
 export const auth = betterAuth({
 	database: drizzleAdapter(drizzleClient, {
 		provider: 'pg',
 		schema: {
 			account: account,
-			user: user,
+			user: authUser,
 			session: session,
 			verification: verification
 		}
@@ -52,7 +57,9 @@ export const auth = betterAuth({
 	},
 	plugins: [
 		customSession(async ({ user, session }) => {
-			const claims = 'todo'
+			/// @ts-ignore
+			const claims = user?.claims?.split(',') || []
+
 			return {
 				claims,
 				user,

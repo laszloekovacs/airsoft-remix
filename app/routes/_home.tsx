@@ -16,12 +16,14 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 	const session = await auth.api.getSession({ headers: request.headers })
 	const userEmail = session?.user.email || null
 	const userProfileUrl = session?.user.image || null
-
-	return { userEmail, userProfileUrl }
+	const claims = session?.claims || null
+	console.log('claims', claims)
+	return { userEmail, userProfileUrl, claims }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-	const { userEmail, userProfileUrl } = loaderData
+	const { userEmail, userProfileUrl, claims } = loaderData
+	const isOrganizer = claims?.includes('organizer') || claims?.includes('root')
 
 	return (
 		<div className='max-w-[1200px] mx-auto p-4'>
@@ -33,7 +35,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 							<h1 className='text-4xl'>Airsoft Naptár</h1>
 						</div>
 					</Link>
-					<Link to='/dashboard'>szervezői oldal</Link>
+					{isOrganizer && <Link to='/dashboard'>szervezői oldal</Link>}
 					<SessionMenuButton userEmail={userEmail} imageUrl={userProfileUrl} />
 				</header>
 
