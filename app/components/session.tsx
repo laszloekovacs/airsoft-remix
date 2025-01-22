@@ -22,9 +22,18 @@ export const SessionMenuButton = ({ userEmail, imageUrl }: Props) => {
 	if (userEmail) {
 		return (
 			<div>
-				{imageUrl && <img src={imageUrl} alt='user' className='w-10' />}
-				<p>{userEmail}</p>
-				<button onClick={() => signout()}>kilép</button>
+				<button
+					popoverTarget='session-menu'
+					className='flex items-center space-x-2'>
+					<p>{userEmail}</p>
+					{imageUrl && <img src={imageUrl} alt='user' className='w-10' />}
+				</button>
+
+				<div popover='auto' id='session-menu'>
+					<p>{userEmail}</p>
+					<hr />
+					<button onClick={() => signout()}>kilép</button>
+				</div>
 			</div>
 		)
 	} else {
