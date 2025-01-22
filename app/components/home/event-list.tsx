@@ -43,6 +43,7 @@ const EventsListItem = ({
 					width={'50%'}
 				/>
 			</Link>
+			<p>thisisit</p>
 		</li>
 	)
 }

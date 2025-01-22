@@ -1,8 +1,9 @@
-import { user } from '~/schema/auth-schema'
+import { useEffect, useState } from 'react'
+import { Form } from 'react-router'
 import { drizzleClient } from '~/lib/db.server'
+import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/status'
-import { Form, useFetcher } from 'react-router'
-import { useDeferredValue, useEffect, useState } from 'react'
+import styles from './ist.module.css'
 
 export const loader = async () => {
 	try {
@@ -82,7 +83,7 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 				</button>
 			</div>
 			<dialog open>
-				<p>Greetings, one and all!</p>
+				<p className={styles.greetings}>Greetings, one and all!</p>
 				<form method='dialog'>
 					<button>OK</button>
 				</form>
