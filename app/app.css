@@ -11,7 +11,7 @@
 }
 
 body {
-	font-family: var(--font-humanist);
+	font-family: var(--font-system-ui);
 	color: var(--gray-9);
 	background-color: var(--sand-0);
 	width: 100vw;
@@ -34,7 +34,7 @@ button {
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
-	padding: 0 1rem;
+	padding: 0 var(--size-4);
 	display: grid;
 	grid-template-rows: auto 1fr auto;
 	min-height: 100vh;
