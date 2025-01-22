@@ -19,28 +19,6 @@ const EventsList = ({
 }: {
 	events: (typeof CalendarEvent.$inferSelect)[]
 }) => {
-	/*
-	const events = [
-		{
-			id: 1,
-			name: 'Event 1',
-			date: '2021-09-01',
-			img: 'https://picsum.photos/200'
-		},
-		{
-			id: 2,
-			name: 'Event 2',
-			date: '2021-09-02',
-			img: 'https://picsum.photos/200'
-		},
-		{
-			id: 3,
-			name: 'Event 2',
-			date: '2021-09-02',
-			img: 'https://picsum.photos/200'
-		}
-	]
-*/
 	return (
 		<ul className='flex flex-col space-y-4'>
 			{events.map(event => (
