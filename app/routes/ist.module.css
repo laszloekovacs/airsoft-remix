@@ -5,3 +5,7 @@
 .greetings {
 	background-color: red;
 }
+
+.dialog {
+	background-color: var(--sand-5);
+}

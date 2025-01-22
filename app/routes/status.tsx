@@ -82,6 +82,7 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 					close
 				</button>
 			</div>
+			<p className={styles.dialog}>testing the styles</p>
 			<dialog open>
 				<p className={styles.greetings}>Greetings, one and all!</p>
 				<form method='dialog'>
