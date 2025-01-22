@@ -26,28 +26,26 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 	const isOrganizer = claims?.includes('organizer') || claims?.includes('root')
 
 	return (
-		<div className='max-w-[1200px] mx-auto p-4'>
-			<div className='grid min-h-screen grid-rows-[auto,1fr,auto] py-2'>
-				<header className='flex flex-row justify-between pb-4'>
-					<Link to='/'>
-						<div className='flex flex-row	items-center'>
-							<img src='/logo/ac.png' alt='logo' className='h-20' />
-							<h1 className='text-4xl'>Airsoft Naptár</h1>
-						</div>
-					</Link>
-					{isOrganizer && <Link to='/dashboard'>szervezői oldal</Link>}
-					<SessionMenuButton userEmail={userEmail} imageUrl={userProfileUrl} />
-				</header>
+		<div>
+			<header className='flex flex-row justify-between pb-4'>
+				<Link to='/'>
+					<div className='flex flex-row	items-center'>
+						<img src='/logo/ac.png' alt='logo' className='h-20' />
+						<h1 className='text-4xl'>Airsoft Naptár</h1>
+					</div>
+				</Link>
+				{isOrganizer && <Link to='/dashboard'>szervezői oldal</Link>}
+				<SessionMenuButton userEmail={userEmail} imageUrl={userProfileUrl} />
+			</header>
 
-				<main>
-					<Outlet />
-				</main>
+			<main>
+				<Outlet />
+			</main>
 
-				<footer>
-					<hr />
-					<p>© {new Date().getFullYear()} Airsoft Naptár</p>
-				</footer>
-			</div>
+			<footer>
+				<hr />
+				<p>© {new Date().getFullYear()} Airsoft Naptár</p>
+			</footer>
 		</div>
 	)
 }

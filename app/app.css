@@ -1,47 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@font-face {
-	font-family: sourceSansPro;
-	src: url('/source-sans-pro/SourceSansPro-Light.otf');
+:root {
+	box-sizing: border-box;
 }
 
-html,
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+	padding: 0;
+	margin: 0;
+}
+
 body {
-	font-family: sourceSansPro, sans-serif;
-
-	background-color: #f9f7ee;
-	color: #141414;
-}
-
-div {
-	background-color: rgba(0, 0, 0, 0.05);
-	padding: 12px;
+	font-family: var(--font-humanist);
+	color: var(--gray-9);
+	background-color: var(--sand-0);
 }
 
 a {
-	@apply text-blue-600 dark:text-blue-400;
+	text-decoration: none;
+	color: inherit;
 }
 
 a:hover {
-	@apply text-blue-700 dark:text-blue-300 underline;
+	text-decoration: underline;
 }
 
 button {
-	@apply border px-2 bg-blue-950 text-neutral-200;
-}
-
-input[type='text'],
-textarea {
-	@apply border p-2 border-neutral-500;
-}
-
-input[type='text']:focus,
-textarea:focus {
-	@apply border-blue-500;
-}
-
-input[type='submit'] {
-	@apply bg-transparent text-blue-400 p-2;
+	border: none;
+	background-color: transparent;
 }
