@@ -7,6 +7,32 @@ type Props = {
 }
 
 export const SessionMenuButton = ({ userEmail, imageUrl }: Props) => {
+	return (
+		<>
+			{userEmail ? (
+				<LoggedIn userEmail={userEmail} imageUrl={imageUrl} />
+			) : (
+				<LoggedOff />
+			)}
+		</>
+	)
+}
+
+const LoggedOff = () => {
+	return (
+		<div>
+			<Link to='/login'>bejelentkezés</Link>
+		</div>
+	)
+}
+
+const LoggedIn = ({
+	userEmail,
+	imageUrl
+}: {
+	userEmail: string
+	imageUrl: string | null
+}) => {
 	const navigator = useNavigate()
 
 	const signout = async () => {
@@ -18,28 +44,18 @@ export const SessionMenuButton = ({ userEmail, imageUrl }: Props) => {
 			}
 		})
 	}
+	return (
+		<div>
+			<button popoverTarget='session-menu'>
+				{imageUrl && <img src={imageUrl} alt='user' className='avatar' />}
+			</button>
 
-	if (userEmail) {
-		return (
-			<div>
-				<button popoverTarget='session-menu'>
-					<p>{userEmail}</p>
-					{imageUrl && <img src={imageUrl} alt='user' className='avatar' />}
-				</button>
-
-				<div popover='auto' id='session-menu'>
-					<p>{userEmail}</p>
-					<Link to='/user/me'>profil</Link>
-					<hr />
-					<button onClick={() => signout()}>kilép</button>
-				</div>
+			<div popover='auto' id='session-menu'>
+				<p>{userEmail}</p>
+				<Link to='/user/me'>profil</Link>
+				<hr />
+				<button onClick={() => signout()}>kilép</button>
 			</div>
-		)
-	} else {
-		return (
-			<div>
-				<Link to='/login'>bejelentkezés</Link>
-			</div>
-		)
-	}
+		</div>
+	)
 }
