@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router'
-import { SessionMenuButton } from '~/components/session'
+import { SessionMenuButton } from '~/components/home/session'
 import { auth } from '~/lib/auth.server'
 import type { Route } from './+types/_home'
 import styles from './_home.module.css'
@@ -17,7 +17,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 	const userEmail = session?.user.email || null
 	const userProfileUrl = session?.user.image || null
 	const claims = session?.claims || null
-	console.log('claims', claims)
+
 	return { userEmail, userProfileUrl, claims }
 }
 
@@ -30,7 +30,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 			<header className={styles.homeHeader}>
 				<div>
 					<Link to='/'>
-						<div>
+						<div className={styles.logoContainer}>
 							<img src='/logo/ac.png' alt='logo' className={styles.logo} />
 							<h1>Airsoft Naptár</h1>
 						</div>
