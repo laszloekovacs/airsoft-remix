@@ -14,6 +14,7 @@ body {
 	font-family: var(--font-humanist);
 	color: var(--gray-9);
 	background-color: var(--sand-0);
+	width: 100vw;
 }
 
 a {
@@ -28,4 +29,14 @@ a:hover {
 button {
 	border: none;
 	background-color: transparent;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+
+.avatar {
+	width: 40px;
 }

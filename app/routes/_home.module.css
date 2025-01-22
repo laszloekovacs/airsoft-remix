@@ -1,8 +1,9 @@
 .homeHeader {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: nowrap;
 }
 
-.homeHeader > img {
+.logo {
 	width: 40px;
 }

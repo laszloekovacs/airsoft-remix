@@ -26,15 +26,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 	const isOrganizer = claims?.includes('organizer') || claims?.includes('root')
 
 	return (
-		<div>
+		<div className='container'>
 			<header className={styles.homeHeader}>
-				<Link to='/'>
-					<div className='flex flex-row	items-center'>
-						<img src='/logo/ac.png' alt='logo' className='h-20' />
-						<h1 className='text-4xl'>Airsoft Naptár</h1>
-					</div>
-				</Link>
-				{isOrganizer && <Link to='/dashboard'>szervezői oldal</Link>}
+				<div>
+					<Link to='/'>
+						<div>
+							<img src='/logo/ac.png' alt='logo' className={styles.logo} />
+							<h1>Airsoft Naptár</h1>
+						</div>
+					</Link>
+				</div>
+				<div>{isOrganizer && <Link to='/dashboard'>szervezői oldal</Link>}</div>
 				<SessionMenuButton userEmail={userEmail} imageUrl={userProfileUrl} />
 			</header>
 

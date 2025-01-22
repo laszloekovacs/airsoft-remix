@@ -22,11 +22,9 @@ export const SessionMenuButton = ({ userEmail, imageUrl }: Props) => {
 	if (userEmail) {
 		return (
 			<div>
-				<button
-					popoverTarget='session-menu'
-					className='flex items-center space-x-2'>
+				<button popoverTarget='session-menu'>
 					<p>{userEmail}</p>
-					{imageUrl && <img src={imageUrl} alt='user' className='w-10' />}
+					{imageUrl && <img src={imageUrl} alt='user' className='avatar' />}
 				</button>
 
 				<div popover='auto' id='session-menu'>
