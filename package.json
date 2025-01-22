@@ -3,9 +3,10 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "bun run --bun react-router dev",
-		"build": "bun run --bun react-router build",
-		"start": "bun run --bun react-router-serve ./build/server/index.js",
+		"dev": "bunx react-router dev",
+		"build": "bunx react-router build",
+		"serve": "bunx react-router-serve ./build/server/index.js",
+		"start": "bunx react-router-serve ./build/server/index.js",
 		"gen-scema": "bunx @better-auth/cli generate --config ./app/lib/auth.server.ts",
 		"drizzle-push": "npx drizzle-kit push",
 		"studio": "npx drizzle-kit studio"

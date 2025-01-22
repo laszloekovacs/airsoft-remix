@@ -1,8 +1,8 @@
 import { Link, Outlet } from 'react-router'
 import { SessionMenuButton } from '~/components/session'
 import { auth } from '~/lib/auth.server'
-
 import type { Route } from './+types/_home'
+import styles from './_home.module.css'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -27,7 +27,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
-			<header className='flex flex-row justify-between pb-4'>
+			<header className={styles.homeHeader}>
 				<Link to='/'>
 					<div className='flex flex-row	items-center'>
 						<img src='/logo/ac.png' alt='logo' className='h-20' />

@@ -1,0 +1,8 @@
+.homeHeader {
+	display: flex;
+	flex-direction: row;
+}
+
+.homeHeader > img {
+	width: 40px;
+}
