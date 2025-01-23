@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router'
 import { authClient } from '~/lib/auth.client'
-import styles from './session.module.css'
 
 type Props = {
 	userEmail: string | null
@@ -46,12 +45,12 @@ const LoggedIn = ({
 		})
 	}
 	return (
-		<div className={styles.sessionMenuContainer}>
+		<div>
 			<button popoverTarget='session-menu'>
 				{imageUrl && <img src={imageUrl} alt='user' className='avatar' />}
 			</button>
 
-			<div popover='auto' id='session-menu' className={styles.sessionMenu}>
+			<div popover='auto' id='session-menu'>
 				<p>{userEmail}</p>
 				<Link to='/user/me'>profil</Link>
 				<hr />

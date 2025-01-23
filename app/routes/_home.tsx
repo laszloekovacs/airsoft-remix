@@ -2,7 +2,6 @@ import { Link, Outlet } from 'react-router'
 import { SessionMenuButton } from '~/components/home/session'
 import { auth } from '~/lib/auth.server'
 import type { Route } from './+types/_home'
-import styles from './_home.module.css'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -26,12 +25,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 	const isOrganizer = claims?.includes('organizer') || claims?.includes('root')
 
 	return (
-		<div className='container'>
-			<header className={styles.homeHeader}>
+		<div>
+			<header>
 				<div>
 					<Link to='/'>
-						<div className={styles.logoContainer}>
-							<img src='/logo/ac.png' alt='logo' className={styles.logo} />
+						<div>
 							<h1>Airsoft Naptár</h1>
 						</div>
 					</Link>

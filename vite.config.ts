@@ -8,7 +8,7 @@ import customMediaQuery from 'postcss-custom-media'
 export default defineConfig({
 	css: {
 		postcss: {
-			plugins: [autoprefixer, customMediaQuery]
+			plugins: [autoprefixer, customMediaQuery, tailwindcss]
 		}
 	},
 	plugins: [reactRouter(), tsconfigPaths()],

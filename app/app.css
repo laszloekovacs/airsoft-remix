@@ -1,45 +1,14 @@
-:root {
-	box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *,
-*::before,
-*::after {
-	box-sizing: inherit;
-	padding: 0;
-	margin: 0;
+*:before,
+*:after {
+	font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
 body {
-	font-family: var(--font-system-ui);
-	color: var(--gray-9);
-	background-color: var(--sand-0);
-	width: 100vw;
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-button {
-	border: none;
-	background-color: transparent;
-}
-
-.container {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 0 var(--size-4);
-	display: grid;
-	grid-template-rows: auto 1fr auto;
-	min-height: 100vh;
-}
-
-.avatar {
-	width: 40px;
+	@apply bg-gray-100;
+	@apply text-gray-600;
 }

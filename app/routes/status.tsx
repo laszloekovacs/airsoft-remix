@@ -3,7 +3,6 @@ import { Form } from 'react-router'
 import { drizzleClient } from '~/lib/db.server'
 import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/status'
-import styles from './status.module.css'
 
 export const loader = async () => {
 	try {
@@ -74,7 +73,7 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 					onChange={e => setSearchTerm(e.target.value)}
 				/>
 			</Form>
-			<p className={styles.greetings}> something</p>
+			<p> something</p>
 			<button popoverTarget='socials'>open</button>
 			<div popover='auto' id='socials'>
 				<p>the popover</p>
@@ -82,7 +81,7 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 					close
 				</button>
 			</div>
-			<p className={styles.dialog}>testing the styles</p>
+			<p>testing the styles</p>
 			<dialog open>
 				<p>Greetings, one and all!</p>
 				<form method='dialog'>
