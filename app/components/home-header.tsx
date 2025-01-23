@@ -12,7 +12,7 @@ export function Header({
 	isOrganizer
 }: HeaderProps) {
 	return (
-		<header className='flex flex-col p-4'>
+		<header className='flex flex-col pt-4 pb-6'>
 			<div className='flex flex-row justify-between'>
 				<Link to='/' className='text-2xl font-bold pb-2'>
 					<h1>Airsoft Naptár</h1>
@@ -26,7 +26,7 @@ export function Header({
 
 const OrganizerPanel = () => {
 	return (
-		<div className='flex flex-row justify-between bg-indigo-100 p-2 border-1 rounded-sm'>
+		<div className='flex flex-row justify-between uppercase'>
 			<Link to='/dashboard'>szervezői oldal</Link>
 		</div>
 	)
