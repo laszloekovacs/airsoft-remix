@@ -20,8 +20,16 @@ export function Header({
 				</Link>
 				<SessionMenuButton userEmail={userEmail} imageUrl={userProfileUrl} />
 			</div>
-			{isOrganizer && <Link to='/dashboard'>szervezői oldal</Link>}
+			{isOrganizer && <OrganizerPanel />}
 		</header>
+	)
+}
+
+const OrganizerPanel = () => {
+	return (
+		<div className='flex flex-row justify-between bg-fuchsia-200 p-2 border-1'>
+			<Link to='/dashboard'>szervezői oldal</Link>
+		</div>
 	)
 }
 
