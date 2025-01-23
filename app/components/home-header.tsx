@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router'
-import { authClient } from '~/lib/auth.client'
 
 type HeaderProps = {
 	userEmail: string | null
@@ -15,8 +14,8 @@ export function Header({
 	return (
 		<header className='flex flex-col p-4'>
 			<div className='flex flex-row justify-between'>
-				<Link to='/'>
-					<h1 className='text-2xl font-bold'>Airsoft Naptár</h1>
+				<Link to='/' className='text-2xl font-bold pb-2'>
+					<h1>Airsoft Naptár</h1>
 				</Link>
 				<SessionMenuButton userEmail={userEmail} imageUrl={userProfileUrl} />
 			</div>
@@ -27,7 +26,7 @@ export function Header({
 
 const OrganizerPanel = () => {
 	return (
-		<div className='flex flex-row justify-between bg-fuchsia-200 p-2 border-1'>
+		<div className='flex flex-row justify-between bg-indigo-100 p-2 border-1 rounded-sm'>
 			<Link to='/dashboard'>szervezői oldal</Link>
 		</div>
 	)
@@ -61,22 +60,12 @@ const LoggedIn = ({
 	userEmail: string
 	imageUrl: string | null
 }) => {
-	const navigator = useNavigate()
-
-	const signout = async () => {
-		authClient.signOut({
-			fetchOptions: {
-				onSuccess: () => {
-					navigator('/bye')
-				}
-			}
-		})
-	}
-
 	return (
 		<Link to='/user/me' className='flex flex-row gap-2 items-center'>
 			<span>{userEmail}</span>
-			{imageUrl && <img src={imageUrl} alt='avatar' className='w-8 h-8' />}
+			{imageUrl && (
+				<img src={imageUrl} alt='avatar' className='w-8 h-8 rounded-xs' />
+			)}
 		</Link>
 	)
 }
