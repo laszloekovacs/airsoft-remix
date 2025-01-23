@@ -1,4 +1,4 @@
-import { EventCalendarContainer } from '~/components/home/event-list'
+import { EventCalendarContainer } from '~/components/event-list'
 import type { Route } from './+types/_home._index'
 import { drizzleClient } from '~/lib/db.server'
 import { event as CalendarEvent } from '~/schema'
