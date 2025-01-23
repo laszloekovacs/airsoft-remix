@@ -2,6 +2,7 @@ import { Outlet } from 'react-router'
 import { Header } from '~/components/home-header'
 import { auth } from '~/lib/auth.server'
 import type { Route } from './+types/_home'
+import { HomeFooter } from '~/components/home-footer'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -25,7 +26,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 	const isOrganizer = claims?.includes('organizer') || claims?.includes('root')
 
 	return (
-		<div>
+		<div className='p-3'>
 			<Header
 				userEmail={userEmail}
 				userProfileUrl={userProfileUrl}
@@ -36,10 +37,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 				<Outlet />
 			</main>
 
-			<footer>
-				<hr />
-				<p>© {new Date().getFullYear()} Airsoft Naptár</p>
-			</footer>
+			<HomeFooter />
 		</div>
 	)
 }
