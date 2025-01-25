@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Form } from 'react-router'
-import { drizzleClient } from '~/lib/db.server'
+import { drizzleClient } from '~/services/db.server'
 import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/status'
 
