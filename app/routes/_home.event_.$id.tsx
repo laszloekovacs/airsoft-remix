@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router'
 import type { Route } from './+types/_home.event_.$id'
 import { event as CalendarEvent } from '~/schema'
-import { drizzleClient } from '~/lib/db.server'
+import { drizzleClient } from '~/services/db.server'
 import { eq } from 'drizzle-orm'
 
 // TODO: infer from db type

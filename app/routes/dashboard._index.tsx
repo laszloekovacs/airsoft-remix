@@ -1,8 +1,8 @@
 import { Link, redirect } from 'react-router'
-import { auth } from '~/lib/auth.server'
+import { auth } from '~/services/auth.server'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard._index'
-import { drizzleClient } from '~/lib/db.server'
+import { drizzleClient } from '~/services/db.server'
 import { eq } from 'drizzle-orm'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {

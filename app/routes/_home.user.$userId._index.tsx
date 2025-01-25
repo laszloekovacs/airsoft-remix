@@ -1,8 +1,8 @@
-import { drizzleClient } from '~/lib/db.server'
+import { drizzleClient } from '~/services/db.server'
 import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/_home.user.$userId._index'
 import { eq } from 'drizzle-orm'
-import { auth } from '~/lib/auth.server'
+import { auth } from '~/services/auth.server'
 
 export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })

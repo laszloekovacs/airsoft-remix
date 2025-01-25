@@ -1,6 +1,6 @@
 import { EventCalendarContainer } from '~/components/event-list'
 import type { Route } from './+types/_home._index'
-import { drizzleClient } from '~/lib/db.server'
+import { drizzleClient } from '~/services/db.server'
 import { event as CalendarEvent } from '~/schema'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {

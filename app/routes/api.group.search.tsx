@@ -1,6 +1,6 @@
 import { like } from 'drizzle-orm'
 import type { ActionFunction, LoaderFunction } from 'react-router'
-import { drizzleClient } from '~/lib/db.server'
+import { drizzleClient } from '~/services/db.server'
 import { group } from '~/schema'
 
 export const action: ActionFunction = async ({ request }) => {

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router'
 import { Header } from '~/components/home-header'
-import { auth } from '~/lib/auth.server'
+import { auth } from '~/services/auth.server'
 import type { Route } from './+types/_home'
 import { HomeFooter } from '~/components/home-footer'
 

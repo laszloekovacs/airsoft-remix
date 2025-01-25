@@ -1,4 +1,4 @@
-import { authClient } from '~/lib/auth.client'
+import { authClient } from '~/services/auth.client'
 import { FaFacebook, FaGithub, FaDiscord, FaGoogle } from 'react-icons/fa'
 
 const LoginPage = () => {

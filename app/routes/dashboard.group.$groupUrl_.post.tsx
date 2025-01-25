@@ -2,13 +2,13 @@ import { eq } from 'drizzle-orm'
 import { useEffect, useState } from 'react'
 import { Form, redirect } from 'react-router'
 import invariant from 'tiny-invariant'
-import { auth } from '~/lib/auth.server'
-import { drizzleClient } from '~/lib/db.server'
-import { generateUrlName } from '~/lib/generate-url-name'
-import { writeToStorage } from '~/lib/storage.server'
+import { auth } from '~/services/auth.server'
+import { drizzleClient } from '~/services/db.server'
+import { generateUrlName } from '~/services/generate-url-name'
+import { writeToStorage } from '~/services/storage.server'
 import { event, group } from '~/schema'
 import type { Route } from './+types/dashboard.group.$groupUrl_.post'
-import { encodeBase62 } from '~/lib/base62'
+import { encodeBase62 } from '~/services/base62'
 
 const MAX_ATTACHMENT_SIZE = 1 * 1024 * 1024
 

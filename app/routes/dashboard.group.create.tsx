@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Form, useNavigate, useNavigation } from 'react-router'
-import { auth } from '~/lib/auth.server'
-import { drizzleClient } from '~/lib/db.server'
-import { generateUrlName } from '~/lib/generate-url-name'
+import { auth } from '~/services/auth.server'
+import { drizzleClient } from '~/services/db.server'
+import { generateUrlName } from '~/services/generate-url-name'
 import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
 

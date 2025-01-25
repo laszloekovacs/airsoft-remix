@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { drizzleClient } from '~/lib/db.server'
+import { drizzleClient } from '~/services/db.server'
 import { event } from '~/schema'
 import type { Route } from './+types/dashboard.group.$groupUrl_._index'
 
