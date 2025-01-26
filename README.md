@@ -7,6 +7,8 @@ A modern, production-ready template for building full-stack React applications u
 ## stuff to check out
 https://remixicon.com/
 
+https://showdownjs.com/
+
 ## Features
 
 - 🚀 Server-side rendering
