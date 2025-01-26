@@ -38,9 +38,6 @@ const UserProfilePage = ({ loaderData }: Route.ComponentProps) => {
 	return (
 		<section className='flex flex-row items-center justify-between'>
 			<div>
-				<div className='mt-2 bg-indigo-300 inline-block px-3 text-xs'>
-					{requestedUserIsMe && <p>Ez a te profilod</p>}
-				</div>
 				<h1 className='text-lg font-semibold'>{user.name}</h1>
 				<p className='text-sm text-gray-500'>{user.email}</p>
 			</div>
