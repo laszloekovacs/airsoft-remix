@@ -7,7 +7,16 @@ import { HomeFooter } from '~/components/home-footer'
 export function meta({}: Route.MetaArgs) {
 	return [
 		{ title: 'Airsoft Naptár' },
-		{ name: 'description', content: 'Airsoft esemény naptár' }
+		{ name: 'description', content: 'Airsoft esemény naptár' },
+		{ property: 'og:url', content: 'www.localhost:3000' },
+		{ property: 'type', content: 'website' },
+		{ property: 'og:title', content: 'Airsoft Naptár' },
+		{ property: 'og:description', content: 'Airsoft esemény naptár' },
+		{
+			property: 'og:image',
+			content: 'https://www.localhost:3000/og-image.jpg'
+		},
+		{ property: 'og:site_name', content: 'Airsoft Naptár' }
 	]
 }
 
