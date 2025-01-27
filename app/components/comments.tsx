@@ -11,6 +11,10 @@ export default function CommentsContainer({
 }: {
 	comments: CommentType[]
 }) {
+	if (!comments.length) {
+		return <p>Nincsenek hozzászólások</p>
+	}
+
 	return (
 		<div>
 			<figcaption>Hozzászólások</figcaption>
@@ -20,7 +24,6 @@ export default function CommentsContainer({
 }
 
 const CommentList = ({ comments }: { comments: CommentType[] }) => {
-	// If there are no comments, return null
 	if (!comments.length) {
 		return null
 	}

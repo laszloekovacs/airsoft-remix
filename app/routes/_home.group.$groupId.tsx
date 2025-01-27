@@ -1,5 +1,6 @@
 import Address from '~/components/address'
 import Avatar from '~/components/avatar'
+import CommentsContainer from '~/components/comments'
 import ContactList from '~/components/contact-list'
 import CoverPhoto from '~/components/cover-photo'
 import UserTable from '~/components/user-table'
@@ -43,6 +44,7 @@ export default function GroupDetailPage() {
 			<Address data={address} />
 			<ContactList contacts={[]} />
 			<UserTable players={members} />
+			<CommentsContainer comments={[]} />
 		</div>
 	)
 }
