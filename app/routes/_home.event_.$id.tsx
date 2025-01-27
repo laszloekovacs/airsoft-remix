@@ -45,9 +45,12 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 			<h1>{title}</h1>
 			<FacebookShareButton />
 
-			{/* event splash image */}
+			{/* TODO: event splash image */}
 
-			<OrganizerTitleCard id='33' name='the jucers' url='/' />
+			<figure>
+				<figcaption>szervező</figcaption>
+				<OrganizerTitleCard id='33' name='the jucers' url='/' />
+			</figure>
 			<TimeTable times={timeTable} date={date} />
 			<PricingTable prices={prices} />
 			<Address data={address} />
