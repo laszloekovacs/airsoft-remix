@@ -12,6 +12,33 @@ import type { CommentType } from '~/components/comments'
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const title = 'Jotékonysági játék'
 
+	const attendees = {
+		factions: [
+			{
+				name: 'Team red',
+				members: [
+					{
+						id: '1',
+						name: 'John Doe',
+						callsign: 'JD',
+						avatar: 'https://picsum.photos/200/300'
+					}
+				]
+			},
+			{
+				name: 'Team blue',
+				members: [
+					{
+						id: '2',
+						name: 'Jane Doe',
+						callsign: 'JD',
+						avatar: 'https://picsum.photos/200/300'
+					}
+				]
+			}
+		]
+	}
+
 	const timeTable = [
 		{ time: '10:00', label: 'Regisztráció' },
 		{ time: '11:00', label: 'Játék' },
@@ -52,12 +79,14 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 		date,
 		prices,
 		address,
-		comments
+		comments,
+		attendees
 	}
 }
 
 const EventPage = ({ loaderData }: Route.ComponentProps) => {
-	const { title, timeTable, date, prices, address, comments } = loaderData
+	const { title, timeTable, date, prices, address, comments, attendees } =
+		loaderData
 
 	return (
 		<div>
@@ -83,7 +112,7 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 			<Markdown>{`### hello from markdown`}</Markdown>
 
 			{/* atending teams */}
-			<AttendeesTableContainer data={null} />
+			<AttendeesTableContainer data={attendees} />
 
 			{/* comments */}
 			<CommentsContainer comments={comments} />
