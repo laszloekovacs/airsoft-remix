@@ -4,6 +4,8 @@ import type { Route } from './+types/_home.user.$userId'
 import { eq } from 'drizzle-orm'
 import { auth } from '~/services/auth.server'
 import Avatar from '~/components/avatar'
+import ContactList from '~/components/contact-list'
+import LogoutButton from '~/components/logout-button'
 
 export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -38,13 +40,14 @@ const UserProfilePage = ({ loaderData }: Route.ComponentProps) => {
 	const { user, requestedUserIsMe } = loaderData
 	return (
 		<section>
+			<LogoutButton />
 			<div>
-				<h1>{user.name}</h1>
-				<p>{user.email}</p>
+				<h1>{'the juicer'}</h1>
+				<h2>{user.name}</h2>
 			</div>
-			<div>
-				<Avatar src={user.image} />
-			</div>
+			<ContactList contacts={[]} />
+
+			<Avatar src={user.image} />
 		</section>
 	)
 }

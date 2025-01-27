@@ -13,6 +13,9 @@ export const HomeFooter = () => {
 				<li>
 					<Link to='/group'>Csoportok</Link>
 				</li>
+				<li>
+					<Link to='/user/me'>Profil</Link>
+				</li>
 			</ul>
 		</footer>
 	)
