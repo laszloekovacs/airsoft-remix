@@ -42,6 +42,11 @@ figcaption {
 	font-weight: bold;
 }
 
+table {
+	width: 100%;
+}
+
+/* debug drawing */
 div {
 	background-color: rgba(0, 0, 0, 0.05);
 }

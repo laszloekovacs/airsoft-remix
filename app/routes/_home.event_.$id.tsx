@@ -21,7 +21,15 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 						id: '1',
 						name: 'John Doe',
 						callsign: 'JD',
-						avatar: 'https://picsum.photos/200/300'
+						avatar: 'https://picsum.photos/200/300',
+						group: 'the juicers'
+					},
+					{
+						id: '2',
+						name: 'Mike jeffs',
+						callsign: 'Juice',
+						avatar: 'https://picsum.photos/200/300',
+						group: 'the juicers'
 					}
 				]
 			},
@@ -29,10 +37,11 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 				name: 'Team blue',
 				members: [
 					{
-						id: '2',
+						id: '3',
 						name: 'Jane Doe',
 						callsign: 'JD',
-						avatar: 'https://picsum.photos/200/300'
+						avatar: 'https://picsum.photos/200/300',
+						group: 'the juicers'
 					}
 				]
 			}

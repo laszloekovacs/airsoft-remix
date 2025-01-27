@@ -1,5 +1,7 @@
 // html table for displaying a list of users
 
+import Avatar from './avatar'
+
 type TeamTableProps = {
 	players: Array<{
 		id: string
@@ -13,7 +15,7 @@ export default function TeamTable({ players }: TeamTableProps) {
 	const rows = players.map(player => (
 		<tr key={player.id}>
 			<td>
-				<img src={player.avatar} alt={player.callsign} />
+				<Avatar src={player.avatar} alt={player.callsign} />
 			</td>
 
 			<td>{player.callsign}</td>
