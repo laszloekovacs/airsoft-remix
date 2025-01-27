@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router'
+import Avatar from './avatar'
 
 type HeaderProps = {
 	userEmail: string | null
@@ -12,9 +13,9 @@ export function Header({
 	isOrganizer
 }: HeaderProps) {
 	return (
-		<header className='flex flex-col pt-4 pb-6'>
-			<div className='flex flex-row justify-between'>
-				<Link to='/' className='text-2xl font-bold pb-2'>
+		<header>
+			<div>
+				<Link to='/'>
 					<h1>Airsoft Naptár</h1>
 				</Link>
 				<SessionMenuButton userEmail={userEmail} imageUrl={userProfileUrl} />
@@ -26,7 +27,7 @@ export function Header({
 
 const OrganizerPanel = () => {
 	return (
-		<div className='flex flex-row justify-between uppercase'>
+		<div>
 			<Link to='/dashboard'>szervezői oldal</Link>
 		</div>
 	)
@@ -63,9 +64,7 @@ const LoggedIn = ({
 	return (
 		<Link to='/user/me' className='flex flex-row gap-2 items-center'>
 			<span>{userEmail}</span>
-			{imageUrl && (
-				<img src={imageUrl} alt='avatar' className='w-8 h-8 rounded-xs' />
-			)}
+			<Avatar src={imageUrl} alt={userEmail} />
 		</Link>
 	)
 }
