@@ -6,9 +6,10 @@ type PropType = {
 const PricingTable = ({ prices }: { prices?: Array<PropType> }) => {
 	if (!prices) {
 		return (
-			<div>
+			<figure>
+				<figcaption>Árak</figcaption>
 				<p>nincs megjeleníthető ár</p>
-			</div>
+			</figure>
 		)
 	}
 
@@ -22,18 +23,12 @@ const PricingTable = ({ prices }: { prices?: Array<PropType> }) => {
 	})
 
 	return (
-		<div>
-			{
-				<table>
-					<thead>
-						<tr>
-							<th colSpan={2}>Árak</th>
-						</tr>
-					</thead>
-					<tbody>{priceList}</tbody>
-				</table>
-			}
-		</div>
+		<figure>
+			<figcaption>Árak</figcaption>
+			<table>
+				<tbody>{priceList}</tbody>
+			</table>
+		</figure>
 	)
 }
 

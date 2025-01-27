@@ -4,7 +4,8 @@ const Address = ({
 	data: { country: string; city: string; zip: string; street: string }
 }) => {
 	return (
-		<div>
+		<figure>
+			<figcaption>Helyszin</figcaption>
 			<address>
 				<p>{country}</p>
 				<p>{city}</p>
@@ -12,7 +13,7 @@ const Address = ({
 				<p>{street}</p>
 			</address>
 			<p>megtekintés térképen</p>
-		</div>
+		</figure>
 	)
 }
 

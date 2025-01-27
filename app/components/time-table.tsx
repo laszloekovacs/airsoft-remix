@@ -14,17 +14,13 @@ const TimeTable = ({ date, times }: { date: string; times: TimesType[] }) => {
 	})
 
 	return (
-		<div>
-			<div>{date}</div>
+		<figure>
+			<figcaption>Időpontok</figcaption>
+			<time>{date}</time>
 			<table>
-				<thead>
-					<tr>
-						<th colSpan={2}>Időpontok</th>
-					</tr>
-				</thead>
 				<tbody>{tableRows}</tbody>
 			</table>
-		</div>
+		</figure>
 	)
 }
 
