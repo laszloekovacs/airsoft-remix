@@ -66,19 +66,25 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 
 			{/* TODO: event splash image */}
 
+			{/* organizer title card */}
 			<figure>
 				<figcaption>szervező</figcaption>
 				<OrganizerTitleCard id='33' name='the jucers' url='/' />
 			</figure>
-			<TimeTable times={timeTable} date={date} />
-			<PricingTable prices={prices} />
-			<Address data={address} />
+
+			{/* event details, information */}
+			<div>
+				<TimeTable times={timeTable} date={date} />
+				<PricingTable prices={prices} />
+				<Address data={address} />
+			</div>
 
 			{/* description formated with markdown */}
 			<Markdown>{`### hello from markdown`}</Markdown>
 
-			{/* atending teamsContainer */}
+			{/* atending teams */}
 			<AttendeesTableContainer data={null} />
+
 			{/* comments */}
 			<CommentsContainer comments={comments} />
 		</div>

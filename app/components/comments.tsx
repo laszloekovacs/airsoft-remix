@@ -11,19 +11,20 @@ export default function CommentsContainer({
 }: {
 	comments: CommentType[]
 }) {
-	if (comments.length === 0) {
-		return <div>nincs még hozzászólás</div>
-	} else {
-		return (
-			<div>
-				<figcaption>Hozzászólások</figcaption>
-				<CommentList comments={comments} />
-			</div>
-		)
-	}
+	return (
+		<div>
+			<figcaption>Hozzászólások</figcaption>
+			<CommentList comments={comments} />
+		</div>
+	)
 }
 
 const CommentList = ({ comments }: { comments: CommentType[] }) => {
+	// If there are no comments, return null
+	if (!comments.length) {
+		return null
+	}
+
 	return (
 		<div>
 			{comments.map(comment => (
