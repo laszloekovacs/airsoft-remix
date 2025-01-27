@@ -5,6 +5,7 @@ import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/status'
 import TimeTable from '~/components/time-table'
 import PricingTable from '~/components/pricing-table'
+import OrganizerTitleCard from '~/components/orgranizer-title-card'
 
 export const loader = async () => {
 	try {
@@ -108,6 +109,10 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 						{ price: 30, description: 'third' }
 					]
 				}}
+			/>
+
+			<OrganizerTitleCard
+				organizer={{ name: 'organizer', id: 'ef', patchFilename: 'hello.jpg' }}
 			/>
 		</div>
 	)
