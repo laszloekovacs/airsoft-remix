@@ -1,20 +1,25 @@
-import React from 'react'
 import { Link } from 'react-router'
 
-type PropType = {
-	name: string
+const OrganizerTitleCard = ({
+	id,
+	name,
+	url,
+	patchImgUrl
+}: {
 	id: string
-	patchFilename: string
-}
-
-const OrganizerTitleCard = ({ organizer }: { organizer: PropType }) => {
-	const { id, patchFilename, name } = organizer
+	name: string
+	url: string
+	patchImgUrl?: string
+}) => {
+	const imgUrl = patchImgUrl
+		? `/upload/content/${id}/${patchImgUrl}`
+		: '/assets/missing-profile.jpg'
 
 	return (
 		<div>
-			<Link to={`/organizer/${id}`}>
+			<Link to={url}>
 				<p>{name}</p>
-				<img src={`/upload/content/${id}/${patchFilename}`} />
+				<img src={imgUrl} alt={name} />
 			</Link>
 		</div>
 	)

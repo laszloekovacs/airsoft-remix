@@ -1,36 +1,40 @@
-import { useNavigate } from 'react-router'
+import TimeTable from '~/components/time-table'
 import type { Route } from './+types/_home.event_.$id'
-import { event as CalendarEvent } from '~/schema'
-import { drizzleClient } from '~/services/db.server'
-import { eq } from 'drizzle-orm'
-import Markdown from 'react-markdown'
+import OrganizerTitleCard from '~/components/orgranizer-title-card'
+import PricingTable from '~/components/pricing-table'
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
-	const eventData = await drizzleClient
-		.select()
-		.from(CalendarEvent)
-		.where(eq(CalendarEvent.urlPath, params.id))
+	const title = 'Jotékonysági játék'
 
-	// look up creator and organizer group
-	//	const organizer = await drizzleClient.select().from
+	const timeTable = [
+		{ time: '10:00', label: 'Regisztráció' },
+		{ time: '11:00', label: 'Játék' },
+		{ time: '12:00', label: 'Vége' }
+	]
 
-	return { eventData: eventData[0] }
+	const date = new Date().toString()
+
+	const prices = [{ label: 'belépő', price: 1000 }]
+
+	return {
+		title,
+		timeTable,
+		date,
+		prices
+	}
 }
 
 const EventPage = ({ loaderData }: Route.ComponentProps) => {
-	const { title, description, attachment, createdBy } = loaderData.eventData
-	const navigate = useNavigate()
+	const { title, timeTable, date, prices } = loaderData
 
 	return (
 		<div>
-			<button onClick={() => navigate(-1)}>vissza</button>
-
 			<h1>{title}</h1>
 
-			<img src={`/upload/content/${attachment}`} alt='Event Image' />
-
-			{description && <Markdown>{description}</Markdown>}
-			<p>{createdBy}</p>
+			<h2>Szervező csoport</h2>
+			<OrganizerTitleCard id='33' name='the jucers' url='/' />
+			<TimeTable times={timeTable} date={date} />
+			<PricingTable prices={prices} />
 		</div>
 	)
 }

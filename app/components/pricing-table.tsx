@@ -1,18 +1,22 @@
 type PropType = {
-	prices: Array<{
-		price: number
-		label: string
-	}>
+	price: number
+	label: string
 }
 
-const PricingTable = ({ pricing }: { pricing: PropType }) => {
-	const { prices } = pricing
-
-	const priceList = prices.map(price => {
+const PricingTable = ({ prices }: { prices?: Array<PropType> }) => {
+	if (!prices) {
 		return (
-			<tr key={price.price}>
-				<td>{price.price}</td>
-				<td>{price.label}</td>
+			<div>
+				<p>nincs megjeleníthető ár</p>
+			</div>
+		)
+	}
+
+	const priceList = prices.map(entry => {
+		return (
+			<tr key={entry.label}>
+				<td>{entry.label}</td>
+				<td>{entry.price}</td>
 			</tr>
 		)
 	})
