@@ -106,7 +106,7 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 
 			{/* organizer title card */}
 			<figure>
-				<figcaption>szervező</figcaption>
+				<h2>szervező</h2>
 				<OrganizerTitleCard id='33' name='the jucers' url='/' />
 			</figure>
 

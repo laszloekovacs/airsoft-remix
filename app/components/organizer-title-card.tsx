@@ -1,4 +1,6 @@
 import { Link } from 'react-router'
+import Avatar from './avatar'
+import CoverPhoto from './cover-photo'
 
 const OrganizerTitleCard = ({
 	id,
@@ -11,17 +13,16 @@ const OrganizerTitleCard = ({
 	url: string
 	patchImgUrl?: string
 }) => {
-	const imgUrl = patchImgUrl
-		? `/upload/content/${id}/${patchImgUrl}`
-		: '/assets/missing-profile.jpg'
-
 	return (
-		<div>
+		<section>
 			<Link to={url}>
-				<p>{name}</p>
-				<img src={imgUrl} alt={name} />
+				<h3>{name}</h3>
+				{/* patch of the group */}
+				<Avatar />
+				{/* cover photo of the group */}
+				<CoverPhoto />
 			</Link>
-		</div>
+		</section>
 	)
 }
 
