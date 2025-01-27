@@ -41,3 +41,7 @@ h6 {
 figcaption {
 	font-weight: bold;
 }
+
+div {
+	background-color: rgba(0, 0, 0, 0.05);
+}

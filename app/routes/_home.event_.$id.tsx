@@ -44,7 +44,6 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 		<div>
 			<h1>{title}</h1>
 			<FacebookShareButton />
-			<h2>Szervező csoport</h2>
 
 			{/* event splash image */}
 
