@@ -1,15 +1,9 @@
-import React from 'react'
-
-type PropType = {
-	times: {
-		time: string
-		subject: string
-	}[]
+type TimesType = {
+	time: string
+	subject: string
 }
 
-const TimeTable = ({ entries }: { entries: PropType }) => {
-	const { times } = entries
-
+const TimeTable = ({ times }: { times: TimesType[] }) => {
 	const tableRows = times.map((entry, index) => {
 		return (
 			<tr key={index}>

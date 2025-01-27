@@ -93,13 +93,11 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 			</dialog>
 
 			<TimeTable
-				entries={{
-					times: [
-						{ time: '08:00', subject: 'gyülekező' },
-						{ time: '09:00', subject: 'kezdés' },
-						{ time: '10:00', subject: 'befejezés' }
-					]
-				}}
+				times={[
+					{ time: '10:00', subject: 'first' },
+					{ time: '11:00', subject: 'second' },
+					{ time: '12:00', subject: 'third' }
+				]}
 			/>
 			<PricingTable
 				pricing={{
@@ -109,10 +107,6 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 						{ price: 30, description: 'third' }
 					]
 				}}
-			/>
-
-			<OrganizerTitleCard
-				organizer={{ name: 'organizer', id: 'ef', patchFilename: 'hello.jpg' }}
 			/>
 		</div>
 	)
