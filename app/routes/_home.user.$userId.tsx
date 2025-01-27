@@ -1,6 +1,6 @@
 import { drizzleClient } from '~/services/db.server'
 import { user } from '~/schema/auth-schema'
-import type { Route } from './+types/_home.user.$userId._index'
+import type { Route } from './+types/_home.user.$userId'
 import { eq } from 'drizzle-orm'
 import { auth } from '~/services/auth.server'
 
