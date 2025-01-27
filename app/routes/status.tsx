@@ -3,6 +3,8 @@ import { Form } from 'react-router'
 import { drizzleClient } from '~/services/db.server'
 import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/status'
+import TimeTable from '~/components/time-table'
+import PricingTable from '~/components/pricing-table'
 
 export const loader = async () => {
 	try {
@@ -88,6 +90,25 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 					<button>OK</button>
 				</form>
 			</dialog>
+
+			<TimeTable
+				entries={{
+					times: [
+						{ time: '08:00', subject: 'gyülekező' },
+						{ time: '09:00', subject: 'kezdés' },
+						{ time: '10:00', subject: 'befejezés' }
+					]
+				}}
+			/>
+			<PricingTable
+				pricing={{
+					prices: [
+						{ price: 10, description: 'first' },
+						{ price: 20, description: 'second' },
+						{ price: 30, description: 'third' }
+					]
+				}}
+			/>
 		</div>
 	)
 }
