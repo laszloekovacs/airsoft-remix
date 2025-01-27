@@ -6,7 +6,7 @@ import type { Route } from './+types/status'
 import TimeTable from '~/components/time-table'
 import PricingTable from '~/components/pricing-table'
 import OrganizerTitleCard from '~/components/organizer-title-card'
-import TeamTable from '~/components/team-table'
+import UserTable from '~/components/user-table'
 
 export const loader = async () => {
 	try {
@@ -110,7 +110,7 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 				}}
 			/>
 
-			<TeamTable
+			<UserTable
 				players={[
 					{
 						avatar: 'https://randomuser.me/api/portraits',

@@ -1,4 +1,4 @@
-import TeamTable from './team-table'
+import UserTable from './user-table'
 
 type Attendee = {
 	id: string
@@ -41,7 +41,7 @@ const FactionsList = ({ factions }: { factions: Faction[] }) => {
 				{factions.map(faction => (
 					<div>
 						<h3>{faction.name}</h3>
-						<TeamTable key={faction.name} players={faction.members} />
+						<UserTable key={faction.name} players={faction.members} />
 					</div>
 				))}
 			</ul>

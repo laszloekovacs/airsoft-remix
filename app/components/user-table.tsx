@@ -2,7 +2,7 @@
 
 import Avatar from './avatar'
 
-type TeamTableProps = {
+type UserTableProps = {
 	players: Array<{
 		id: string
 		avatar: string
@@ -11,7 +11,7 @@ type TeamTableProps = {
 	}>
 }
 
-export default function TeamTable({ players }: TeamTableProps) {
+export default function UserTable({ players }: UserTableProps) {
 	const rows = players.map(player => (
 		<tr key={player.id}>
 			<td>
