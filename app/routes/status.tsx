@@ -5,7 +5,7 @@ import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/status'
 import TimeTable from '~/components/time-table'
 import PricingTable from '~/components/pricing-table'
-import OrganizerTitleCard from '~/components/orgranizer-title-card'
+import OrganizerTitleCard from '~/components/organizer-title-card'
 import TeamTable from '~/components/team-table'
 
 export const loader = async () => {

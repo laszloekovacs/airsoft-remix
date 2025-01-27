@@ -1,6 +1,6 @@
 import Markdown from 'react-markdown'
 import Address from '~/components/address'
-import OrganizerTitleCard from '~/components/orgranizer-title-card'
+import OrganizerTitleCard from '~/components/organizer-title-card'
 import PricingTable from '~/components/pricing-table'
 import TimeTable from '~/components/time-table'
 import type { Route } from './+types/_home.event_.$id'
