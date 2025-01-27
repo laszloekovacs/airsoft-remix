@@ -5,7 +5,7 @@ import PricingTable from '~/components/pricing-table'
 import TimeTable from '~/components/time-table'
 import type { Route } from './+types/_home.event_.$id'
 import FacebookShareButton from '~/components/facebook-share-button'
-import AttendeesTableContainer from '~/components/attendees-table-container'
+import AttendeesTableContainer from '~/components/attendees-table'
 import CommentsContainer from '~/components/comments'
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
@@ -54,7 +54,7 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 			<Address data={address} />
 
 			{/* description formated with markdown */}
-			<Markdown>{`# hello from markdown`}</Markdown>
+			<Markdown>{`### hello from markdown`}</Markdown>
 
 			{/* atending teamsContainer */}
 			<AttendeesTableContainer data={null} />

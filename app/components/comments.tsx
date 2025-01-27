@@ -1,5 +1,5 @@
 const CommentsContainer = () => {
-	return <div>CommentsContainer</div>
+	return <div>nincs még hozzászólás</div>
 }
 
 export default CommentsContainer
