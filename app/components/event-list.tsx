@@ -1,5 +1,8 @@
 import { Link } from 'react-router'
 import type { event as CalendarEvent } from '~/schema'
+import CoverPhoto from './cover-photo'
+import Avatar from './avatar'
+import styles from './event-list.module.css'
 
 export const EventCalendarContainer = ({
 	events
@@ -34,16 +37,37 @@ const EventsListItem = ({
 	event: typeof CalendarEvent.$inferSelect
 }) => {
 	return (
-		<li className='border p-4'>
+		<li>
 			<Link to={`/event/${event.urlPath}`}>
-				<h2>{event.title}</h2>
-				<img
-					src={`/upload/content/${event.attachment}`}
-					alt={event.attachment}
-					width={'50%'}
-				/>
+				<div className={styles.container}>
+					<div className={styles.title}>
+						<h2>{event.title}</h2>
+						<EventSummary date={'2022-12-31'} location={'Budapest'} />
+					</div>
+
+					<CoverPhoto />
+
+					{/* organizer patch */}
+					<div className={styles.footer}>
+						<Avatar />
+					</div>
+				</div>
 			</Link>
-			<p>thisisit</p>
 		</li>
+	)
+}
+
+const EventSummary = ({
+	date,
+	location
+}: {
+	date: string
+	location: string
+}) => {
+	return (
+		<div className={styles.summary}>
+			<p>{date}</p>
+			<p>{location}</p>
+		</div>
 	)
 }

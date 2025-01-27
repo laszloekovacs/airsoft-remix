@@ -1,0 +1,17 @@
+.container {
+	position: relative;
+}
+
+.title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: black;
+	padding: 15px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 5%;
+	left: 2%;
+}
