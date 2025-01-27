@@ -3,6 +3,7 @@ import { user } from '~/schema/auth-schema'
 import type { Route } from './+types/_home.user.$userId'
 import { eq } from 'drizzle-orm'
 import { auth } from '~/services/auth.server'
+import Avatar from '~/components/avatar'
 
 export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -36,15 +37,13 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 const UserProfilePage = ({ loaderData }: Route.ComponentProps) => {
 	const { user, requestedUserIsMe } = loaderData
 	return (
-		<section className='flex flex-row items-center justify-between'>
+		<section>
 			<div>
-				<h1 className='text-lg font-semibold'>{user.name}</h1>
-				<p className='text-sm text-gray-500'>{user.email}</p>
+				<h1>{user.name}</h1>
+				<p>{user.email}</p>
 			</div>
 			<div>
-				{user.image && (
-					<img src={user?.image} alt={user.name} className='w-32 h-32 ' />
-				)}
+				<Avatar src={user.image} />
 			</div>
 		</section>
 	)

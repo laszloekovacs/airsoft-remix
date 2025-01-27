@@ -1,8 +1,19 @@
+import { Link } from 'react-router'
+
 export const HomeFooter = () => {
 	return (
-		<footer className='py-6'>
+		<footer>
 			<hr />
-			<p className='text-xs'>© {new Date().getFullYear()} Airsoft Naptár</p>
+			<p>© {new Date().getFullYear()} Airsoft Naptár</p>
+
+			<ul>
+				<li>
+					<Link to='/'>Kezdőlap</Link>
+				</li>
+				<li>
+					<Link to='/groups'>Csoportok</Link>
+				</li>
+			</ul>
 		</footer>
 	)
 }
