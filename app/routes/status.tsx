@@ -93,18 +93,18 @@ const StatusPage = ({ loaderData }: Route.ComponentProps) => {
 			</dialog>
 
 			<TimeTable
+				date='2021-10-10'
 				times={[
-					{ time: '10:00', subject: 'first' },
-					{ time: '11:00', subject: 'second' },
-					{ time: '12:00', subject: 'third' }
+					{ time: '10:00', label: 'kezdés' },
+					{ time: '11:00', label: 'ebédidő' },
+					{ time: '12:00', label: 'vége' }
 				]}
 			/>
 			<PricingTable
 				pricing={{
 					prices: [
-						{ price: 10, description: 'first' },
-						{ price: 20, description: 'second' },
-						{ price: 30, description: 'third' }
+						{ price: 5000, label: 'beugró' },
+						{ price: 3000, label: 'eszköz bérlés' }
 					]
 				}}
 			/>

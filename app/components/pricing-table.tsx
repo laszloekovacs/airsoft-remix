@@ -1,7 +1,7 @@
 type PropType = {
 	prices: Array<{
 		price: number
-		description: string
+		label: string
 	}>
 }
 
@@ -12,7 +12,7 @@ const PricingTable = ({ pricing }: { pricing: PropType }) => {
 		return (
 			<tr key={price.price}>
 				<td>{price.price}</td>
-				<td>{price.description}</td>
+				<td>{price.label}</td>
 			</tr>
 		)
 	})
@@ -23,8 +23,7 @@ const PricingTable = ({ pricing }: { pricing: PropType }) => {
 				<table>
 					<thead>
 						<tr>
-							<th>Price</th>
-							<th>Description</th>
+							<th colSpan={2}>Árak</th>
 						</tr>
 					</thead>
 					<tbody>{priceList}</tbody>
