@@ -11,7 +11,7 @@ export const HomeFooter = () => {
 					<Link to='/'>Kezdőlap</Link>
 				</li>
 				<li>
-					<Link to='/groups'>Csoportok</Link>
+					<Link to='/group'>Csoportok</Link>
 				</li>
 			</ul>
 		</footer>

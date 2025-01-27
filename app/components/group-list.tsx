@@ -21,7 +21,7 @@ export default function GroupList({ groups }: { groups: Group[] }) {
 const GroupListItem = ({ group }: { group: Group }) => {
 	return (
 		<li>
-			<Link to={`/groups/${group.id}`}>
+			<Link to={`/group/${group.id}`}>
 				<p>{group.name}</p>
 				<CoverPhoto src={group.coverPhoto} />
 			</Link>
