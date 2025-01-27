@@ -1,5 +1,24 @@
 :root {
 	--border-radius: 2px;
 	--border-width: 1px;
-	--border-color: #ccc;
+	--border: #ccc;
+
+	--body: #333;
+	--body-bg: #fff;
+
+	--muted: #6c757d;
+	--muted-bg: #f8f9fa;
+
+	--primary: #007bff;
+
+	--success: #28a745;
+	--danger: #dc3545;
+
+	--light: #f8f9fa;
+	--dark: #343a40;
+}
+
+:root {
+	--font-size: 16px;
+	--line-height: 1.5;
 }
