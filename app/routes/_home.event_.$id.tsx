@@ -7,6 +7,7 @@ import type { Route } from './+types/_home.event_.$id'
 import FacebookShareButton from '~/components/facebook-share-button'
 import AttendeesTableContainer from '~/components/attendees-table'
 import CommentsContainer from '~/components/comments'
+import type { CommentType } from '~/components/comments'
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const title = 'Jotékonysági játék'
@@ -28,17 +29,35 @@ export const loader = async ({ request, params }: Route.LoaderArgs) => {
 		street: 'Kossuth Lajos utca 1.'
 	}
 
+	const comments = [
+		{
+			id: 1,
+			user: 'John Doe',
+			avatar: 'https://picsum.photos/50',
+			text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+			replies: [
+				{
+					id: 1,
+					user: 'Jane Doe',
+					avatar: 'https://picsum.photos/50',
+					text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+				}
+			]
+		}
+	] as CommentType[]
+
 	return {
 		title,
 		timeTable,
 		date,
 		prices,
-		address
+		address,
+		comments
 	}
 }
 
 const EventPage = ({ loaderData }: Route.ComponentProps) => {
-	const { title, timeTable, date, prices, address } = loaderData
+	const { title, timeTable, date, prices, address, comments } = loaderData
 
 	return (
 		<div>
@@ -61,7 +80,7 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 			{/* atending teamsContainer */}
 			<AttendeesTableContainer data={null} />
 			{/* comments */}
-			<CommentsContainer />
+			<CommentsContainer comments={comments} />
 		</div>
 	)
 }
