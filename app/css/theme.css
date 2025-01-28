@@ -58,3 +58,19 @@ a:active {
 	color: var(--primary);
 	text-decoration: none;
 }
+
+@custom-media --small-screen (max-width: 600px);
+
+@media (--small-screen) {
+	body {
+		background-color: aquamarine;
+	}
+}
+
+@media (width > 1080px) {
+	body {
+		background-color: red;
+	}
+}
+
+/* max width should be 1080 */
