@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router'
-import { Header } from '~/components/home-header'
+import { HomeHeader } from '~/components/home-header'
 import { auth } from '~/services/auth.server'
 import type { Route } from './+types/_home'
 import { HomeFooter } from '~/components/home-footer'
 import styles from './_home.module.css'
+import SessionHeader from '~/components/session-header'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -24,29 +25,20 @@ export function meta({}: Route.MetaArgs) {
 export async function loader({ params, request }: Route.LoaderArgs) {
 	// returns email, if logged in aka session is not null
 	const session = await auth.api.getSession({ headers: request.headers })
-	const userEmail = session?.user.email
-	const userProfileUrl = session?.user.image
-	const claims = session?.claims
 
-	return { userEmail, userProfileUrl, claims }
+	return session
 }
 
 export default function HomePage({ loaderData }: Route.ComponentProps) {
-	const { userEmail, userProfileUrl, claims } = loaderData
-	const isOrganizer = claims?.includes('organizer') || claims?.includes('root')
+	const sessionData = loaderData
 
 	return (
 		<div className={styles.container}>
-			<Header
-				userEmail={userEmail}
-				userProfileUrl={userProfileUrl}
-				isOrganizer={isOrganizer}
-			/>
-
+			<HomeHeader />
+			<SessionHeader sessionData={sessionData} />
 			<main>
 				<Outlet />
 			</main>
-
 			<HomeFooter />
 		</div>
 	)

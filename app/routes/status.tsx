@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Form } from 'react-router'
-import { drizzleClient } from '~/services/db.server'
-import { user } from '~/schema/auth-schema'
-import type { Route } from './+types/status'
-import TimeTable from '~/components/time-table'
 import PricingTable from '~/components/pricing-table'
-import OrganizerTitleCard from '~/components/organizer-title-card'
+import TimeTable from '~/components/time-table'
 import UserTable from '~/components/user-table'
+import { user } from '~/schema/auth-schema'
+import { drizzleClient } from '~/services/db.server'
+import type { Route } from './+types/status'
 
 export const loader = async () => {
 	try {

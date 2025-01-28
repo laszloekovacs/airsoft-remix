@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Form, useNavigate, useNavigation } from 'react-router'
+import { group } from '~/schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import { generateUrlName } from '~/services/generate-url-name'
-import { group } from '~/schema'
 import type { Route } from './+types/dashboard.group.create'
 
 const MIN_GROUP_NAME_LENGTH = 3

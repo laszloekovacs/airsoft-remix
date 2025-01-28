@@ -1,5 +1,4 @@
 import { authClient } from '~/services/auth.client'
-import { FaFacebook, FaGithub, FaDiscord, FaGoogle } from 'react-icons/fa'
 
 const LoginPage = () => {
 	const handleLogin = async (provider: 'github' | 'discord') => {
@@ -17,14 +16,12 @@ const LoginPage = () => {
 					<button
 						className='w-full flex items-center justify-center bg-gray-800 text-white py-2 px-4 rounded-sm hover:bg-gray-900 transition duration-300'
 						onClick={() => handleLogin('github')}>
-						<FaGithub className='mr-2' />
 						Belépés GitHub fiókkal
 					</button>
 
 					<button
 						className='w-full flex items-center justify-center bg-indigo-600 text-white py-2 px-4 rounded-sm hover:bg-indigo-700 transition duration-300'
 						onClick={() => handleLogin('discord')}>
-						<FaDiscord className='mr-2' />
 						Belépés Discord fiókkal
 					</button>
 				</div>
