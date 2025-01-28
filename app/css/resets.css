@@ -2,19 +2,75 @@
 	box-sizing: border-box;
 }
 
-img {
-	max-width: 100%;
-	display: block;
-}
-
 *,
 *:before,
 *:after {
 	box-sizing: inherit;
-	margin: 0;
 	padding: 0;
+	margin: 0;
 }
 
 body {
 	position: relative;
+	line-height: 1.5;
+	isolation: isolate;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	max-width: 100%;
+	display: block;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+p {
+	overflow-wrap: break-word;
+	text-wrap: pretty;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	overflow-wrap: break-word;
+	text-wrap: balance;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+button {
+	cursor: pointer;
+	border: none;
+	background: transparent;
+}
+
+table,
+tr,
+td,
+th,
+thead,
+tbody,
+tfoot {
+	border: none;
+	border-collapse: collapse;
+	font-weight: normal;
 }

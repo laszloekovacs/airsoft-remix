@@ -37,8 +37,7 @@ const AuthenticatedSessionHeader = ({
 
 const UnauthenticatedSessionHeader = () => {
 	const handleClick = (provider: 'github' | 'discord') => {
-		authClient.signIn.social({ provider })
-		newUserCallbackURL: '/welcome'
+		authClient.signIn.social({ provider, newUserCallbackURL: '/welcome' })
 	}
 
 	return (
@@ -46,6 +45,7 @@ const UnauthenticatedSessionHeader = () => {
 			<div>
 				<p>belépés / csatlakozás</p>
 			</div>
+
 			<div>
 				<button onClick={() => handleClick('github')}>
 					<img src='assets/github-fill.svg' alt='github' width={30} />

@@ -6,7 +6,7 @@
 }
 
 :root {
-	font-family: 'Noto Sans', serif;
+	font-family: sans-serif;
 	font-optical-sizing: auto;
 }
 
@@ -30,43 +30,31 @@
 	--dark: #343a40;
 }
 
-:root {
-	--font-size: 14px;
-	--line-height: 1.5;
-}
-
-h1 {
-	font-size: 18px;
-	font-weight: bold;
-}
-
-h2 {
-	font-size: 16px;
-	font-weight: 500;
-}
-
-h3,
-h4,
-h5,
-h6 {
-	font-size: 14px;
-	font-weight: 400;
-}
-
-figcaption {
-	font-weight: bold;
+/* debug drawing */
+div {
+	background-color: rgba(0, 0, 0, 0.05);
 }
 
 table {
 	width: 100%;
 }
 
-/* debug drawing */
-div {
-	background-color: rgba(0, 0, 0, 0.05);
+body {
+	color: var(--body);
+	background-color: var(--body-bg);
 }
 
-body {
-	font-size: var(--font-size);
-	line-height: var(--line-height);
+a {
+	color: var(--body);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--body);
+	text-decoration: underline;
+}
+
+a:active {
+	color: var(--primary);
+	text-decoration: none;
 }
