@@ -8,12 +8,14 @@
 	box-sizing: inherit;
 	padding: 0;
 	margin: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.5;
 }
 
 body {
-	position: relative;
-	line-height: 1.5;
 	isolation: isolate;
+	position: relative;
 }
 
 img,
@@ -53,8 +55,6 @@ h6 {
 	font-weight: normal;
 	overflow-wrap: break-word;
 	text-wrap: balance;
-	font-size: 14px;
-	font-weight: normal;
 }
 
 button {
