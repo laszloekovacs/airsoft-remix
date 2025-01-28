@@ -1,6 +1,0 @@
-.box {
-	border-radius: var(--border-radius);
-	border-width: var(--border-width);
-	border-color: var(--border);
-	border-style: solid;
-}

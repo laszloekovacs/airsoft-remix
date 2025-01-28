@@ -31,7 +31,7 @@
 }
 
 :root {
-	--font-size: 16px;
+	--font-size: 14px;
 	--line-height: 1.5;
 }
 
@@ -61,4 +61,9 @@ table {
 /* debug drawing */
 div {
 	background-color: rgba(0, 0, 0, 0.05);
+}
+
+body {
+	font-size: var(--font-size);
+	line-height: var(--line-height);
 }
