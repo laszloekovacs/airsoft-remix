@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router'
 import Avatar from './avatar'
 
 type HeaderProps = {
-	userEmail: string | null
-	userProfileUrl: string | null
+	userEmail: string
+	userProfileUrl?: string
 	isOrganizer: boolean
 }
 
@@ -35,7 +35,7 @@ const OrganizerPanel = () => {
 
 type SessionProps = {
 	userEmail: string | null
-	imageUrl: string | null
+	imageUrl?: string
 }
 
 export const SessionMenuButton = ({ userEmail, imageUrl }: SessionProps) => {
@@ -59,10 +59,10 @@ const LoggedIn = ({
 	imageUrl
 }: {
 	userEmail: string
-	imageUrl: string | null
+	imageUrl?: string
 }) => {
 	return (
-		<Link to='/user/me' className='flex flex-row gap-2 items-center'>
+		<Link to='/user/me'>
 			<span>{userEmail}</span>
 			<Avatar src={imageUrl} alt={userEmail} />
 		</Link>
