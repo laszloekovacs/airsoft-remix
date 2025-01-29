@@ -48,10 +48,10 @@ const UnauthenticatedSessionHeader = () => {
 
 			<div>
 				<button onClick={() => handleClick('github')}>
-					<img src='assets/github-fill.svg' alt='github' width={30} />
+					<img src='/assets/github-fill.svg' alt='github' width={30} />
 				</button>
 				<button onClick={() => handleClick('discord')}>
-					<img src='assets/discord-fill.svg' alt='discord' width={30} />
+					<img src='/assets/discord-fill.svg' alt='discord' width={30} />
 				</button>
 			</div>
 		</div>
