@@ -34,8 +34,10 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div className={styles.container}>
-			<HomeHeader />
-			<SessionHeader sessionData={sessionData} />
+			<div>
+				<HomeHeader />
+				<SessionHeader sessionData={sessionData} />
+			</div>
 			<main>
 				<Outlet />
 			</main>

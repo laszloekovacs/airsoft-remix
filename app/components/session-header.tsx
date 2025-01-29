@@ -29,7 +29,7 @@ const AuthenticatedSessionHeader = ({
 		<div>
 			<Link to='/user/me'>
 				<p>{sessionData.user.email}</p>
-				<Avatar />
+				<Avatar src={sessionData.user.image} />
 			</Link>
 		</div>
 	)
