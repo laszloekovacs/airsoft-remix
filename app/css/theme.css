@@ -30,11 +30,6 @@
 	--dark: #343a40;
 }
 
-/* debug drawing */
-div {
-	background-color: rgba(0, 0, 0, 0.05);
-}
-
 table {
 	width: 100%;
 }
@@ -59,22 +54,6 @@ a:active {
 	text-decoration: none;
 }
 
-@custom-media --small-screen (max-width: 600px);
-
-@media (--small-screen) {
-	body {
-		background-color: aquamarine;
-	}
-}
-
-@media (width > 1080px) {
-	body {
-		background-color: red;
-	}
-}
-
-/* max width should be 1080 */
-
 .btn {
 	display: inline-block;
 	font-weight: 400;
@@ -89,4 +68,34 @@ a:active {
 	color: #fff;
 	background-color: var(--primary);
 	border-color: var(--primary);
+}
+
+@custom-media --small-screen (min-width: 600px);
+
+@media (--small-screen) {
+	body {
+		background-color: aquamarine;
+	}
+}
+
+@media (width > 1080px) {
+	body {
+		background-color: red;
+	}
+}
+/* debug drawing */
+/*
+div {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* max width should be 1080 */
+
+.page-layout {
+	max-width: 1080px;
+	margin: 0 auto;
+	padding: 16px 16px;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-height: 100vh;
 }

@@ -3,7 +3,6 @@ import { HomeHeader } from '~/components/home-header'
 import { auth } from '~/services/auth.server'
 import type { Route } from './+types/_home'
 import { HomeFooter } from '~/components/home-footer'
-import styles from './_home.module.css'
 import SessionHeader from '~/components/session-header'
 
 export function meta({}: Route.MetaArgs) {
@@ -33,14 +32,14 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 	const sessionData = loaderData
 
 	return (
-		<div className={styles.container}>
+		<div className='page-layout'>
 			<div>
 				<HomeHeader />
 				<SessionHeader sessionData={sessionData} />
 			</div>
-			<main>
-				<Outlet />
-			</main>
+
+			<Outlet />
+
 			<HomeFooter />
 		</div>
 	)
