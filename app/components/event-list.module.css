@@ -1,3 +1,27 @@
 .container {
-	position: relative;
+	margin-bottom: 32px;
+}
+
+.title {
+	font-size: x-large;
+	font-weight: 200;
+	margin-bottom: 8px;
+}
+
+.image {
+	height: 100px;
+}
+
+.date {
+	font-size: medium;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.card {
+	border: var(--border-width) solid var(--border);
+	border-radius: var(--border-radius);
+	padding: 8px;
+	margin-block: 16px;
 }

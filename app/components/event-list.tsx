@@ -9,12 +9,10 @@ export const EventCalendarContainer = ({
 }: {
 	events: (typeof CalendarEvent.$inferSelect)[]
 }) => {
-	return (
-		<div>
-			<h2>Események</h2>
-			{events && events.length > 0 && <EventsList events={events} />}
-		</div>
-	)
+	if (events.length === 0) {
+		return <p>Nincs megjeleníthető esemény</p>
+	}
+	return <EventsList events={events} />
 }
 
 const EventsList = ({
@@ -23,7 +21,7 @@ const EventsList = ({
 	events: (typeof CalendarEvent.$inferSelect)[]
 }) => {
 	return (
-		<ul className='flex flex-col space-y-4'>
+		<ul>
 			{events.map(event => (
 				<EventsListItem key={event.id} event={event} />
 			))}
@@ -37,37 +35,18 @@ const EventsListItem = ({
 	event: typeof CalendarEvent.$inferSelect
 }) => {
 	return (
-		<li>
+		<li className={styles.card}>
 			<Link to={`/event/${event.urlPath}`}>
 				<div className={styles.container}>
-					<div className={styles.title}>
-						<h2>{event.title}</h2>
-						<EventSummary date={'2022-12-31'} location={'Budapest'} />
+					<div className={styles.date}>
+						<p>2025-12-11 </p>
+						<p>12:00</p>
 					</div>
-
+					<h2 className={styles.title}>{event.title}</h2>
 					<CoverPhoto />
-
-					{/* organizer patch */}
-					<div className={styles.footer}>
-						<Avatar />
-					</div>
 				</div>
+				<div>user által megosztva</div>
 			</Link>
 		</li>
-	)
-}
-
-const EventSummary = ({
-	date,
-	location
-}: {
-	date: string
-	location: string
-}) => {
-	return (
-		<div className={styles.summary}>
-			<p>{date}</p>
-			<p>{location}</p>
-		</div>
 	)
 }
