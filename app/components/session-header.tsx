@@ -2,6 +2,8 @@ import type { auth } from '~/services/auth.server'
 import Avatar from './avatar'
 import { Link } from 'react-router'
 import { authClient } from '~/services/auth.client'
+import styles from './session-header.module.css'
+
 type sessionType = Awaited<ReturnType<typeof auth.api.getSession>>
 
 export default function SessionHeader({
@@ -23,15 +25,18 @@ const AuthenticatedSessionHeader = ({
 }: {
 	sessionData: sessionType
 }) => {
-	if (!sessionData) throw new Error('session should not be null at this point')
+	if (!sessionData)
+		throw new Error('sessionData should not be null at this point')
 
 	return (
-		<div>
+		<section className={styles.container}>
 			<Link to='/user/me'>
-				<p>{sessionData.user.email}</p>
-				<Avatar src={sessionData.user.image} />
+				<div className={styles.credentials}>
+					<p>{sessionData.user.email}</p>
+					<Avatar src={sessionData.user.image} />
+				</div>
 			</Link>
-		</div>
+		</section>
 	)
 }
 
@@ -41,7 +46,7 @@ const UnauthenticatedSessionHeader = () => {
 	}
 
 	return (
-		<div>
+		<section className={styles.container}>
 			<div>
 				<p>belépés / csatlakozás</p>
 			</div>
@@ -54,6 +59,6 @@ const UnauthenticatedSessionHeader = () => {
 					<img src='/assets/discord-fill.svg' alt='discord' width={30} />
 				</button>
 			</div>
-		</div>
+		</section>
 	)
 }

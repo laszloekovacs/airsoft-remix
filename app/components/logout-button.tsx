@@ -9,5 +9,9 @@ export default function LogoutButton() {
 		navigate('/bye')
 	}
 
-	return <button onClick={() => handleClick()}>Logout</button>
+	return (
+		<button className='btn btn-primary' onClick={() => handleClick()}>
+			Logout
+		</button>
+	)
 }
