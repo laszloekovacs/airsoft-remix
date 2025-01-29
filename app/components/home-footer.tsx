@@ -18,7 +18,7 @@ export const HomeFooter = () => {
 				</li>
 			</ul>
 
-			<p>{new Date().getFullYear()} Airsoft Naptár</p>
+			<small>{new Date().getFullYear()} Airsoft Naptár</small>
 		</footer>
 	)
 }
