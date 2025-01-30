@@ -5,7 +5,7 @@ import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
-import type { Route } from './+types/_home.profile'
+import type { Route } from './+types/_home.user'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -24,7 +24,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 	return { name: session.user.name }
 }
 
-export default function ProfilePage({ loaderData }: Route.ComponentProps) {
+export default function UserPage({ loaderData }: Route.ComponentProps) {
 	const { name } = loaderData
 
 	return (

@@ -30,7 +30,7 @@ const AuthenticatedSessionHeader = ({
 
 	return (
 		<section className={styles.container}>
-			<Link to='/profile'>
+			<Link to='/user'>
 				<div className={styles.credentials}>
 					<p>{sessionData.user.email}</p>
 					<Avatar src={sessionData.user.image} />

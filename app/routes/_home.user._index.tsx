@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import UserCreatedEventsTable from '~/components/user-created-events-table'
 
-export default function ProfileIndexPage() {
+export default function UserIndexPage() {
 	return (
 		<div>
 			<UserCreatedEventsTable
@@ -13,7 +13,7 @@ export default function ProfileIndexPage() {
 				]}
 			/>
 			<div>
-				<Link to='/profile/event/edit'>új létrehozása</Link>
+				<Link to='/user/event/edit'>új létrehozása</Link>
 			</div>
 		</div>
 	)
@@ -22,9 +22,9 @@ export default function ProfileIndexPage() {
 const ProfileNavbar = () => {
 	return (
 		<nav>
-			<Link to='/profile'>főoldalad</Link>
-			<Link to='/profile/events'>hirdetéseid</Link>
-			<Link to='/profile/applications'>jelentkezéseid</Link>
+			<Link to='/user'>főoldalad</Link>
+			<Link to='/user/events'>hirdetéseid</Link>
+			<Link to='/user/applications'>jelentkezéseid</Link>
 		</nav>
 	)
 }
