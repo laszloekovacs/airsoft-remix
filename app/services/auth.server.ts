@@ -43,13 +43,18 @@ export const auth = betterAuth({
 				type: 'string',
 				required: false,
 				input: false
+			},
+			callsign: {
+				type: 'string',
+				required: false,
+				input: true
 			}
 		}
 	},
 	account: {
 		accountLinking: {
 			enabled: true,
-			trustedProviders: ['github']
+			trustedProviders: ['github', 'discord']
 		}
 	},
 	advanced: {
