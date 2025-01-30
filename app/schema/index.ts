@@ -41,7 +41,6 @@ export const event = pgTable('event', {
 	coverPhoto: text('cover_photo'),
 	createdAt: timestamp().defaultNow(),
 	updatedAt: timestamp().$onUpdateFn(() => new Date()),
-	startTime: time('start_time').notNull(),
 	startDate: date('start_date').notNull(),
 	location: text('location'),
 	isPublished: boolean('is_published').notNull().default(false),
