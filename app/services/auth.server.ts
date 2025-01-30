@@ -76,4 +76,5 @@ export const auth = betterAuth({
 	]
 })
 
-export default auth
+// only export as default or as variable. check path
+//export default auth
