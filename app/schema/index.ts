@@ -6,7 +6,8 @@ import {
 	text,
 	time,
 	timestamp,
-	uuid
+	uuid,
+	jsonb
 } from 'drizzle-orm/pg-core'
 import { user } from './auth-schema'
 
@@ -14,10 +15,10 @@ export const group = pgTable('group', {
 	id: uuid().primaryKey().defaultRandom(),
 	name: text().notNull(),
 	urlPath: text().notNull().unique(),
-	createdBy: text('created_by')
-		.notNull()
-		.references(() => user.id, { onDelete: 'set default' })
-		.default('unknown')
+	owner: text('created_by').references(() => user.id, { onDelete: 'set null' }),
+	coverPhoto: text(),
+	address: jsonb('address').default('[]'),
+	contacts: jsonb('contacts').default('[]')
 })
 
 export const membership = pgTable('membership', {
