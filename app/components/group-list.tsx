@@ -2,9 +2,8 @@ import { Link } from 'react-router'
 import CoverPhoto from './cover-photo'
 
 type Group = {
-	id: number
+	id: string
 	name: string
-	coverPhoto: string
 }
 
 export default function GroupList({ groups }: { groups: Group[] }) {
@@ -23,7 +22,7 @@ const GroupListItem = ({ group }: { group: Group }) => {
 		<li>
 			<Link to={`/group/${group.id}`}>
 				<p>{group.name}</p>
-				<CoverPhoto src={group.coverPhoto} />
+				<CoverPhoto />
 			</Link>
 		</li>
 	)
