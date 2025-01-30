@@ -64,8 +64,10 @@ export const auth = betterAuth({
 		customSession(async ({ user, session }) => {
 			/// @ts-ignore
 			const claims = user?.claims?.split(',') || []
-
+			/// @ts-ignore
+			const callsign = user?.callsign || ''
 			return {
+				callsign,
 				claims,
 				user,
 				session

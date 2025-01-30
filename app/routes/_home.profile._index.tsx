@@ -4,7 +4,7 @@ import UserCreatedEventsTable from '~/components/user-created-events-table'
 export default function ProfileIndexPage() {
 	return (
 		<div>
-			<Navbar />
+			<ProfileNavbar />
 			<UserCreatedEventsTable
 				events={[
 					{
@@ -17,11 +17,12 @@ export default function ProfileIndexPage() {
 	)
 }
 
-const Navbar = () => {
+const ProfileNavbar = () => {
 	return (
 		<nav>
-			<Link to='/profile'>oldalad</Link>
+			<Link to='/profile'>főoldalad</Link>
 			<Link to='/profile/events'>hirdetéseid</Link>
+			<Link to='/profile/applications'>jelentkezéseid</Link>
 		</nav>
 	)
 }
