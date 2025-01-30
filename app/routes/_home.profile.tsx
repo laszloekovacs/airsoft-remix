@@ -1,11 +1,10 @@
-import React from 'react'
-import LogoutButton from '~/components/logout-button'
-import type { Route } from './+types/_home.profile'
-import { auth } from '~/services/auth.server'
-import { redirect } from 'react-router'
-import { user } from '~/schema/auth-schema'
-import { drizzleClient } from '~/services/db.server'
 import { eq } from 'drizzle-orm'
+import { redirect } from 'react-router'
+import LogoutButton from '~/components/logout-button'
+import { user } from '~/schema/auth-schema'
+import { auth } from '~/services/auth.server'
+import { drizzleClient } from '~/services/db.server'
+import type { Route } from './+types/_home.profile'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
