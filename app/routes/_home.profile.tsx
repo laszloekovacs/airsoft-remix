@@ -1,12 +1,11 @@
 import { eq } from 'drizzle-orm'
 import { Outlet, redirect } from 'react-router'
+import ContactList from '~/components/contact-list'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.profile'
-import ContactList from '~/components/contact-list'
-import UserCreatedEventsTable from '~/components/user-created-events-table'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
