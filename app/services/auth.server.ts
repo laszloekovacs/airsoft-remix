@@ -41,13 +41,15 @@ export const auth = betterAuth({
 		additionalFields: {
 			claims: {
 				type: 'string',
-				required: false,
-				input: false
+				required: true,
+				input: false,
+				defaultValue: ''
 			},
 			callsign: {
 				type: 'string',
-				required: false,
-				input: true
+				required: true,
+				input: true,
+				defaultValue: ''
 			}
 		}
 	},

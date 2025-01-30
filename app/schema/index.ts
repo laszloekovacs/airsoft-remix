@@ -38,14 +38,16 @@ export const event = pgTable('event', {
 	url: text().notNull().unique(),
 	title: text().notNull(),
 	description: text(),
-	attachment: text().notNull(),
+	coverPhoto: text('cover_photo'),
 	createdAt: timestamp().defaultNow(),
 	updatedAt: timestamp().$onUpdateFn(() => new Date()),
 	startTime: time('start_time').notNull(),
 	startDate: date('start_date').notNull(),
-	location: text('location').notNull(),
+	location: text('location'),
 	isPublished: boolean('is_published').notNull().default(false),
-	createdBy: text('user_id').references(() => user.id, { onDelete: 'cascade' })
+	createdBy: text('created_by').references(() => user.id, {
+		onDelete: 'set null'
+	})
 })
 
 export const attendanceStatusEnum = pgEnum('status', [
