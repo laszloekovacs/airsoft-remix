@@ -4,16 +4,9 @@ import UserCreatedEventsTable from '~/components/user-created-events-table'
 export default function UserIndexPage() {
 	return (
 		<div>
-			<UserCreatedEventsTable
-				events={[
-					{
-						id: 1,
-						title: 'event one'
-					}
-				]}
-			/>
+			<UserCreatedEventsTable events={[]} />
 			<div>
-				<Link to='/user/event/edit'>új létrehozása</Link>
+				<Link to='/user/event/edit'>új jatek létrehozása</Link>
 			</div>
 		</div>
 	)
