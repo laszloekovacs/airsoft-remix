@@ -5,6 +5,7 @@ import { user } from '~/schema/auth-schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.profile'
+import ContactList from '~/components/contact-list'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -27,13 +28,18 @@ export default function ProfilePage({ loaderData }: Route.ComponentProps) {
 	const { name } = loaderData
 
 	return (
-		<section>
+		<div>
 			<LogoutButton />
 
-			<div>
+			<section>
 				<h1>{'the juicer'}</h1>
 				<h2>{name}</h2>
-			</div>
-		</section>
+			</section>
+
+			<section>
+				<h2>elérhetőségek</h2>
+				<ContactList contacts={[]} />
+			</section>
+		</div>
 	)
 }
