@@ -7,7 +7,7 @@
 		"build": "bunx react-router build",
 		"serve": "bunx react-router-serve ./build/server/index.js",
 		"start": "bunx react-router-serve ./build/server/index.js",
-		"gen-schema": "bunx @better-auth/cli generate --config ./app/services/auth.server.ts",
+		"gen-schema": "bunx -bun @better-auth/cli generate --config ./app/services/auth.server.ts",
 		"drizzle-push": "npx drizzle-kit push",
 		"studio": "npx drizzle-kit studio"
 	},
