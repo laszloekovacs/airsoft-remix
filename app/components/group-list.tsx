@@ -4,6 +4,7 @@ import CoverPhoto from './cover-photo'
 type Group = {
 	id: string
 	name: string
+	urlPath: string
 }
 
 export default function GroupList({ groups }: { groups: Group[] }) {
@@ -20,7 +21,7 @@ export default function GroupList({ groups }: { groups: Group[] }) {
 const GroupListItem = ({ group }: { group: Group }) => {
 	return (
 		<li>
-			<Link to={`/group/${group.id}`}>
+			<Link to={`/group/${group.urlPath}`}>
 				<p>{group.name}</p>
 				<CoverPhoto />
 			</Link>

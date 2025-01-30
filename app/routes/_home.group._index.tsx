@@ -17,7 +17,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 	const pageCount = Math.ceil(numberOfGroups / 10)
 
 	const groupList = await drizzleClient
-		.select({ id: group.id, name: group.name })
+		.select({ id: group.id, name: group.name, urlPath: group.urlPath })
 		.from(group)
 		.offset(offset)
 		.limit(10)
