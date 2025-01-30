@@ -1,6 +1,6 @@
-import React from 'react'
-import type { Route } from './+types/raw'
 import { auth } from '~/services/auth.server'
+import type { Route } from './+types/raw'
+import { redirect } from 'react-router'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })

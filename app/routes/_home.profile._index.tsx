@@ -4,7 +4,6 @@ import UserCreatedEventsTable from '~/components/user-created-events-table'
 export default function ProfileIndexPage() {
 	return (
 		<div>
-			<ProfileNavbar />
 			<UserCreatedEventsTable
 				events={[
 					{
@@ -13,6 +12,9 @@ export default function ProfileIndexPage() {
 					}
 				]}
 			/>
+			<div>
+				<Link to='/profile/event/edit'>új létrehozása</Link>
+			</div>
 		</div>
 	)
 }
