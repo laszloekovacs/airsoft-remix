@@ -14,9 +14,11 @@ import { user } from './auth-schema'
 export const group = pgTable('group', {
 	id: uuid().primaryKey().defaultRandom(),
 	name: text().notNull(),
-	urlPath: text().notNull().unique(),
-	owner: text('created_by').references(() => user.id, { onDelete: 'set null' }),
-	coverPhoto: text(),
+	url: text().notNull().unique(),
+	owner: text('owner').references(() => user.id, {
+		onDelete: 'set null'
+	}),
+	coverPhoto: text('cover_photo'),
 	address: jsonb('address').default('[]'),
 	contacts: jsonb('contacts').default('[]')
 })
@@ -33,7 +35,7 @@ export const membership = pgTable('membership', {
 
 export const event = pgTable('event', {
 	id: uuid().primaryKey().defaultRandom(),
-	urlPath: text().notNull().unique(),
+	url: text().notNull().unique(),
 	title: text().notNull(),
 	description: text(),
 	attachment: text().notNull(),
