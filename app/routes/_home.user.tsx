@@ -6,6 +6,7 @@ import { user } from '~/schema/auth-schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.user'
+import DeleteAccountButton from '~/components/delete-account-button'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -29,6 +30,7 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
+			<DeleteAccountButton />
 			<LogoutButton />
 
 			<section>

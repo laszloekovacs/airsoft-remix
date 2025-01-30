@@ -41,7 +41,7 @@ export const event = pgTable('event', {
 	startDate: date('start_date').notNull(),
 	location: text('location').notNull(),
 	isPublished: boolean('is_published').notNull().default(false),
-	createdBy: text('user_id').references(() => user.id),
+	createdBy: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
 	group: uuid('group').references(() => group.id)
 })
 
