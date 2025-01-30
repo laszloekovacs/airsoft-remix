@@ -16,7 +16,8 @@ export const group = pgTable('group', {
 	urlPath: text().notNull().unique(),
 	createdBy: text('created_by')
 		.notNull()
-		.references(() => user.id)
+		.references(() => user.id, { onDelete: 'set default' })
+		.default('unknown')
 })
 
 export const membership = pgTable('membership', {
@@ -41,8 +42,7 @@ export const event = pgTable('event', {
 	startDate: date('start_date').notNull(),
 	location: text('location').notNull(),
 	isPublished: boolean('is_published').notNull().default(false),
-	createdBy: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
-	group: uuid('group').references(() => group.id)
+	createdBy: text('user_id').references(() => user.id, { onDelete: 'cascade' })
 })
 
 export const attendanceStatusEnum = pgEnum('status', [
