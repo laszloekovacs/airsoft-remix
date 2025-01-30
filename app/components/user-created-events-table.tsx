@@ -14,7 +14,7 @@ export default function UserCreatedEventsTable({ events }: Props) {
 
 	return (
 		<div>
-			<h2>Általad meghírdetett játékok</h2>
+			<h2>Aktuális általad meghírdetett játékok</h2>
 			{events.length ? <EventsList events={events} /> : emptyList}
 		</div>
 	)
@@ -25,7 +25,7 @@ const EventsList = ({ events }: Props) => {
 		<table>
 			<thead>
 				<tr>
-					<th>Játékok</th>
+					<th>Játék neve</th>
 					<th>Regisztrált</th>
 				</tr>
 			</thead>

@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import { redirect } from 'react-router'
+import { Outlet, redirect } from 'react-router'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
 import { auth } from '~/services/auth.server'
@@ -41,21 +41,7 @@ export default function ProfilePage({ loaderData }: Route.ComponentProps) {
 				<h2>elérhetőségek</h2>
 				<ContactList contacts={[]} />
 			</section>
-
-			<section>
-				<UserCreatedEventsTable
-					events={[
-						{
-							id: 1,
-							title: 'event 1'
-						},
-						{
-							id: 2,
-							title: 'event 2'
-						}
-					]}
-				/>
-			</section>
+			<Outlet />
 		</div>
 	)
 }
