@@ -6,6 +6,7 @@ import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.profile'
 import ContactList from '~/components/contact-list'
+import UserCreatedEventsTable from '~/components/user-created-events-table'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -39,6 +40,21 @@ export default function ProfilePage({ loaderData }: Route.ComponentProps) {
 			<section>
 				<h2>elérhetőségek</h2>
 				<ContactList contacts={[]} />
+			</section>
+
+			<section>
+				<UserCreatedEventsTable
+					events={[
+						{
+							id: 1,
+							title: 'event 1'
+						},
+						{
+							id: 2,
+							title: 'event 2'
+						}
+					]}
+				/>
 			</section>
 		</div>
 	)
