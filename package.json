@@ -7,11 +7,12 @@
 		"build": "bunx react-router build",
 		"serve": "bunx react-router-serve ./build/server/index.js",
 		"start": "bunx react-router-serve ./build/server/index.js",
-		"gen-scema": "bunx @better-auth/cli generate --config ./app/lib/auth.server.ts",
+		"gen-schema": "bunx @better-auth/cli generate --config ./app/lib/auth.server.ts",
 		"drizzle-push": "npx drizzle-kit push",
 		"studio": "npx drizzle-kit studio"
 	},
 	"dependencies": {
+		"@better-auth/cli": "^1.1.15",
 		"@react-router/fs-routes": "^7.1.3",
 		"@react-router/node": "^7.1.3",
 		"@react-router/serve": "^7.1.3",
