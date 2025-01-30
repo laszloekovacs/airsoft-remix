@@ -8,23 +8,15 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 	const url = new URL(request.url)
 	const page = url.searchParams.get('page')
 
+	let offset = 0
+
 	if (page) {
 		const pageParam = parseInt(page)
 
 		if (isNaN(pageParam) || pageParam < 1) {
 			throw new Error('Invalid page parameter')
 		}
-
-		const offset = (pageParam - 1) * 10
-		console.log(offset)
-
-		const events = await drizzleClient
-			.select()
-			.from(CalendarEvent)
-			.limit(10)
-			.offset(offset)
-
-		return { events }
+		offset = (pageParam - 1) * 10
 	}
 
 	const events = await drizzleClient.select().from(CalendarEvent).limit(10)

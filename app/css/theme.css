@@ -71,7 +71,7 @@ a:active {
 }
 
 @custom-media --small-screen (min-width: 600px);
-
+/*
 @media (--small-screen) {
 	body {
 		background-color: aquamarine;
@@ -102,4 +102,9 @@ div {
 
 small {
 	font-size: 12px;
+}
+
+.limit-to-mobile {
+	max-width: 360px;
+	margin: 0 auto;
 }
