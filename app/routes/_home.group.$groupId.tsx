@@ -1,5 +1,6 @@
 import Address from '~/components/address'
 import Avatar from '~/components/avatar'
+import BackButton from '~/components/back-button'
 import CommentsContainer from '~/components/comments'
 import ContactList from '~/components/contact-list'
 import CoverPhoto from '~/components/cover-photo'
@@ -38,6 +39,7 @@ const members = [
 export default function GroupDetailPage() {
 	return (
 		<div>
+			<BackButton />
 			<h2>{groupName}</h2>
 			<Avatar />
 			<CoverPhoto />
