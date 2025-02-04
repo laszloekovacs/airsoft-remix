@@ -154,7 +154,11 @@ export const action = async ({ request, params }: Route.ActionArgs) => {
 			})
 			.returning({ id: event.id, url: event.url })
 
-		return redirect('/event/' + url + '/edit')
+		if (result.length == 0) {
+			throw new Response('Failed to create event', { status: 500 })
+		}
+
+		return redirect('/event/' + result[0].url + '/edit')
 	} else {
 	}
 
