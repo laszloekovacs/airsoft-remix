@@ -1,11 +1,12 @@
 import { eq } from 'drizzle-orm'
 import { useState } from 'react'
-import { useFetcher } from 'react-router'
+import { redirect, useFetcher } from 'react-router'
 import { event } from '~/schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.event.($eventUrl).edit'
 import styles from './_home.event.($eventUrl).edit.module.css'
+import { generateUrlName } from '~/services/generate-url-name'
 
 export const loader = async ({ params, request }: Route.ActionArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -25,7 +26,7 @@ export const loader = async ({ params, request }: Route.ActionArgs) => {
 		.from(event)
 		.where(eq(event.url, params.eventUrl))
 
-	if (!eventData || eventData.length === 0) {
+	if (!eventData || eventData.length == 0) {
 		throw new Response('Event not found', { status: 404 })
 	}
 
@@ -67,6 +68,7 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 			<div>
 				<label htmlFor='title'>Esemény Címe:</label>
 				<input
+					required
 					type='text'
 					id='title'
 					name='title'
@@ -80,6 +82,7 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 			<div>
 				<label htmlFor='startDate'>Esemény Napja:</label>
 				<input
+					required
 					type='date'
 					id='startDate'
 					name='startDate'
@@ -103,6 +106,21 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 				/>
 			</div>
 
+			<div>
+				<label htmlFor='description'>Esemény leírása:</label>
+				<textarea
+					required
+					id='description'
+					name='description'
+					value={formData.description ?? ''}
+					onChange={e => {
+						setFormData({ ...formData, description: e.target.value })
+					}}
+				/>
+			</div>
+
+			<pre>{JSON.stringify(formData, null, 2)}</pre>
+
 			<button className='btn' onClick={handleSubmit}>
 				mentés
 			</button>
@@ -111,23 +129,34 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 }
 
 export const action = async ({ request, params }: Route.ActionArgs) => {
+	const session = await auth.api.getSession({ headers: request.headers })
+
+	if (!session) {
+		throw new Response('Unauthorized', { status: 401 })
+	}
+
+	// read the sent data as json
 	const formData = (await request.json()) as typeof event.$inferSelect
+
 	console.log(formData)
 
-	const updateData = {
-		title: formData.title,
-		startDate: formData.startDate,
-		isPublished: formData.isPublished,
-		updatedAt: new Date()
-	} as typeof event.$inferInsert
+	// if we dont have an id in params, create new
+	if (!params.eventUrl) {
+		// generate an url for the event
+		const url = `${formData.startDate}-` + generateUrlName(formData.title)
 
-	const result = await drizzleClient
-		.insert(event)
-		.values(formData)
-		.onConflictDoUpdate({
-			target: event.id,
-			set: updateData
-		})
+		const result = await drizzleClient
+			.insert(event)
+			.values({
+				...formData,
+				url,
+				createdBy: session.user.id
+			})
+			.returning({ id: event.id, url: event.url })
+
+		return redirect('/event/' + url + '/edit')
+	} else {
+	}
 
 	return {}
 }
