@@ -70,7 +70,6 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 					type='text'
 					id='title'
 					name='title'
-					defaultValue={formData.title}
 					value={formData.title}
 					onChange={e => {
 						setFormData({ ...formData, title: e.target.value })
@@ -84,7 +83,6 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 					type='date'
 					id='startDate'
 					name='startDate'
-					defaultValue={formData.startDate}
 					value={formData.startDate}
 					onChange={e => {
 						setFormData({ ...formData, startDate: e.target.value })
@@ -98,7 +96,6 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 					type='checkbox'
 					id='isPublished'
 					name='isPublished'
-					defaultChecked={formData.isPublished ?? false}
 					value={formData.isPublished ? 'on' : 'off'}
 					onChange={e => {
 						setFormData({ ...formData, isPublished: e.target.checked })
@@ -109,16 +106,24 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 			<button className='btn' onClick={handleSubmit}>
 				mentés
 			</button>
-
-			<pre>{JSON.stringify(eventData, null, 1)}</pre>
 		</div>
 	)
 }
 
 export const action = async ({ request, params }: Route.ActionArgs) => {
 	const formData = await request.json()
+	//console.log(formData)
 
-	console.log(formData)
+	try {
+		const result = await drizzleClient
+			.update(event)
+			.set(formData)
+			.where(eq(event.id, formData.id))
+
+		//	console.log(result)
+	} catch (error) {
+		console.log(error)
+	}
 
 	return {}
 }
