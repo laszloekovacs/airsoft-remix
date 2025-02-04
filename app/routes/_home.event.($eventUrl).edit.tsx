@@ -111,19 +111,23 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 }
 
 export const action = async ({ request, params }: Route.ActionArgs) => {
-	const formData = await request.json()
-	//console.log(formData)
+	const formData = (await request.json()) as typeof event.$inferSelect
+	console.log(formData)
 
-	try {
-		const result = await drizzleClient
-			.update(event)
-			.set(formData)
-			.where(eq(event.id, formData.id))
+	const updateData = {
+		title: formData.title,
+		startDate: formData.startDate,
+		isPublished: formData.isPublished,
+		updatedAt: new Date()
+	} as typeof event.$inferInsert
 
-		//	console.log(result)
-	} catch (error) {
-		console.log(error)
-	}
+	const result = await drizzleClient
+		.insert(event)
+		.values(formData)
+		.onConflictDoUpdate({
+			target: event.id,
+			set: updateData
+		})
 
 	return {}
 }
