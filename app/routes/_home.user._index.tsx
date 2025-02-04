@@ -6,7 +6,7 @@ export default function UserIndexPage() {
 		<div>
 			<UserCreatedEventsTable events={[]} />
 			<div>
-				<Link to='/event/create'>új jatek létrehozása</Link>
+				<Link to='/event/edit'>új játék létrehozása</Link>
 			</div>
 		</div>
 	)

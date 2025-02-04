@@ -36,7 +36,7 @@ const EventsListItem = ({
 }) => {
 	return (
 		<li className={styles.card}>
-			<Link to={`/event/${event.urlPath}`}>
+			<Link to={`/event/${event.url}`}>
 				<div className={styles.container}>
 					<div className={styles.date}>
 						<p>2025-12-11 </p>
