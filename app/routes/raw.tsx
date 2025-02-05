@@ -21,8 +21,10 @@ export const Editor = () => {
 	})
 
 	return (
-		<>
+		<div>
 			<EditorContent editor={editor} />
-		</>
+			<FloatingMenu editor={editor}>floating menu</FloatingMenu>
+			<BubbleMenu editor={editor}>This is the bubble menu</BubbleMenu>
+		</div>
 	)
 }
