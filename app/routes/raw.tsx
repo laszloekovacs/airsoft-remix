@@ -1,24 +1,28 @@
-import { auth } from '~/services/auth.server'
-import type { Route } from './+types/raw'
-import { redirect } from 'react-router'
-import { MDXEditor } from '@mdxeditor/editor'
+import {
+	useEditor,
+	EditorContent,
+	FloatingMenu,
+	BubbleMenu
+} from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
-export const loader = async ({ request }: Route.LoaderArgs) => {
-	const session = await auth.api.getSession({ headers: request.headers })
+const extensions = [StarterKit]
+const content = '<p>Hello world</p>'
 
-	// redirect to login page if no session
-	if (!session) return redirect('/login')
-
-	return { session }
+export default function RawDataPage() {
+	return <Editor />
 }
 
-export default function RawDataPage({ loaderData }: Route.ComponentProps) {
-	const { session } = loaderData
+export const Editor = () => {
+	const editor = useEditor({
+		extensions,
+		content,
+		immediatelyRender: false
+	})
 
 	return (
-		<div>
-			<pre>{JSON.stringify(session, null, 2)}</pre>
-			<MDXEditor />
-		</div>
+		<>
+			<EditorContent editor={editor} />
+		</>
 	)
 }
