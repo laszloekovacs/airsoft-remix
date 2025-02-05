@@ -6,15 +6,14 @@ import {
 	markdownShortcutPlugin,
 	type MDXEditorMethods
 } from '@mdxeditor/editor'
+import NoSSR from '~/components/nossr'
 
 export default function MdxPage() {
-	const [isClient, setIsClient] = useState(false)
-
-	useEffect(() => {
-		setIsClient(true)
-	}, [])
-
-	return isClient && <Editor />
+	return (
+		<NoSSR>
+			<Editor />
+		</NoSSR>
+	)
 }
 
 const Editor = () => {
