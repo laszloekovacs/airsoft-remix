@@ -38,10 +38,8 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 				<h2>{name}</h2>
 			</section>
 
-			<section>
-				<h2>elérhetőségek</h2>
-				<ContactList contacts={[]} />
-			</section>
+			<ContactList contacts={[]} />
+
 			<Outlet />
 		</div>
 	)

@@ -11,7 +11,7 @@ export default function LogoutButton() {
 
 	return (
 		<button className='btn btn-primary' onClick={() => handleClick()}>
-			Logout
+			kijelentkezés
 		</button>
 	)
 }
