@@ -30,7 +30,7 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 	const { name, callsign } = loaderData
 	const fetcher = useFetcher()
 
-	const handleSave = async (value: string) => {
+	const handleCallsignChange = async (value: string) => {
 		await fetcher.submit(
 			{ intention: 'SET_CALLSIGN', callsign: value },
 			{ method: 'post', encType: 'application/x-www-form-urlencoded' }
@@ -43,9 +43,8 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 			<LogoutButton />
 
 			<section>
-				<h1>{'the juicer'}</h1>
 				<h1>
-					<EditableText value={callsign} onSave={handleSave} />
+					<EditableText value={callsign} onSave={handleCallsignChange} />
 				</h1>
 				<h2>{name}</h2>
 			</section>
@@ -58,11 +57,26 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
+	const session = await auth.api.getSession({ headers: request.headers })
+	if (!session) return redirect('/login')
+
 	const formData = await request.formData()
 
 	console.log(formData)
 
 	const intention = formData.get('intention')
 
-	return {}
+	if (intention === 'SET_CALLSIGN') {
+		const callsign = formData.get('callsign') as string
+		if (!callsign) {
+			throw new Response('Badly formatted data', { status: 400 })
+		} else {
+			await drizzleClient
+				.update(user)
+				.set({ callsign: callsign })
+				.where(eq(user.id, session.user.id))
+		}
+
+		return {}
+	}
 }
