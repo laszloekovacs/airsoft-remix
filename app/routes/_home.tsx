@@ -15,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 		{ property: 'og:description', content: 'Airsoft esemény naptár' },
 		{
 			property: 'og:image',
-			content: 'https://www.localhost:3000/og-image.jpg'
+			content: 'og-image.jpg'
 		},
 		{ property: 'og:site_name', content: 'Airsoft Naptár' }
 	]
