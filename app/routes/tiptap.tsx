@@ -16,10 +16,10 @@ Image with dimensions:
 `
 
 export default function RawDataPage() {
-	return <Editor />
+	return <TipTapEditor />
 }
 
-export const Editor = () => {
+export const TipTapEditor = () => {
 	const editor = useEditor({
 		extensions: [
 			Image,
