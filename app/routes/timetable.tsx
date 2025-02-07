@@ -1,23 +1,18 @@
 import { useEffect, useState } from 'react'
 
 type Task = {
-	id: number
 	time: string
 	description: string
 }
 
-export default function TimeTable({
+export default function EditableTimeTable({
+	value,
 	onChange
 }: {
+	value?: Task[]
 	onChange?: (value: Task[]) => void
 }) {
-	const [task, setTask] = useState<
-		Array<{
-			id: number
-			time: string
-			description: string
-		}>
-	>([])
+	const [task, setTask] = useState<Array<Task>>(value || [])
 
 	const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -27,15 +22,15 @@ export default function TimeTable({
 		const description = formData.get('description') as string
 
 		if (time && description) {
-			setTask([...task, { id: Date.now(), time, description }])
+			setTask([...task, { time, description }])
 		}
 
 		// clear form
 		e.currentTarget.reset()
 	}
 
-	const handleRemove = (id: number) => {
-		setTask(task.filter(t => t.id !== id))
+	const handleRemove = (time: string) => {
+		setTask(task.filter(t => t.time !== time))
 	}
 
 	useEffect(() => {
@@ -46,26 +41,25 @@ export default function TimeTable({
 
 	return (
 		<div>
-			<h1>TimeTable</h1>
-
 			<form onSubmit={handleSubmit}>
 				<label htmlFor='time'>Időpont</label>
-				<input type='time' name='time' id='time' />
+				<input type='time' name='time' id='time' required />
 				<br />
 				<label htmlFor='description'>Leírás</label>
-				<input type='text' name='description' id='description' />
+				<input type='text' name='description' id='description' required />
 
 				<button>hozzáad</button>
 			</form>
 
 			<ul>
 				{task.map(t => (
-					<li key={t.id}>
+					<li key={t.time}>
 						{t.time} - {t.description}
-						<button onClick={() => handleRemove(t.id)}>x</button>
+						<button onClick={() => handleRemove(t.time)}>x</button>
 					</li>
 				))}
 			</ul>
+			<pre>{JSON.stringify(task, null, 2)}</pre>
 		</div>
 	)
 }
