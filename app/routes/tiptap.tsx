@@ -41,3 +41,5 @@ export const TipTapEditor = () => {
 		</NoSSR>
 	)
 }
+
+// https://tiptap.dev/docs/editor/getting-started/install/react
