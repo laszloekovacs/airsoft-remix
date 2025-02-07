@@ -1,6 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function TimeTable() {
+type Task = {
+	id: number
+	time: string
+	description: string
+}
+
+export default function TimeTable({
+	onChange
+}: {
+	onChange?: (value: Task[]) => void
+}) {
 	const [task, setTask] = useState<
 		Array<{
 			id: number
@@ -19,11 +29,20 @@ export default function TimeTable() {
 		if (time && description) {
 			setTask([...task, { id: Date.now(), time, description }])
 		}
+
+		// clear form
+		e.currentTarget.reset()
 	}
 
 	const handleRemove = (id: number) => {
 		setTask(task.filter(t => t.id !== id))
 	}
+
+	useEffect(() => {
+		if (onChange) {
+			onChange(task)
+		}
+	}, [task])
 
 	return (
 		<div>
