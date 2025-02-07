@@ -39,10 +39,10 @@ const FactionsList = ({ factions }: { factions: Faction[] }) => {
 		<div>
 			<ul>
 				{factions.map(faction => (
-					<div>
+					<li key={faction.name}>
 						<h3>{faction.name}</h3>
 						<UserTable key={faction.name} players={faction.members} />
-					</div>
+					</li>
 				))}
 			</ul>
 		</div>

@@ -16,7 +16,7 @@
 	--border: #ccc;
 
 	--body: #333;
-	--body-bg: #fff;
+	--body-bg: #f9f7ee;
 
 	--muted: #6c757d;
 	--muted-bg: #f8f9fa;
@@ -84,7 +84,7 @@ a:active {
 	}
 }
 /* debug drawing */
-/*
+
 div {
 	background-color: rgba(0, 0, 0, 0.05);
 }
