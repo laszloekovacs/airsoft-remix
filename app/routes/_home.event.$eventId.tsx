@@ -9,6 +9,7 @@ import AttendeesTableContainer from '~/components/attendees-table'
 import CommentsContainer from '~/components/comments'
 import type { CommentType } from '~/components/comments'
 import BackButton from '~/components/back-button'
+import { Link } from 'react-router'
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const title = 'Jotékonysági játék'
@@ -101,6 +102,7 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 	return (
 		<div>
 			<BackButton />
+			<Link to='edit'>edit</Link>
 			<h1>{title}</h1>
 			<FacebookShareButton />
 
