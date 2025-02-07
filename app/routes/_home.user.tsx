@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import { Outlet, redirect } from 'react-router'
+import { Outlet, redirect, useFetcher } from 'react-router'
 import ContactList from '~/components/contact-list'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
@@ -23,11 +23,19 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 		throw new Response('User not found', { status: 404 })
 	}
 
-	return { name: session.user.name }
+	return { name: session.user.name, callsign: session.user.callsign }
 }
 
 export default function UserPage({ loaderData }: Route.ComponentProps) {
-	const { name } = loaderData
+	const { name, callsign } = loaderData
+	const fetcher = useFetcher()
+
+	const handleSave = async (value: string) => {
+		await fetcher.submit(
+			{ intention: 'SET_CALLSIGN', callsign: value },
+			{ method: 'post', encType: 'application/x-www-form-urlencoded' }
+		)
+	}
 
 	return (
 		<div>
@@ -37,7 +45,7 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 			<section>
 				<h1>{'the juicer'}</h1>
 				<h1>
-					<EditableText value={name} />
+					<EditableText value={callsign} onSave={handleSave} />
 				</h1>
 				<h2>{name}</h2>
 			</section>
@@ -47,4 +55,14 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 			<Outlet />
 		</div>
 	)
+}
+
+export const action = async ({ request }: Route.ActionArgs) => {
+	const formData = await request.formData()
+
+	console.log(formData)
+
+	const intention = formData.get('intention')
+
+	return {}
 }

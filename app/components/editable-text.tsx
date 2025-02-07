@@ -9,8 +9,13 @@ export const EditableText = ({
 }) => {
 	const [isEditing, setEditing] = useState(false)
 
-	const handleDoneEditing = () => {
-		onSave?.(value)
+	const handleDoneEditing = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+
+		const formData = new FormData(e.currentTarget)
+		const text = formData.get('text') as string
+
+		onSave?.(text)
 		setEditing(false)
 	}
 
@@ -25,7 +30,7 @@ export const EditableText = ({
 		return (
 			<>
 				<form onSubmit={handleDoneEditing}>
-					<input defaultValue={value} />
+					<input name='text' defaultValue={value} />
 					<input type='submit' value='save' />
 					<button onClick={() => setEditing(false)}>x</button>
 				</form>
