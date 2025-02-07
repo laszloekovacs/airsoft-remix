@@ -7,6 +7,7 @@ import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.user'
 import DeleteAccountButton from '~/components/delete-account-button'
+import { EditableText } from '~/components/editable-text'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -35,6 +36,9 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 
 			<section>
 				<h1>{'the juicer'}</h1>
+				<h1>
+					<EditableText value={name} />
+				</h1>
 				<h2>{name}</h2>
 			</section>
 
