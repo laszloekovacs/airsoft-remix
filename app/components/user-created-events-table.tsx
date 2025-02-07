@@ -1,15 +1,15 @@
 // list of events managed by a user
 
 import { Link } from 'react-router'
+import { event as CalendarEvent } from '~/schema'
 
-type Props = {
-	events: Array<{
-		id: number
-		title: string
-	}>
-}
+type CalendarEventType = typeof CalendarEvent.$inferSelect
 
-export default function UserCreatedEventsTable({ events }: Props) {
+export default function UserCreatedEventsTable({
+	events
+}: {
+	events: CalendarEventType[]
+}) {
 	const emptyList = <p>Nincsenek megjeleníthető játékok</p>
 
 	return (
@@ -20,7 +20,7 @@ export default function UserCreatedEventsTable({ events }: Props) {
 	)
 }
 
-const EventsList = ({ events }: Props) => {
+const EventsList = ({ events }: { events: CalendarEventType[] }) => {
 	return (
 		<table>
 			<thead>
