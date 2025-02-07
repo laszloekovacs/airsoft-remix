@@ -8,7 +8,7 @@ Image with dimensions:
 `
 
 export default function RawDataPage() {
-	return <TipTapEditor content={markdown} />
+	return <TipTapEditor defaultValue={markdown} />
 }
 
 // https://tiptap.dev/docs/editor/getting-started/install/react

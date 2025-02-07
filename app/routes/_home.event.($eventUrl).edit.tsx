@@ -1,13 +1,13 @@
 import { eq } from 'drizzle-orm'
 import { useState } from 'react'
 import { redirect, useFetcher } from 'react-router'
+import { TipTapEditor } from '~/components/tiptap-editor'
 import { event } from '~/schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
+import { generateUrlName } from '~/services/generate-url-name'
 import type { Route } from './+types/_home.event.($eventUrl).edit'
 import styles from './_home.event.($eventUrl).edit.module.css'
-import { generateUrlName } from '~/services/generate-url-name'
-import { TipTapEditor } from '~/components/tiptap-editor'
 
 export const loader = async ({ params, request }: Route.ActionArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -111,7 +111,9 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 				<label htmlFor='description'>Esemény leírása:</label>
 				<TipTapEditor
 					defaultValue={formData.description ?? ''}
-					onChange={e => setFormData({ ...formData, description: e })}
+					onChange={content =>
+						setFormData({ ...formData, description: content })
+					}
 				/>
 			</div>
 

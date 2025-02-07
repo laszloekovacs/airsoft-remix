@@ -8,7 +8,7 @@ export const TipTapEditor = ({
 	onChange
 }: {
 	defaultValue: string
-	onChange: (value: string) => void
+	onChange?: (value: string) => void
 }) => {
 	const editor = useEditor({
 		extensions: [
@@ -20,7 +20,7 @@ export const TipTapEditor = ({
 			})
 		],
 		content: defaultValue,
-		onUpdate: ({ editor }) => onChange(editor.getHTML()),
+		onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
 		immediatelyRender: false
 	})
 
