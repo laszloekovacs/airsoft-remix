@@ -3,7 +3,13 @@ import NoSSR from './nossr'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 
-export const TipTapEditor = ({ content }: { content: string }) => {
+export const TipTapEditor = ({
+	defaultValue,
+	onChange
+}: {
+	defaultValue: string
+	onChange: (value: string) => void
+}) => {
 	const editor = useEditor({
 		extensions: [
 			Image,
@@ -13,7 +19,8 @@ export const TipTapEditor = ({ content }: { content: string }) => {
 				}
 			})
 		],
-		content,
+		content: defaultValue,
+		onUpdate: ({ editor }) => onChange(editor.getHTML()),
 		immediatelyRender: false
 	})
 
