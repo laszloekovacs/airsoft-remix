@@ -39,13 +39,13 @@ const EventsListItem = ({
 			<Link to={`/event/${event.url}`}>
 				<div className={styles.container}>
 					<div className={styles.date}>
-						<p>2025-12-11 </p>
+						<p>{event.startDate}</p>
 						<p>12:00</p>
 					</div>
 					<h2 className={styles.title}>{event.title}</h2>
 					<CoverPhoto />
 				</div>
-				<div>user által megosztva</div>
+				<div>{event.createdBy} által megosztva</div>
 			</Link>
 		</li>
 	)
