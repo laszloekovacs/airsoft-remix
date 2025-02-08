@@ -102,20 +102,18 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 	return (
 		<div>
 			<BackButton />
-			<Link to='edit'>edit</Link>
-			<h1>{title}</h1>
+			<Link to='edit'>szerkesztés</Link>
+			<h1 className='text-2xl font-bold my-6'>{title}</h1>
 			<FacebookShareButton />
 
-			{/* TODO: event splash image */}
-
 			{/* organizer title card */}
-			<div>
-				<h2>szervező</h2>
+			<div className='my-4'>
+				<p>szervező</p>
 				<OrganizerTitleCard id='33' name='the jucers' url='/' />
 			</div>
 
 			{/* event details, information */}
-			<div className='flex flex-row gap-4'>
+			<div className='flex flex-row flex-wrap gap-4'>
 				<TimeTable times={timeTable} date={date} />
 				<PricingTable prices={prices} />
 				<Address data={address} />
