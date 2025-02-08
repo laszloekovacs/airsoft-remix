@@ -2,8 +2,8 @@ import { Link } from 'react-router'
 
 export const HomeFooter = () => {
 	return (
-		<footer>
-			<ul>
+		<footer className='my-5'>
+			<nav className='mb-4'>
 				<li>
 					<Link to='/'>Kezdőlap</Link>
 				</li>
@@ -16,7 +16,7 @@ export const HomeFooter = () => {
 				<li>
 					<Link to='/dashboard'>Dashboard</Link>
 				</li>
-			</ul>
+			</nav>
 
 			<small>{new Date().getFullYear()} Airsoft Naptár</small>
 		</footer>
