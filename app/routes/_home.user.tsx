@@ -49,11 +49,6 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 				<h2 className='mb-2'>{name}</h2>
 			</div>
 
-			<div className='mb-8'>
-				<h2 className='font-bold mb-2'>Elérhetőségek:</h2>
-				<ContactList contacts={[]} />
-			</div>
-
 			<Outlet />
 		</div>
 	)

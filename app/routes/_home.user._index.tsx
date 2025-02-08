@@ -5,6 +5,7 @@ import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import { event as CalendarEvent } from '~/schema'
 import { eq } from 'drizzle-orm'
+import ContactList from '~/components/contact-list'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -23,6 +24,11 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
+			<div className='mb-8'>
+				<h2 className='font-bold mb-2'>Elérhetőségek:</h2>
+				<ContactList contacts={[]} />
+			</div>
+
 			<h2 className='mb-2 font-bold'>Általad meghírdetett játékok</h2>
 			<UserCreatedEventsTable events={events} />
 			<div className='flex justify-center my-2'>
