@@ -32,7 +32,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 	const sessionData = loaderData
 
 	return (
-		<div className='page-layout'>
+		<section className='min-h-screen grid grid-rows-[auto_1fr_auto] p-2'>
 			<div>
 				<HomeHeader />
 				<SessionHeader sessionData={sessionData} />
@@ -41,6 +41,6 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 			<Outlet />
 
 			<HomeFooter />
-		</div>
+		</section>
 	)
 }

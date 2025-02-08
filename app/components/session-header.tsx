@@ -2,7 +2,6 @@ import type { auth } from '~/services/auth.server'
 import Avatar from './avatar'
 import { Link } from 'react-router'
 import { authClient } from '~/services/auth.client'
-import styles from './session-header.module.css'
 
 type sessionType = Awaited<ReturnType<typeof auth.api.getSession>>
 
@@ -29,9 +28,9 @@ const AuthenticatedSessionHeader = ({
 		throw new Error('sessionData should not be null at this point')
 
 	return (
-		<section className={styles.container}>
+		<section>
 			<Link to='/user'>
-				<div className={styles.credentials}>
+				<div>
 					<p>{sessionData.user.email}</p>
 					<Avatar src={sessionData.user.image} />
 				</div>
@@ -46,7 +45,7 @@ const UnauthenticatedSessionHeader = () => {
 	}
 
 	return (
-		<section className={styles.container}>
+		<section>
 			<div>
 				<p>belépés / felíratkozás</p>
 			</div>
