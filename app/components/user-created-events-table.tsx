@@ -20,6 +20,9 @@ export default function UserCreatedEventsTable({
 					<p>Nincsenek megjeleníthető játékok</p>
 				)}
 			</>
+			<div className='flex justify-center my-2'>
+				<Link to='/event/edit'>új játék létrehozása</Link>
+			</div>
 		</div>
 	)
 }

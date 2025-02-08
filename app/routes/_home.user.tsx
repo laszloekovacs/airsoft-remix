@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import { Link, Outlet, redirect, useFetcher } from 'react-router'
+import { Outlet, useFetcher } from 'react-router'
 import { EditableText } from '~/components/editable-text'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
