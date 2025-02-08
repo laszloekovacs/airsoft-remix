@@ -24,9 +24,8 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 	return (
 		<div>
 			<UserCreatedEventsTable events={events} />
-			<div>
-				<Link to='/event/edit'>új játék létrehozása</Link>
-			</div>
+
+			<Link to='/event/edit'>új játék létrehozása</Link>
 		</div>
 	)
 }

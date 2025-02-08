@@ -12,3 +12,10 @@ button,
 input {
 	@apply border-1 border-cyan-900 p-1 m-1;
 }
+
+table,
+th,
+td,
+th {
+	@apply text-left;
+}

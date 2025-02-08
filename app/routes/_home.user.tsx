@@ -38,17 +38,21 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
-			<DeleteAccountButton />
-			<LogoutButton />
+			<div className='flex justify-end mb-4'>
+				<LogoutButton />
+			</div>
 
-			<section>
-				<h1>
+			<div className='mb-8'>
+				<h1 className='text-2xl font-bold mb-2'>
 					<EditableText value={callsign} onSave={handleCallsignChange} />
 				</h1>
-				<h2>{name}</h2>
-			</section>
+				<h2 className='mb-2'>{name}</h2>
+			</div>
 
-			<ContactList contacts={[]} />
+			<div className='mb-8'>
+				<h2 className='font-bold mb-2'>Elérhetőségek:</h2>
+				<ContactList contacts={[]} />
+			</div>
 
 			<Outlet />
 		</div>
@@ -57,12 +61,9 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 
 export const action = async ({ request }: Route.ActionArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
-	if (!session) return redirect('/login')
+	if (!session) throw new Response('Unauthorized', { status: 401 })
 
 	const formData = await request.formData()
-
-	console.log(formData)
-
 	const intention = formData.get('intention')
 
 	if (intention === 'SET_CALLSIGN') {
