@@ -23,9 +23,11 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
+			<h2 className='mb-2 font-bold'>Általad meghírdetett játékok</h2>
 			<UserCreatedEventsTable events={events} />
-
-			<Link to='/event/edit'>új játék létrehozása</Link>
+			<div className='flex justify-center my-2'>
+				<Link to='/event/edit'>új játék létrehozása</Link>
+			</div>
 		</div>
 	)
 }

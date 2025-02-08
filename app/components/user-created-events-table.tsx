@@ -10,12 +10,13 @@ export default function UserCreatedEventsTable({
 }: {
 	events: CalendarEventType[]
 }) {
-	const emptyList = <p>Nincsenek megjeleníthető játékok</p>
-
 	return (
 		<div>
-			<h2>Aktuális általad meghírdetett játékok</h2>
-			{events.length ? <EventsList events={events} /> : emptyList}
+			{events.length ? (
+				<EventsList events={events} />
+			) : (
+				<p>Nincsenek megjeleníthető játékok</p>
+			)}
 		</div>
 	)
 }
