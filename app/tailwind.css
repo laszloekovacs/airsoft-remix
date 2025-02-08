@@ -1,1 +1,9 @@
 @import 'tailwindcss';
+
+button {
+	@apply border-2;
+}
+
+a {
+	@apply underline;
+}
