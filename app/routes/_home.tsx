@@ -33,7 +33,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<section className='container min-h-screen grid grid-rows-[auto_1fr_auto] p-2 mx-auto'>
-			<div className='flex flex-row flex-wrap justify-between gap-4 mb-6'>
+			<div className='flex flex-row justify-between gap-4 mb-6'>
 				<HomeHeader />
 				<SessionHeader sessionData={sessionData} />
 			</div>
