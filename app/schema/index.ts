@@ -1,13 +1,12 @@
 import {
 	boolean,
 	date,
+	jsonb,
 	pgEnum,
 	pgTable,
 	text,
-	time,
 	timestamp,
-	uuid,
-	jsonb
+	uuid
 } from 'drizzle-orm/pg-core'
 import { user } from './auth-schema'
 
@@ -64,4 +63,14 @@ export const attendees = pgTable('attendees', {
 		.notNull()
 		.references(() => event.id),
 	status: attendanceStatusEnum('status').notNull().default('skipping')
+})
+
+export const user_metadata = pgTable('user_metadata', {
+	id: uuid().primaryKey().defaultRandom(),
+	userId: text('user_id')
+		.notNull()
+		.references(() => user.id, {
+			onDelete: 'cascade'
+		}),
+	metadata: jsonb('metadata').default('{}')
 })
