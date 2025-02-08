@@ -8,13 +8,7 @@ export const HomeFooter = () => {
 					<Link to='/'>Kezdőlap</Link>
 				</li>
 				<li>
-					<Link to='/group'>Csoportok</Link>
-				</li>
-				<li>
 					<Link to='/user'>Profil</Link>
-				</li>
-				<li>
-					<Link to='/dashboard'>Dashboard</Link>
 				</li>
 			</nav>
 
