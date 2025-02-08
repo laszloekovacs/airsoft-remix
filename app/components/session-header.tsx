@@ -28,14 +28,14 @@ const AuthenticatedSessionHeader = ({
 		throw new Error('sessionData should not be null at this point')
 
 	return (
-		<section>
-			<Link to='/user'>
-				<div>
-					<p>{sessionData.user.email}</p>
-					<Avatar src={sessionData.user.image} />
-				</div>
-			</Link>
-		</section>
+		<Link to='/user'>
+			<div className='flex flex-row gap-2 justify-between items-center'>
+				<p className='overflow-hidden text-ellipsis'>
+					{sessionData.user.email}
+				</p>
+				<Avatar src={sessionData.user.image} />
+			</div>
+		</Link>
 	)
 }
 
@@ -46,9 +46,7 @@ const UnauthenticatedSessionHeader = () => {
 
 	return (
 		<section>
-			<div>
-				<p>belépés / felíratkozás</p>
-			</div>
+			<p>belépés / felíratkozás</p>
 
 			<div>
 				<button onClick={() => handleClick('github')}>
