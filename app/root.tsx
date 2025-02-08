@@ -7,14 +7,10 @@ import {
 	ScrollRestoration
 } from 'react-router'
 import type { Route } from './+types/root'
-
-import resets from './css/resets.css?url'
-import theme from './css/theme.css?url'
+import './tailwind.css'
 
 export const links: Route.LinksFunction = () => [
-	{ rel: 'icon', href: '/favicon.ico?v2' },
-	{ rel: 'stylesheet', href: resets },
-	{ rel: 'stylesheet', href: theme }
+	{ rel: 'icon', href: '/favicon.ico?v2' }
 ]
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -26,7 +22,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Meta />
 				<Links />
 			</head>
-			<body className='limit-to-mobile'>
+			<body>
 				{children}
 				<ScrollRestoration />
 				<Scripts />

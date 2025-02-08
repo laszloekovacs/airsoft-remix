@@ -2,17 +2,10 @@ import { useState } from 'react'
 import { EditableText } from '~/components/editable-text'
 
 export default function TestingPage() {
-	const [text, setText] = useState('test')
-
 	return (
 		<div>
 			<p>teszteles</p>
-			<EditableText
-				value={text}
-				onChange={value => {
-					setText(value)
-				}}
-			/>
+			<h2 className='text-2xl font-bold underline text-red-800'>Hello world</h2>
 		</div>
 	)
 }

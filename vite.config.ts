@@ -3,6 +3,7 @@ import autoprefixer from 'autoprefixer'
 import customMediaQuery from 'postcss-custom-media'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
 	css: {
@@ -10,7 +11,7 @@ export default defineConfig({
 			plugins: [autoprefixer, customMediaQuery]
 		}
 	},
-	plugins: [reactRouter(), tsconfigPaths()],
+	plugins: [reactRouter(), tsconfigPaths(), tailwindcss()],
 	server: {
 		port: 3000,
 		host: '0.0.0.0'
