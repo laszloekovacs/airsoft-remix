@@ -29,7 +29,7 @@ const AuthenticatedSessionHeader = ({
 
 	return (
 		<Link to='/user'>
-			<div className='flex flex-row gap-2 justify-between items-center'>
+			<div className='flex flex-row gap-2 justify-end items-center'>
 				<p className='overflow-hidden text-ellipsis'>
 					{sessionData.user.email}
 				</p>
