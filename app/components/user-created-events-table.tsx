@@ -12,11 +12,14 @@ export default function UserCreatedEventsTable({
 }) {
 	return (
 		<div>
-			{events.length ? (
-				<EventsList events={events} />
-			) : (
-				<p>Nincsenek megjeleníthető játékok</p>
-			)}
+			<h2 className='font-bold mb-6'>Általad meghírdetett játékok</h2>
+			<>
+				{events.length ? (
+					<EventsList events={events} />
+				) : (
+					<p>Nincsenek megjeleníthető játékok</p>
+				)}
+			</>
 		</div>
 	)
 }
@@ -26,17 +29,17 @@ const EventsList = ({ events }: { events: CalendarEventType[] }) => {
 		<table>
 			<thead>
 				<tr>
+					<th>dátum</th>
 					<th>Játék neve</th>
-					<th>Regisztrált</th>
 				</tr>
 			</thead>
 			<tbody>
 				{events.map(event => (
 					<tr key={event.id}>
+						<td>{event.startDate}</td>
 						<td>
 							<Link to={`/event/${event.id}`}>{event.title}</Link>
 						</td>
-						<td>0</td>
 					</tr>
 				))}
 			</tbody>

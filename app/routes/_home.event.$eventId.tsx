@@ -109,13 +109,13 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 			{/* TODO: event splash image */}
 
 			{/* organizer title card */}
-			<figure>
+			<div>
 				<h2>szervező</h2>
 				<OrganizerTitleCard id='33' name='the jucers' url='/' />
-			</figure>
+			</div>
 
 			{/* event details, information */}
-			<div>
+			<div className='flex flex-row gap-4'>
 				<TimeTable times={timeTable} date={date} />
 				<PricingTable prices={prices} />
 				<Address data={address} />
