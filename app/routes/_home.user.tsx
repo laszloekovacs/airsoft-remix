@@ -1,17 +1,15 @@
 import { eq } from 'drizzle-orm'
-import { Outlet, redirect, useFetcher } from 'react-router'
-import ContactList from '~/components/contact-list'
+import { Link, Outlet, redirect, useFetcher } from 'react-router'
+import { EditableText } from '~/components/editable-text'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.user'
-import DeleteAccountButton from '~/components/delete-account-button'
-import { EditableText } from '~/components/editable-text'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
-	if (!session) return redirect('/login')
+	if (!session) return new Response('Unauthorized', { status: 401 })
 
 	const userData = await drizzleClient
 		.select()
@@ -74,4 +72,14 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 		return {}
 	}
+}
+
+const ProfileNavbar = () => {
+	return (
+		<nav>
+			<Link to='/user'>főoldalad</Link>
+			<Link to='/user/events'>hirdetéseid</Link>
+			<Link to='/user/applications'>jelentkezéseid</Link>
+		</nav>
+	)
 }

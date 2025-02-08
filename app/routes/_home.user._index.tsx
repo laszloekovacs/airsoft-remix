@@ -37,13 +37,3 @@ export default function UserIndexPage({ loaderData }: Route.ComponentProps) {
 		</div>
 	)
 }
-
-const ProfileNavbar = () => {
-	return (
-		<nav>
-			<Link to='/user'>főoldalad</Link>
-			<Link to='/user/events'>hirdetéseid</Link>
-			<Link to='/user/applications'>jelentkezéseid</Link>
-		</nav>
-	)
-}
