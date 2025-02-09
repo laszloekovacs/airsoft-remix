@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 const WelcomePage = () => {
 	return (
 		<div>
-			<p>új felhasználó regisztráció</p>
+			<p>Sikeresen regisztráltál!</p>
 			<Link to='/'>home</Link>
 		</div>
 	)
