@@ -3,13 +3,14 @@ import Address from '~/components/address'
 import OrganizerTitleCard from '~/components/organizer-title-card'
 import PricingTable from '~/components/pricing-table'
 import TimeTable from '~/components/time-table'
-import type { Route } from './+types/_home.event.$eventId'
+import type { Route } from './+types/_home.event.$eventUrl'
 import FacebookShareButton from '~/components/facebook-share-button'
 import AttendeesTableContainer from '~/components/attendees-table'
 import CommentsContainer from '~/components/comments'
 import type { CommentType } from '~/components/comments'
 import BackButton from '~/components/back-button'
 import { Link } from 'react-router'
+import CoverPhoto from '~/components/cover-photo'
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
 	const title = 'Jotékonysági játék'
@@ -108,9 +109,11 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 
 			{/* organizer title card */}
 			<div className='my-4'>
-				<p>szervező</p>
 				<OrganizerTitleCard id='33' name='the jucers' url='/' />
 			</div>
+
+			{/* cover photo of the event */}
+			<CoverPhoto />
 
 			{/* event details, information */}
 			<div className='flex flex-row flex-wrap gap-4'>

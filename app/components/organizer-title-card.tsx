@@ -19,8 +19,6 @@ const OrganizerTitleCard = ({
 				<h3>{name}</h3>
 				{/* patch of the group */}
 				<Avatar />
-				{/* cover photo of the group */}
-				<CoverPhoto />
 			</Link>
 		</section>
 	)
