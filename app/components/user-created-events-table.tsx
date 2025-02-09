@@ -41,7 +41,7 @@ const EventsList = ({ events }: { events: CalendarEventType[] }) => {
 					<tr key={event.id}>
 						<td>{event.startDate}</td>
 						<td>
-							<Link to={`/event/${event.id}`}>{event.title}</Link>
+							<Link to={`/event/${event.url}`}>{event.title}</Link>
 						</td>
 					</tr>
 				))}

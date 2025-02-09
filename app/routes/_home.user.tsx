@@ -40,12 +40,11 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 				<LogoutButton />
 			</div>
 
-			<div className='mb-8'>
-				<h1 className='text-2xl font-bold mb-2'>
-					<EditableText value={callsign} onSave={handleCallsignChange} />
-				</h1>
-				<h2 className='mb-2'>{name}</h2>
-			</div>
+			<h1 className='text-2xl font-bold mb-2'>
+				<EditableText value={callsign} onSave={handleCallsignChange} />
+			</h1>
+
+			<h2 className='mb-2'>{name}</h2>
 
 			<Outlet />
 		</div>
