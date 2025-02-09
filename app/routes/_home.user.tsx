@@ -63,10 +63,15 @@ export const action = async ({ request }: Route.ActionArgs) => {
 		if (!callsign) {
 			throw new Response('Badly formatted data', { status: 400 })
 		} else {
-			await drizzleClient
+			const result = await drizzleClient
 				.update(user)
 				.set({ callsign: callsign })
 				.where(eq(user.id, session.user.id))
+				.returning({ id: user.id, callsign: user.callsign })
+
+			if (result.length == 0) {
+				throw new Response('Failed to update callsign', { status: 500 })
+			}
 		}
 
 		return {}
