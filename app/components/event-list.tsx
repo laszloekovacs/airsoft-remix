@@ -1,8 +1,6 @@
 import { Link } from 'react-router'
 import type { event as CalendarEvent } from '~/schema'
 import CoverPhoto from './cover-photo'
-import Avatar from './avatar'
-import styles from './event-list.module.css'
 
 export const EventCalendarContainer = ({
 	events
@@ -35,14 +33,13 @@ const EventsListItem = ({
 	event: typeof CalendarEvent.$inferSelect
 }) => {
 	return (
-		<li className={styles.card}>
+		<li>
 			<Link to={`/event/${event.url}`}>
-				<div className={styles.container}>
-					<div className={styles.date}>
+				<div>
+					<div>
 						<p>{event.startDate}</p>
-						<p>12:00</p>
 					</div>
-					<h2 className={styles.title}>{event.title}</h2>
+					<h2>{event.title}</h2>
 					<CoverPhoto />
 				</div>
 				<div>{event.createdBy} által megosztva</div>
