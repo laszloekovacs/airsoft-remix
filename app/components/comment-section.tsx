@@ -106,6 +106,8 @@ export const CommentSection = ({
 
 	return (
 		<div>
+			<h2>Hozzászolások</h2>
+
 			<CommentForm
 				authorId={authorId}
 				threadId={threadId}
