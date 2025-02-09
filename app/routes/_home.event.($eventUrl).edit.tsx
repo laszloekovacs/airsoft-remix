@@ -7,7 +7,6 @@ import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import { generateUrlName } from '~/services/generate-url-name'
 import type { Route } from './+types/_home.event.($eventUrl).edit'
-import styles from './_home.event.($eventUrl).edit.module.css'
 import BackButton from '~/components/back-button'
 
 export const loader = async ({ params, request }: Route.ActionArgs) => {
@@ -55,7 +54,7 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 	}
 
 	return (
-		<div className={styles.formContainer}>
+		<div>
 			<BackButton />
 			<div>
 				<label htmlFor='id'>esemény azonosítószáma</label>

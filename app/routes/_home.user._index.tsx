@@ -9,7 +9,8 @@ import ContactList from '~/components/contact-list'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
-	if (!session || !session?.user) return redirect('/login')
+	if (!session || !session?.user)
+		return new Response('Unauthorized', { status: 401 })
 
 	const events = await drizzleClient
 		.select()
