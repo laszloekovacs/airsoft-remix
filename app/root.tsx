@@ -25,10 +25,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<Theme
-					accentColor='red'
+					accentColor='gold'
 					grayColor='sand'
 					radius='none'
-					appearance='dark'>
+					appearance='light'>
 					{children}
 					<ScrollRestoration />
 					<Scripts />

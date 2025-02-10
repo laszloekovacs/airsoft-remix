@@ -1,7 +1,8 @@
 import type { auth } from '~/services/auth.server'
-import Avatar from './avatar'
+
 import { Link } from 'react-router'
 import { authClient } from '~/services/auth.client'
+import { Avatar } from '@radix-ui/themes'
 
 type sessionType = Awaited<ReturnType<typeof auth.api.getSession>>
 
@@ -29,12 +30,7 @@ const AuthenticatedSessionHeader = ({
 
 	return (
 		<Link to='/user'>
-			<div className='flex flex-row gap-2 justify-end items-center'>
-				<p className='overflow-hidden text-ellipsis'>
-					{sessionData.user.email}
-				</p>
-				<Avatar src={sessionData.user.image} />
-			</div>
+			<Avatar src={sessionData.user.image} fallback='U' />
 		</Link>
 	)
 }

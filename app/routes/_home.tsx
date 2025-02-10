@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router'
-import { HomeHeader } from '~/components/home-header'
+import { PageLogo } from '~/components/page-logo'
 import { auth } from '~/services/auth.server'
 import type { Route } from './+types/_home'
 import { HomeFooter } from '~/components/home-footer'
 import SessionHeader from '~/components/session-header'
+import { Container, Flex, Grid } from '@radix-ui/themes'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -32,15 +33,17 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 	const sessionData = loaderData
 
 	return (
-		<section className='container min-h-screen grid grid-rows-[auto_1fr_auto] p-2 mx-auto'>
-			<div className='flex flex-row justify-between gap-4 mb-6'>
-				<HomeHeader />
-				<SessionHeader sessionData={sessionData} />
-			</div>
+		<Container maxWidth='800px'>
+			<Grid columns='1' gap='4' rows='auto 1fr auto' width='auto'>
+				<Flex justify='between' align='baseline'>
+					<PageLogo />
+					<SessionHeader sessionData={sessionData} />
+				</Flex>
 
-			<Outlet />
+				<Outlet />
 
-			<HomeFooter />
-		</section>
+				<HomeFooter />
+			</Grid>
+		</Container>
 	)
 }
