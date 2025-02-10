@@ -3,9 +3,10 @@ import {
 	Container,
 	Flex,
 	Table,
-	Text,
+	TextField,
 	ThemePanel
 } from '@radix-ui/themes'
+import { Form } from 'radix-ui'
 
 export default function Status() {
 	return (
@@ -27,6 +28,19 @@ export default function Status() {
 					</Table.Row>
 				</Table.Body>
 			</Table.Root>
+
+			<Form.Root>
+				<Form.Field name='time'>
+					<Form.Label>Időpont</Form.Label>
+					<Form.Control asChild>
+						<input type='time' name='time' />
+					</Form.Control>
+				</Form.Field>
+
+				<Form.Submit asChild>
+					<Button>Submit</Button>
+				</Form.Submit>
+			</Form.Root>
 
 			<ThemePanel />
 		</Container>
