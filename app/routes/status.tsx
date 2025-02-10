@@ -1,32 +1,11 @@
-import { useEffect, useState } from 'react'
-import { CommentSection } from '../components/comment-section'
+import { Button, Flex, Text, ThemePanel } from '@radix-ui/themes'
 
-export default function SSEPage() {
-	const [messages, setMessages] = useState<string[]>([])
-
-	useEffect(() => {
-		const eventSource = new EventSource('/sse')
-
-		eventSource.onmessage = event => {
-			setMessages(prevMessages => [...prevMessages, event.data])
-		}
-
-		eventSource.onerror = event => {
-			console.error('EventSource error:', event)
-		}
-
-		return () => {
-			eventSource.close()
-		}
-	}, [])
-
+export default function Staus() {
 	return (
 		<div>
-			<h1>SSE</h1>
-
-			{messages.map((message, index) => (
-				<p key={index}>{message}</p>
-			))}
+			<Text>Hello from Radix Themes :)</Text>
+			<Button>Let's go</Button>
+			<ThemePanel />
 		</div>
 	)
 }

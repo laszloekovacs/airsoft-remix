@@ -7,7 +7,8 @@ import {
 	ScrollRestoration
 } from 'react-router'
 import type { Route } from './+types/root'
-import './tailwind.css'
+import '@radix-ui/themes/styles.css'
+import { Theme } from '@radix-ui/themes'
 
 export const links: Route.LinksFunction = () => [
 	{ rel: 'icon', href: '/favicon.ico?v2' }
@@ -23,9 +24,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Links />
 			</head>
 			<body>
-				{children}
-				<ScrollRestoration />
-				<Scripts />
+				<Theme
+					accentColor='red'
+					grayColor='sand'
+					radius='none'
+					appearance='dark'>
+					{children}
+					<ScrollRestoration />
+					<Scripts />
+				</Theme>
 			</body>
 		</html>
 	)
