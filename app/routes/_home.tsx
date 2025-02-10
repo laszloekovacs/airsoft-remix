@@ -1,10 +1,10 @@
+import { Container, Flex, Grid } from '@radix-ui/themes'
 import { Outlet } from 'react-router'
+import { HomeFooter } from '~/components/home-footer'
 import { PageLogo } from '~/components/page-logo'
+import SessionHeader from '~/components/session-header'
 import { auth } from '~/services/auth.server'
 import type { Route } from './+types/_home'
-import { HomeFooter } from '~/components/home-footer'
-import SessionHeader from '~/components/session-header'
-import { Container, Flex, Grid } from '@radix-ui/themes'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -35,13 +35,13 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 	return (
 		<Container maxWidth='800px'>
 			<Grid
-				p={'2'}
-				py={'4'}
+				p='2'
+				py='4'
 				columns='1'
 				gap='4'
 				rows='auto 1fr auto'
 				width='auto'
-				minHeight={'100vh'}>
+				minHeight='100vh'>
 				<Flex justify='between' align='baseline'>
 					<PageLogo />
 					<SessionHeader sessionData={sessionData} />
