@@ -1,3 +1,4 @@
+import { Button, Flex, Text } from '@radix-ui/themes'
 import { useState } from 'react'
 
 export const EditableText = ({
@@ -21,18 +22,24 @@ export const EditableText = ({
 
 	if (!isEditing) {
 		return (
-			<>
-				<span>{value}</span>
-				<button onClick={() => setEditing(true)}>edit</button>
-			</>
+			<Flex gap='2'>
+				<Text>{value}</Text>
+				<Button size='1' onClick={() => setEditing(true)}>
+					edit
+				</Button>
+			</Flex>
 		)
 	} else {
 		return (
 			<>
 				<form onSubmit={handleDoneEditing}>
 					<input name='text' defaultValue={value} />
-					<input type='submit' value='save' />
-					<button onClick={() => setEditing(false)}>x</button>
+					<Button size='1' asChild>
+						<input type='submit' value='save' />
+					</Button>
+					<Button size='1' onClick={() => setEditing(false)}>
+						x
+					</Button>
 				</form>
 			</>
 		)

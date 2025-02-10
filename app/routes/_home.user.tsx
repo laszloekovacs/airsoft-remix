@@ -36,19 +36,19 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 	}
 
 	return (
-		<div>
+		<Box>
 			<Flex justify='end' p='4' mb='4'>
 				<LogoutButton />
 			</Flex>
 
-			<Heading as='h2' mb='4'>
+			<Heading size='3' mb='4'>
 				<EditableText value={callsign} onSave={handleCallsignChange} />
 			</Heading>
 
 			<Text>{name}</Text>
 
 			<Outlet />
-		</div>
+		</Box>
 	)
 }
 
