@@ -2,7 +2,7 @@ import type { auth } from '~/services/auth.server'
 
 import { Link } from 'react-router'
 import { authClient } from '~/services/auth.client'
-import { Avatar } from '@radix-ui/themes'
+import { Avatar, Box, Button, Flex, Text } from '@radix-ui/themes'
 
 type sessionType = Awaited<ReturnType<typeof auth.api.getSession>>
 
@@ -41,17 +41,17 @@ const UnauthenticatedSessionHeader = () => {
 	}
 
 	return (
-		<section>
-			<p>belépés / felíratkozás</p>
+		<Box>
+			<Text>belépés / felíratkozás</Text>
 
-			<div>
-				<button onClick={() => handleClick('github')}>
+			<Flex gap='2'>
+				<Button onClick={() => handleClick('github')}>
 					<img src='/assets/github-fill.svg' alt='github' width={30} />
-				</button>
-				<button onClick={() => handleClick('discord')}>
+				</Button>
+				<Button onClick={() => handleClick('discord')}>
 					<img src='/assets/discord-fill.svg' alt='discord' width={30} />
-				</button>
-			</div>
-		</section>
+				</Button>
+			</Flex>
+		</Box>
 	)
 }
