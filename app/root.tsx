@@ -28,7 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 					accentColor='gold'
 					grayColor='sand'
 					radius='none'
-					appearance='light'>
+					appearance='dark'>
 					{children}
 					<ScrollRestoration />
 					<Scripts />
