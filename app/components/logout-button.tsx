@@ -1,3 +1,4 @@
+import { Button } from '@radix-ui/themes'
 import { useNavigate } from 'react-router'
 import { authClient } from '~/services/auth.client'
 
@@ -9,9 +10,5 @@ export default function LogoutButton() {
 		navigate('/bye')
 	}
 
-	return (
-		<button className='btn btn-primary' onClick={() => handleClick()}>
-			kijelentkezés
-		</button>
-	)
+	return <Button onClick={() => handleClick()}>kijelentkezés</Button>
 }

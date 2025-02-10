@@ -34,7 +34,14 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<Container maxWidth='800px'>
-			<Grid columns='1' gap='4' rows='auto 1fr auto' width='auto'>
+			<Grid
+				p={'2'}
+				py={'4'}
+				columns='1'
+				gap='4'
+				rows='auto 1fr auto'
+				width='auto'
+				minHeight={'100vh'}>
 				<Flex justify='between' align='baseline'>
 					<PageLogo />
 					<SessionHeader sessionData={sessionData} />

@@ -6,6 +6,7 @@ import { user } from '~/schema/auth-schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.user'
+import { Box, Flex, Heading, Text } from '@radix-ui/themes'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await auth.api.getSession({ headers: request.headers })
@@ -36,15 +37,15 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
-			<div className='flex justify-end mb-4'>
+			<Flex justify='end' p='4' mb='4'>
 				<LogoutButton />
-			</div>
+			</Flex>
 
-			<h1 className='text-2xl font-bold mb-2'>
+			<Heading as='h2' mb='4'>
 				<EditableText value={callsign} onSave={handleCallsignChange} />
-			</h1>
+			</Heading>
 
-			<h2 className='mb-2'>{name}</h2>
+			<Text>{name}</Text>
 
 			<Outlet />
 		</div>
