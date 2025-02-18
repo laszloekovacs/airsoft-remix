@@ -1,11 +1,18 @@
-const Address = ({
-	data: { country, city, zip, street }
-}: {
-	data: { country: string; city: string; zip: string; street: string }
-}) => {
+type AddressProps = {
+	address: {
+		country: string
+		city: string
+		zip: string
+		street: string
+	}
+}
+
+const Address = ({ address }: AddressProps) => {
+	const { country, city, zip, street } = address
+
 	return (
-		<figure>
-			<figcaption>Helyszin</figcaption>
+		<div>
+			<h3>Cim</h3>
 			<address>
 				<p>{country}</p>
 				<p>{city}</p>
@@ -13,7 +20,7 @@ const Address = ({
 				<p>{street}</p>
 			</address>
 			<p>megtekintés térképen</p>
-		</figure>
+		</div>
 	)
 }
 

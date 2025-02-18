@@ -1,4 +1,4 @@
-import Address from '~/components/address'
+import Address from '~/components/Address'
 import Avatar from '~/components/avatar'
 import BackButton from '~/components/back-button'
 import CommentsContainer from '~/components/comments'
@@ -43,7 +43,7 @@ export default function GroupDetailPage() {
 			<h2>{groupName}</h2>
 			<Avatar />
 			<CoverPhoto />
-			<Address data={address} />
+			<Address address={address} />
 			<ContactList contacts={[]} />
 			<UserTable players={members} />
 			<CommentsContainer comments={[]} />

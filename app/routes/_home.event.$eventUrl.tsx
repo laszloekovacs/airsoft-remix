@@ -1,5 +1,5 @@
 import Markdown from 'react-markdown'
-import Address from '~/components/address'
+import Address from '~/components/Address'
 import OrganizerTitleCard from '~/components/organizer-title-card'
 import PricingTable from '~/components/pricing-table'
 import TimeTable from '~/components/time-table'
@@ -119,7 +119,7 @@ const EventPage = ({ loaderData }: Route.ComponentProps) => {
 			<div className='flex flex-row flex-wrap gap-4'>
 				<TimeTable times={timeTable} date={date} />
 				<PricingTable prices={prices} />
-				<Address data={address} />
+				<Address address={address} />
 			</div>
 
 			{/* description formated with markdown */}
