@@ -64,5 +64,7 @@ export const auth = betterAuth({
 	}
 })
 
-// only export as default or as variable. check path
-//export default auth
+// helper for getting session
+export async function getSession(request: Request) {
+	return auth.api.getSession({ headers: request.headers })
+}
