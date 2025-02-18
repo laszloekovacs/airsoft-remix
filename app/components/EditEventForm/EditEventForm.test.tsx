@@ -4,12 +4,14 @@ import '@testing-library/jest-dom/vitest'
 import { EditEventForm } from './EditEventForm'
 
 describe('EditEventForm', () => {
+	const initialValues = { name: '', url: '' }
+
 	beforeEach(() => {
 		cleanup()
 	})
 
 	it('should render a form', () => {
-		render(<EditEventForm />)
+		render(<EditEventForm intitalValues={initialValues} />)
 		expect(screen.getByTestId('form')).toBeInTheDocument()
 	})
 })
