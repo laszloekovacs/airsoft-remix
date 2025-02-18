@@ -13,7 +13,12 @@
 			"react-router",
 			"pg",
 			"drizzle-orm",
-			"vitest"
+			"vitest",
+			"@testing-library/jest-dom",
+			"@testing-library/react",
+			"@testing-library/user-event",
+			"@types/react",
+			"@types/react-dom"
 		],
 		"target": "ES2022",
 		"module": "ES2022",
