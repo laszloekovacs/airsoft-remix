@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
+import { EditEventForm } from './EditEventForm'
 
 describe('EditEventForm', () => {
 	beforeEach(() => {
@@ -8,7 +9,7 @@ describe('EditEventForm', () => {
 	})
 
 	it('should render a form', () => {
-		render(<form data-testid='form'>test</form>)
+		render(<EditEventForm />)
 		expect(screen.getByTestId('form')).toBeInTheDocument()
 	})
 })
