@@ -1,18 +1,18 @@
 import { eq } from 'drizzle-orm'
 import { useState } from 'react'
 import { redirect, useFetcher } from 'react-router'
-import { TipTapEditor } from '~/components/tiptap-editor'
-import { event } from '~/schema'
-import { auth } from '~/services/auth.server'
-import { drizzleClient } from '~/services/db.server'
-import { generateUrlName } from '~/helpers/generate-url-name'
-import type { Route } from './+types/_home.event.($eventUrl).edit'
 import BackButton from '~/components/back-button'
+import { TipTapEditor } from '~/components/tiptap-editor'
+import { generateUrlName } from '~/helpers/generate-url-name'
+import { event } from '~/schema'
+import { getSession } from '~/services/auth.server'
+import { drizzleClient } from '~/services/db.server'
+import type { Route } from './+types/_home.event.($eventUrl).edit'
 
 export const loader = async ({ params, request }: Route.ActionArgs) => {
-	const session = await auth.api.getSession({ headers: request.headers })
+	const sessionCookie = await getSession(request)
 
-	if (!session) {
+	if (!sessionCookie) {
 		throw new Response('Unauthorized', { status: 401 })
 	}
 
@@ -32,7 +32,7 @@ export const loader = async ({ params, request }: Route.ActionArgs) => {
 	}
 
 	// check if user id is the sames as event creator
-	if (eventData[0].createdBy !== session.user.id) {
+	if (eventData[0].createdBy !== sessionCookie.user.id) {
 		throw new Response('Forbidden, ez nem a te eseményed!', { status: 403 })
 	}
 
@@ -128,7 +128,7 @@ export default function EventEditPage({ loaderData }: Route.ComponentProps) {
 }
 
 export const action = async ({ request, params }: Route.ActionArgs) => {
-	const session = await auth.api.getSession({ headers: request.headers })
+	const session = await getSession(request)
 
 	if (!session) {
 		throw new Response('Unauthorized', { status: 401 })
