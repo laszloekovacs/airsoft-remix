@@ -19,6 +19,7 @@
 		"@react-router/fs-routes": "^7.1.5",
 		"@react-router/node": "^7.1.5",
 		"@react-router/serve": "^7.1.5",
+		"@testing-library/user-event": "^14.6.1",
 		"@tiptap/extension-image": "^2.11.5",
 		"@tiptap/pm": "^2.11.5",
 		"@tiptap/react": "^2.11.5",
@@ -40,14 +41,18 @@
 	},
 	"devDependencies": {
 		"@react-router/dev": "^7.1.5",
+		"@testing-library/dom": "^10.4.0",
+		"@testing-library/react": "^16.2.0",
 		"@types/bun": "^1.2.2",
 		"@types/pg": "^8.11.11",
 		"@types/react": "^19.0.8",
 		"@types/react-dom": "^19.0.3",
 		"autoprefixer": "^10.4.20",
 		"cross-env": "^7.0.3",
+		"happy-dom": "^17.1.0",
 		"typescript": "^5.7.3",
 		"vite": "^6.1.0",
-		"vite-tsconfig-paths": "^5.1.4"
+		"vite-tsconfig-paths": "^5.1.4",
+		"vitest": "^3.0.6"
 	}
 }
