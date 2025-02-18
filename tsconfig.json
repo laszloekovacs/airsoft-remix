@@ -14,7 +14,7 @@
 			"pg",
 			"drizzle-orm",
 			"vitest",
-			"@testing-library/jest-dom",
+			"@testing-library/jest-dom/vitest",
 			"@testing-library/react",
 			"@testing-library/user-event",
 			"@types/react",
