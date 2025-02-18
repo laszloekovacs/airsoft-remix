@@ -5,7 +5,7 @@ import { TipTapEditor } from '~/components/tiptap-editor'
 import { event } from '~/schema'
 import { auth } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
-import { generateUrlName } from '~/services/generate-url-name'
+import { generateUrlName } from '~/helpers/generate-url-name'
 import type { Route } from './+types/_home.event.($eventUrl).edit'
 import BackButton from '~/components/back-button'
 
