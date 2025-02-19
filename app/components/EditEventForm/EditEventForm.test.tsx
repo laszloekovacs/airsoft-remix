@@ -64,4 +64,11 @@ describe('EditEventForm', () => {
 
 		expect(isPublished).toBeInTheDocument()
 	})
+
+	it('shows a submit button', () => {
+		render(<EditEventForm inititalValues={initialValues} />)
+		const submitButton = document.querySelector('input[type="submit"]')
+
+		expect(submitButton).toBeInTheDocument()
+	})
 })

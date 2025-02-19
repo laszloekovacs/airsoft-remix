@@ -41,7 +41,7 @@ export const event = pgTable('event', {
 	description: text(),
 	coverPhoto: text('cover_photo'),
 	startDate: date('start_date').notNull(),
-	location: text('location'),
+	address: jsonb(),
 	isPublished: boolean('is_published').notNull().default(false),
 	createdBy: text('created_by').references(() => user.id, {
 		onDelete: 'set null'

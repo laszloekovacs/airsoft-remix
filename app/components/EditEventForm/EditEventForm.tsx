@@ -70,6 +70,8 @@ export function EditEventForm({ inititalValues }: FormProps) {
 					}
 				/>
 			</label>
+
+			<input type='submit' value='mentés' />
 		</form>
 	)
 }
