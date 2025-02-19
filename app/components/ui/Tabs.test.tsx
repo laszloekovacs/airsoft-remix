@@ -1,20 +1,26 @@
 import '@testing-library/jest-dom/vitest'
 import { cleanup, render, screen } from '@testing-library/react'
+import { userEvent } from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { TabContainer, TabList, TabPanel, Tabs, TabTrigger } from './Tabs'
-
+import {
+	TabContainer,
+	TabPanel,
+	TabPanelList,
+	TabTrigger,
+	TabTriggerList
+} from './Tabs'
 const Elements = () => (
 	<TabContainer>
-		<TabList>
-			<TabTrigger>Tab 1</TabTrigger>
-			<TabTrigger>Tab 2</TabTrigger>
-			<TabTrigger>Tab 3</TabTrigger>
-		</TabList>
-		<Tabs>
-			<TabPanel>Panel 1</TabPanel>
-			<TabPanel>Panel 2</TabPanel>
-			<TabPanel>Panel 3</TabPanel>
-		</Tabs>
+		<TabTriggerList>
+			<TabTrigger value='1'>Tab 1</TabTrigger>
+			<TabTrigger value='2'>Tab 2</TabTrigger>
+			<TabTrigger value='3'>Tab 3</TabTrigger>
+		</TabTriggerList>
+		<TabPanelList>
+			<TabPanel value='1'>Panel 1</TabPanel>
+			<TabPanel value='2'>Panel 2</TabPanel>
+			<TabPanel value='3'>Panel 3</TabPanel>
+		</TabPanelList>
 	</TabContainer>
 )
 
@@ -29,6 +35,12 @@ describe('Tab ui', () => {
 
 	it('should render divs and content', () => {
 		expect(screen.getByText('Tab 1')).toBeInTheDocument()
-		expect(screen.getByText('Panel 2')).toBeInTheDocument()
+		expect(screen.getByText('Panel 1')).toBeInTheDocument()
+	})
+
+	it('clicking on tab 2 should set tab 2 data-active attribute', async () => {
+		await userEvent.click(screen.getByText('Tab 2'))
+
+		expect(screen.getByText('Tab 2').getAttribute('data-active')).toBeTruthy()
 	})
 })
