@@ -6,20 +6,7 @@
 		".react-router/types/**/*"
 	],
 	"compilerOptions": {
-		"lib": ["DOM", "DOM.Iterable", "ES2022"],
-		"types": [
-			"bun",
-			"vite/client",
-			"react-router",
-			"pg",
-			"drizzle-orm",
-			"vitest",
-			"@testing-library/jest-dom/vitest",
-			"@testing-library/react",
-			"@testing-library/user-event",
-			"@types/react",
-			"@types/react-dom"
-		],
+		"lib": ["DOM", "DOM.Iterable", "ES2024"],
 		"target": "ES2022",
 		"module": "ES2022",
 		"moduleResolution": "bundler",

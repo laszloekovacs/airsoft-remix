@@ -14,4 +14,12 @@ describe('EditEventForm', () => {
 		render(<EditEventForm intitalValues={initialValues} />)
 		expect(screen.getByTestId('form')).toBeInTheDocument()
 	})
+
+	it('should render input for event name', () => {
+		render(<EditEventForm intitalValues={initialValues} />)
+		const form = screen.getByTestId('form')
+		const nameInput = form.querySelector('input[name="name"]')
+
+		expect(nameInput).toBeInTheDocument()
+	})
 })
