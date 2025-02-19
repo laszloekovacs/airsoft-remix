@@ -9,6 +9,7 @@ import {
 import type { Route } from './+types/root'
 import '@radix-ui/themes/styles.css'
 import { Theme } from '@radix-ui/themes'
+import './root.css'
 
 export const links: Route.LinksFunction = () => [
 	{ rel: 'icon', href: '/favicon.ico?v2' }
