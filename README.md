@@ -3,50 +3,33 @@
 # Airsoft community social webpage
 
 
-## Core features
-- ### Event Calendar
-  - month, week display
-  - event listing: basic info, click for more info
-  - filtering and search: filter by date, location, organizer, tags
+## Key features
 
-- ### event creation and management
-    - Event creation form
-      - event name
-      - url
-      - description: rich text details
-      - tags
-      - date
-      - times, timeline eg: arrival, game, lunch
-      - location, address
-      - fees
-      - attendee limit/capacity
-      - contact information
-      - placard
+1. User Registration And Profile
+   - Users can create profiles with custom name, contact info
 
-    - event editing and updating
-    - event cancellation: notify users
-    - attendee management: assign players, view attendees, 
+2. Event Listing
+   - Central calendar that lists events, click for details
+   - week, month view
+   - search and filter
+   - tags
+  
+3. Event Application
+   - Users can apply for events
+   - Application form, question, notes in message
 
-- ### user application & profile (player side)
-    - Game Application Form: prefered group in event, notes, optional question
-    - confirm/Acknoledgement: user confirm
+4. Player Assignement
+   - organizer can create named custom groups
+   - organizers can assign players to teams
 
-- ### Application status
-    - user can check application statuses
-    - list events the player applied to
+5. Notification
+   - notify users about successfull application
+   - messages
+   - cancellations
 
-- ### Notification system
-    - cancelled / changed events
-    - event reminders
-    - recieved messages
-    - application status changes
-- ### User Roles
-    - users can browser, message, apply to events
-    - organizers can manage events
-    - admin for moderation
+6. Reviews
+   - user can leave feedback
 
-- ### Social 
-    - users can comment on upcoming events
-    - direct messaging
-    - organizer profiles
-    - reviews / ratings
+8. map integration
+   - interactive maps
+  
