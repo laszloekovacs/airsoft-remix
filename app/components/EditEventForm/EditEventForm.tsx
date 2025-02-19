@@ -23,6 +23,11 @@ export function EditEventForm({ inititalValues }: FormProps) {
 					onChange={e => setFormState({ ...formState, title: e.target.value })}
 				/>
 			</label>
+
+			<label>
+				<span>Esemény generált URL-je</span>
+				<output>{formState.url}</output>
+			</label>
 		</form>
 	)
 }
