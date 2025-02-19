@@ -10,7 +10,7 @@ import {
 	TabTriggerList
 } from './Tabs'
 const Elements = () => (
-	<TabContainer>
+	<TabContainer defaultActive='1'>
 		<TabTriggerList>
 			<TabTrigger value='1'>Tab 1</TabTrigger>
 			<TabTrigger value='2'>Tab 2</TabTrigger>
@@ -41,9 +41,7 @@ describe('Tab ui', () => {
 	it('clicking on tab 2 should set tab 2 data-active attribute', async () => {
 		await userEvent.click(screen.getByText('Tab 2'))
 
-		expect(
-			screen.getByText('Tab 2').getAttribute('data-active-tab')
-		).toBeTruthy()
+		expect(screen.getByText('Tab 2').getAttribute('data-state')).toBeTruthy()
 
 		// should also render the content of panel 2
 		expect(screen.getByText('Panel 2')).toBeInTheDocument()

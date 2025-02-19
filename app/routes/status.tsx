@@ -1,4 +1,3 @@
-import { EditEventForm } from '~/components/EditEventForm/EditEventForm'
 import {
 	TabContainer,
 	TabPanel,
@@ -12,7 +11,7 @@ export default function Status() {
 		<div>
 			<p className='text-2xl font-bold underline'>hello</p>
 
-			<TabContainer>
+			<TabContainer defaultActive='1'>
 				<TabTriggerList>
 					<TabTrigger value='1'>Tab 1</TabTrigger>
 					<TabTrigger value='2'>Tab 2</TabTrigger>

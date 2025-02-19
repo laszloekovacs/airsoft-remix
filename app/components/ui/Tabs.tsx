@@ -12,7 +12,7 @@ const TabContext = createContext<TabContextType>({
 
 type TabContainerProps = {
 	children: React.ReactNode
-	defaultActive?: string
+	defaultActive: string
 }
 // topmost container
 export function TabContainer(props: TabContainerProps) {
@@ -35,7 +35,7 @@ type TabPanelProps = {
 // contains the content of the tab
 export function TabPanel(props: TabPanelProps) {
 	const { children, value } = props
-	const { activeTab } = useContext(TabContext)
+	const { activeTab, setActiveTab } = useContext(TabContext)
 
 	return <>{activeTab === value && children}</>
 }
@@ -60,7 +60,7 @@ export function TabTrigger(props: TabTriggerProps) {
 
 	return (
 		<div
-			data-active-tab={value === activeTab}
+			data-state={value === activeTab ? 'active' : 'inactive'}
 			onClick={() => setActiveTab(value)}>
 			{children}
 		</div>
