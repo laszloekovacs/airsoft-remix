@@ -3,11 +3,13 @@ import { createContext, useContext, useState } from 'react'
 type TabContextType = {
 	activeTab: string
 	setActiveTab: (tab: string) => void
+	handleKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 const TabContext = createContext<TabContextType>({
 	activeTab: '',
-	setActiveTab: () => {}
+	setActiveTab: () => {},
+	handleKeyDown: () => {}
 })
 
 type TabContainerProps = {
@@ -19,9 +21,15 @@ export function TabContainer(props: TabContainerProps) {
 	const { children, defaultActive } = props
 	const [activeTab, setActiveTab] = useState<string>(defaultActive || '')
 
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (e.key === 'Enter') {
+			setActiveTab(e.currentTarget.dataset.value || '')
+		}
+	}
+
 	return (
 		<div>
-			<TabContext.Provider value={{ activeTab, setActiveTab }}>
+			<TabContext.Provider value={{ activeTab, setActiveTab, handleKeyDown }}>
 				{children}
 			</TabContext.Provider>
 		</div>
@@ -35,9 +43,11 @@ type TabPanelProps = {
 // contains the content of the tab
 export function TabPanel(props: TabPanelProps) {
 	const { children, value } = props
-	const { activeTab, setActiveTab } = useContext(TabContext)
+	const { activeTab } = useContext(TabContext)
 
-	return <div>{activeTab === value && children}</div>
+	return (
+		<>{activeTab === value ? <div data-value={value}>{children}</div> : null}</>
+	)
 }
 
 // container for triggers
@@ -46,6 +56,7 @@ type TabTriggerListProps = {
 }
 export function TabTriggerList(props: TabTriggerListProps) {
 	const { children } = props
+
 	return <div>{children}</div>
 }
 
@@ -56,14 +67,7 @@ type TabTriggerProps = {
 // trigger to change panels
 export function TabTrigger(props: TabTriggerProps) {
 	const { children, value } = props
-	const { activeTab, setActiveTab } = useContext(TabContext)
-
-	// handle keyboard
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-		if (e.key === 'Enter') {
-			setActiveTab(value)
-		}
-	}
+	const { activeTab, setActiveTab, handleKeyDown } = useContext(TabContext)
 
 	return (
 		<div
