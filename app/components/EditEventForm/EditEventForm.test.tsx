@@ -4,7 +4,12 @@ import '@testing-library/jest-dom/vitest'
 import { EditEventForm } from './EditEventForm'
 
 describe('EditEventForm', () => {
-	const initialValues = { title: '', url: 'generated-url', description: '' }
+	const initialValues = {
+		title: '',
+		url: 'generated-url',
+		description: '',
+		startDate: new Date()
+	}
 
 	beforeEach(() => {
 		cleanup()
@@ -23,15 +28,24 @@ describe('EditEventForm', () => {
 		expect(nameInput).toBeInTheDocument()
 	})
 
-	it('displays generated-url', () => {
+	it('shows generated-url', () => {
 		render(<EditEventForm inititalValues={initialValues} />)
 		expect(screen.getByText('generated-url')).toBeInTheDocument()
 	})
 
-	it('displays an input with the name of description', () => {
+	it('shows an input with the name of description', () => {
 		render(<EditEventForm inititalValues={initialValues} />)
 		const descriptionInput = screen.getByLabelText('Esemény leírása')
 
 		expect(descriptionInput).toBeInTheDocument()
+	})
+
+	it('shows an input for start date', () => {
+		render(<EditEventForm inititalValues={initialValues} />)
+		const dateInput = screen
+			.getByTestId('form')
+			.querySelector('input[name="startDate"]')
+
+		expect(dateInput).toBeInTheDocument()
 	})
 })

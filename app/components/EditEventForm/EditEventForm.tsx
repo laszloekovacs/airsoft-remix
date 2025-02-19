@@ -4,6 +4,7 @@ type EventViewModel = {
 	title: string
 	url: string
 	description: string
+	startDate: Date
 }
 
 type FormProps = {
@@ -38,6 +39,17 @@ export function EditEventForm({ inititalValues }: FormProps) {
 					onChange={e =>
 						setFormState({ ...formState, description: e.target.value })
 					}></textarea>
+			</label>
+
+			<label>
+				<span>Esemény időpontja</span>
+				<input
+					type='date'
+					name='startDate'
+					value={formState.startDate.toISOString().split('T')[0]}
+					onChange={e =>
+						setFormState({ ...formState, startDate: new Date(e.target.value) })
+					}></input>
 			</label>
 		</form>
 	)
