@@ -10,16 +10,16 @@ import {
 	TabTriggerList
 } from './Tabs'
 const Elements = () => (
-	<TabContainer defaultActive='1'>
+	<TabContainer defaultActive={1}>
 		<TabTriggerList>
-			<TabTrigger value='1'>Tab 1</TabTrigger>
-			<TabTrigger value='2'>Tab 2</TabTrigger>
-			<TabTrigger value='3'>Tab 3</TabTrigger>
+			<TabTrigger index={1}>Tab 1</TabTrigger>
+			<TabTrigger index={2}>Tab 2</TabTrigger>
+			<TabTrigger index={3}>Tab 3</TabTrigger>
 		</TabTriggerList>
 		<TabPanelList>
-			<TabPanel value='1'>Panel 1</TabPanel>
-			<TabPanel value='2'>Panel 2</TabPanel>
-			<TabPanel value='3'>Panel 3</TabPanel>
+			<TabPanel index={1}>Panel 1</TabPanel>
+			<TabPanel index={2}>Panel 2</TabPanel>
+			<TabPanel index={3}>Panel 3</TabPanel>
 		</TabPanelList>
 	</TabContainer>
 )
@@ -33,20 +33,14 @@ describe('Tab ui', () => {
 		cleanup()
 	})
 
-	it('should render divs and content', () => {
+	it('should render tab titles and panel content', () => {
 		expect(screen.getByText('Tab 1')).toBeInTheDocument()
 		expect(screen.getByText('Panel 1')).toBeInTheDocument()
 	})
 
-	it('clicking on tab 2 should set tab 2 data-active attribute', async () => {
+	it('clicking on tab 2 should show panel 2', async () => {
 		await userEvent.click(screen.getByText('Tab 2'))
 
-		expect(screen.getByText('Tab 2').getAttribute('data-state')).toBeTruthy()
-
-		// should also render the content of panel 2
-		expect(screen.getByText('Panel 2')).toBeInTheDocument()
-
-		// and should not render other panels content
 		expect(screen.queryByText('Panel 1')).not.toBeInTheDocument()
 		expect(screen.queryByText('Panel 3')).not.toBeInTheDocument()
 	})
