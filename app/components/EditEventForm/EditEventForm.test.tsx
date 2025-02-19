@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/vitest'
 import { EditEventForm } from './EditEventForm'
 
 describe('EditEventForm', () => {
-	const initialValues = { title: '', url: 'generated-url' }
+	const initialValues = { title: '', url: 'generated-url', description: '' }
 
 	beforeEach(() => {
 		cleanup()
@@ -26,5 +26,12 @@ describe('EditEventForm', () => {
 	it('displays generated-url', () => {
 		render(<EditEventForm inititalValues={initialValues} />)
 		expect(screen.getByText('generated-url')).toBeInTheDocument()
+	})
+
+	it('displays an input with the name of description', () => {
+		render(<EditEventForm inititalValues={initialValues} />)
+		const descriptionInput = screen.getByLabelText('Esemény leírása')
+
+		expect(descriptionInput).toBeInTheDocument()
 	})
 })

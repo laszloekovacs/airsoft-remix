@@ -34,12 +34,12 @@ export const membership = pgTable('membership', {
 
 export const event = pgTable('event', {
 	id: uuid().primaryKey().defaultRandom(),
-	url: text().notNull().unique(),
-	title: text().notNull(),
-	description: text(),
-	coverPhoto: text('cover_photo'),
 	createdAt: timestamp().defaultNow(),
 	updatedAt: timestamp().$onUpdateFn(() => new Date()),
+	title: text().notNull(),
+	url: text().notNull().unique(),
+	description: text(),
+	coverPhoto: text('cover_photo'),
 	startDate: date('start_date').notNull(),
 	location: text('location'),
 	isPublished: boolean('is_published').notNull().default(false),
