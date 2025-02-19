@@ -71,6 +71,10 @@ export function EditEventForm({ inititalValues }: FormProps) {
 				/>
 			</label>
 
+			<div data-testid='address'>
+				<p>Esemény helye</p>
+			</div>
+
 			<input type='submit' value='mentés' />
 		</form>
 	)

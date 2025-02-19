@@ -70,4 +70,11 @@ describe('EditEventForm', () => {
 
 		expect(submitButton).toBeInTheDocument()
 	})
+
+	it('shows an address input', () => {
+		render(<EditEventForm inititalValues={initialValues} />)
+		const addressInput = screen.getByTestId('address')
+
+		expect(addressInput).toBeInTheDocument()
+	})
 })
