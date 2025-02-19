@@ -4,6 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "bunx -bun react-router dev",
+		"test": "bun vitest",
 		"build": "bunx react-router build",
 		"serve": "bunx react-router-serve ./build/server/index.js",
 		"start": "bunx react-router-serve ./build/server/index.js",
