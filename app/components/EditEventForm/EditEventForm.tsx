@@ -5,6 +5,8 @@ type EventViewModel = {
 	url: string
 	description: string
 	startDate: Date
+	coverPhoto: string
+	isPublished: boolean
 }
 
 type FormProps = {
@@ -50,6 +52,23 @@ export function EditEventForm({ inititalValues }: FormProps) {
 					onChange={e =>
 						setFormState({ ...formState, startDate: new Date(e.target.value) })
 					}></input>
+			</label>
+
+			<label>
+				<span>Esemény képe</span>
+				<input type='file' name='coverPhoto' accept='image/*'></input>
+			</label>
+
+			<label>
+				<span>Esemény megjelenítése</span>
+				<input
+					type='checkbox'
+					name='isPublished'
+					checked={formState.isPublished}
+					onChange={e =>
+						setFormState({ ...formState, isPublished: e.target.checked })
+					}
+				/>
 			</label>
 		</form>
 	)

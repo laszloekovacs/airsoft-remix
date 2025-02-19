@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
+import { cleanup, render, screen } from '@testing-library/react'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { EditEventForm } from './EditEventForm'
 
 describe('EditEventForm', () => {
@@ -8,7 +8,9 @@ describe('EditEventForm', () => {
 		title: '',
 		url: 'generated-url',
 		description: '',
-		startDate: new Date()
+		startDate: new Date(),
+		coverPhoto: '',
+		isPublished: false
 	}
 
 	beforeEach(() => {
@@ -47,5 +49,19 @@ describe('EditEventForm', () => {
 			.querySelector('input[name="startDate"]')
 
 		expect(dateInput).toBeInTheDocument()
+	})
+
+	it('shows input for selecting cover image file', () => {
+		render(<EditEventForm inititalValues={initialValues} />)
+		const fileInput = document.querySelector('input[type="file"]')
+
+		expect(fileInput).toBeInTheDocument()
+	})
+
+	it('shows checkbox for publishing', () => {
+		render(<EditEventForm inititalValues={initialValues} />)
+		const isPublished = document.querySelector('input[name="isPublished"]')
+
+		expect(isPublished).toBeInTheDocument()
 	})
 })
