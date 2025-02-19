@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
-type EventModel = {
-	name: string
+type EventViewModel = {
+	title: string
 	url: string
 }
 
 type FormProps = {
-	intitalValues: EventModel
+	inititalValues: EventViewModel
 }
 
-export function EditEventForm({ intitalValues }: FormProps) {
-	const [formState, setFormState] = useState(intitalValues)
+export function EditEventForm({ inititalValues }: FormProps) {
+	const [formState, setFormState] = useState(inititalValues)
 
 	return (
 		<form data-testid='form'>
@@ -18,9 +18,9 @@ export function EditEventForm({ intitalValues }: FormProps) {
 				<span>Esemény neve</span>
 				<input
 					type='text'
-					name='name'
-					value={formState.name}
-					onChange={e => setFormState({ ...formState, name: e.target.value })}
+					name='title'
+					value={formState.title}
+					onChange={e => setFormState({ ...formState, title: e.target.value })}
 				/>
 			</label>
 		</form>
