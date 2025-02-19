@@ -24,10 +24,9 @@ describe('EditEventForm', () => {
 
 	it('should render input for event name', () => {
 		render(<EditEventForm inititalValues={initialValues} />)
-		const form = screen.getByTestId('form')
-		const nameInput = form.querySelector('input[name="name"]')
+		const title = document.querySelector('input[name="title"]')
 
-		expect(nameInput).toBeInTheDocument()
+		expect(title).toBeInTheDocument()
 	})
 
 	it('shows generated-url', () => {
