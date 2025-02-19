@@ -37,7 +37,7 @@ export function TabPanel(props: TabPanelProps) {
 	const { children, value } = props
 	const { activeTab, setActiveTab } = useContext(TabContext)
 
-	return <>{activeTab === value && children}</>
+	return <div>{activeTab === value && children}</div>
 }
 
 // container for triggers
@@ -58,9 +58,18 @@ export function TabTrigger(props: TabTriggerProps) {
 	const { children, value } = props
 	const { activeTab, setActiveTab } = useContext(TabContext)
 
+	// handle keyboard
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (e.key === 'Enter') {
+			setActiveTab(value)
+		}
+	}
+
 	return (
 		<div
+			tabIndex={0}
 			data-state={value === activeTab ? 'active' : 'inactive'}
+			onKeyDown={handleKeyDown}
 			onClick={() => setActiveTab(value)}>
 			{children}
 		</div>
