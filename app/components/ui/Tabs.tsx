@@ -34,8 +34,10 @@ type TabPanelProps = {
 }
 // contains the content of the tab
 export function TabPanel(props: TabPanelProps) {
-	const { children } = props
-	return <div>{children}</div>
+	const { children, value } = props
+	const { activeTab } = useContext(TabContext)
+
+	return <>{activeTab === value && children}</>
 }
 
 // container for triggers
@@ -57,7 +59,9 @@ export function TabTrigger(props: TabTriggerProps) {
 	const { activeTab, setActiveTab } = useContext(TabContext)
 
 	return (
-		<div data-active={value === activeTab} onClick={() => setActiveTab(value)}>
+		<div
+			data-active-tab={value === activeTab}
+			onClick={() => setActiveTab(value)}>
 			{children}
 		</div>
 	)
