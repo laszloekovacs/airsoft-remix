@@ -28,5 +28,7 @@ const EventListItem = (event: EventListItem) => (
 		<h2>{event.title}</h2>
 		<p>{event.startDate}</p>
 		<p>{event.createdBy}</p>
+
+		<img src={event.coverPhoto} alt={event.title} />
 	</li>
 )
