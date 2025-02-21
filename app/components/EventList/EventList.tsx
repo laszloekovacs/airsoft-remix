@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import type { event as CalendarEvent } from '~/schema'
-import CoverPhoto from './cover-photo'
+import CoverPhoto from '../cover-photo'
 
 export const EventCalendarContainer = ({
 	events
