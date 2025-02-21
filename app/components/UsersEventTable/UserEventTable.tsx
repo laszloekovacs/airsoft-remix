@@ -1,9 +1,10 @@
 import { Link } from 'react-router'
 
-type UserEventTableRow = {
+export type UserEventTableRow = {
 	id: string
 	title: string
 	url: string
+	startDate: string
 }
 
 type Props = {
@@ -28,16 +29,10 @@ const UserEventTable = ({ eventSummaryList }: Props) => {
 	)
 }
 
-type UserEventTableRowProps = {
-	id: string
-	title: string
-	url: string
-}
-
-const UserEventTableRow = (props: UserEventTableRowProps) => {
+const UserEventTableRow = (props: UserEventTableRow) => {
 	return (
 		<tr>
-			<td>{props.title}</td>
+			<td>{props.startDate}</td>
 			<td>
 				<Link to={props.url}>{props.title}</Link>
 			</td>
