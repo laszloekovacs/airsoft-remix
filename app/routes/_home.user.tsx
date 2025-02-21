@@ -1,15 +1,16 @@
+import { Box, Flex, Heading, Text } from '@radix-ui/themes'
 import { eq } from 'drizzle-orm'
 import { Outlet, useFetcher } from 'react-router'
 import { EditableText } from '~/components/editable-text'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
-import { auth } from '~/services/auth.server'
+import { auth, getSession } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.user'
-import { Box, Flex, Heading, Text } from '@radix-ui/themes'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-	const session = await auth.api.getSession({ headers: request.headers })
+	const session = await getSession(request)
+
 	if (!session) return new Response('Unauthorized', { status: 401 })
 
 	const userData = await drizzleClient
