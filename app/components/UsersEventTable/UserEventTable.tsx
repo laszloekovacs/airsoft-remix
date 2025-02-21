@@ -34,7 +34,7 @@ const UserEventTableRow = (props: UserEventTableRow) => {
 		<tr>
 			<td>{props.startDate}</td>
 			<td>
-				<Link to={props.url}>{props.title}</Link>
+				<Link to={`/event/${props.url}`}>{props.title}</Link>
 			</td>
 		</tr>
 	)
