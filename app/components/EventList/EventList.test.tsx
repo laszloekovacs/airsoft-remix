@@ -9,4 +9,18 @@ describe('EventList', () => {
 
 		expect(screen.getByTestId('event-list')).toBeInTheDocument()
 	})
+
+	it('renders a list item with the title "event title" ', () => {
+		const data = {
+			id: 1,
+			title: 'event title',
+			url: 'event',
+			createdBy: 'event',
+			startDate: 'event',
+			coverPhoto: 'event'
+		}
+
+		render(<EventList events={[data]} />)
+		expect(screen.getByText('event title')).toBeInTheDocument()
+	})
 })
