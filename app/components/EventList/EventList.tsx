@@ -1,5 +1,5 @@
 export type EventListItem = {
-	id: number
+	id: string
 	title: string
 	url: string
 	createdBy: string
