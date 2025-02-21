@@ -17,8 +17,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 	return { events }
 }
-
-const HomeIndex = ({ loaderData }: Route.ComponentProps) => {
+export default function HomeIndex({ loaderData }: Route.ComponentProps) {
 	const { events } = loaderData
 
 	return (
@@ -28,5 +27,3 @@ const HomeIndex = ({ loaderData }: Route.ComponentProps) => {
 		</div>
 	)
 }
-
-export default HomeIndex
