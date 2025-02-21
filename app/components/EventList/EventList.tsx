@@ -1,3 +1,5 @@
+import { Link } from 'react-router'
+
 export type EventListItem = {
 	id: string
 	title: string
@@ -25,10 +27,12 @@ export const EventList = (props: EventListProps) => {
 
 const EventListItem = (event: EventListItem) => (
 	<li>
-		<h2>{event.title}</h2>
-		<p>{event.startDate}</p>
-		<p>{event.createdBy}</p>
+		<Link to={`/event/${event.url}`}>
+			<h2>{event.title}</h2>
+			<p>{event.startDate}</p>
+			<p>{event.createdBy}</p>
 
-		<img src={event.coverPhoto} alt={event.title} />
+			<img src={event.coverPhoto} alt={event.title} />
+		</Link>
 	</li>
 )

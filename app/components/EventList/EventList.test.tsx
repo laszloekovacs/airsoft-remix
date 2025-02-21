@@ -1,12 +1,13 @@
 import '@testing-library/jest-dom/vitest'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { EventList } from './EventList'
 import type { EventListItem } from './EventList'
+import { createRoutesStub } from 'react-router'
 
 describe('EventList', () => {
 	const data: EventListItem = {
-		id: 1,
+		id: '1',
 		title: 'event title',
 		url: 'testeventurl',
 		createdBy: 'testuser',
@@ -38,5 +39,26 @@ describe('EventList', () => {
 
 		expect(img).toBeInTheDocument()
 		expect(img).toHaveAttribute('src', data.coverPhoto)
+	})
+
+	it('renders a link to event details', async () => {
+		const Stub = createRoutesStub([
+			{
+				path: '/',
+				Component: () => (
+					<div>
+						<EventList events={[data]} />
+					</div>
+				)
+			}
+		])
+
+		render(<Stub />)
+
+		expect(screen.getByRole('link')).toBeInTheDocument()
+		expect(screen.getByRole('link')).toHaveAttribute(
+			'href',
+			'/event/testeventurl'
+		)
 	})
 })
