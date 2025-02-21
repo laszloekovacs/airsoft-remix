@@ -11,7 +11,7 @@ import type { Route } from './+types/_home.user'
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await getSession(request)
 
-	if (!session) return new Response('Unauthorized', { status: 401 })
+	if (!session) throw new Response('Unauthorized', { status: 401 })
 
 	const userData = await drizzleClient
 		.select()
@@ -54,7 +54,8 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
-	const session = await auth.api.getSession({ headers: request.headers })
+	const session = await getSession(request)
+
 	if (!session) throw new Response('Unauthorized', { status: 401 })
 
 	const formData = await request.formData()
