@@ -5,7 +5,7 @@ import PlayerAssignmentForm from './PlayerAssignmentForm'
 
 describe('PlayerAssignmentForm', () => {
 	it('should render', () => {
-		render(<PlayerAssignmentForm />)
+		render(<PlayerAssignmentForm initialValues={{}} />)
 		expect(screen.getByTestId('player-assignment-form')).toBeInTheDocument()
 	})
 })
