@@ -1,12 +1,12 @@
-import { Box, Flex, Heading, Text } from '@radix-ui/themes'
 import { eq } from 'drizzle-orm'
 import { Outlet, useFetcher } from 'react-router'
 import { EditableText } from '~/components/editable-text'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
-import { auth, getSession } from '~/services/auth.server'
+import { getSession } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.user'
+import { updateCallsign } from '~/queries/updateCallsign.server'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await getSession(request)
@@ -63,20 +63,14 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	if (intention === 'SET_CALLSIGN') {
 		const callsign = formData.get('callsign') as string
-		if (!callsign) {
-			throw new Response('Badly formatted data', { status: 400 })
-		} else {
-			const result = await drizzleClient
-				.update(user)
-				.set({ callsign: callsign })
-				.where(eq(user.id, session.user.id))
-				.returning({ id: user.id, callsign: user.callsign })
+		if (!callsign) throw new Response('Badly formatted data', { status: 400 })
 
-			if (result.length == 0) {
-				throw new Response('Failed to update callsign', { status: 500 })
-			}
+		const result = await updateCallsign(session.user.id, callsign)
+
+		if (result.length == 0) {
+			throw new Response('Failed to update callsign', { status: 500 })
 		}
 
-		return {}
+		return null
 	}
 }
