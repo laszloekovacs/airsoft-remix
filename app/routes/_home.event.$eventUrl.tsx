@@ -1,5 +1,5 @@
 import Markdown from 'react-markdown'
-import Address from '~/components/Address'
+import Address from '~/components/AddressView'
 import OrganizerTitleCard from '~/components/organizer-title-card'
 import PricingTable from '~/components/pricing-table'
 import TimeTable from '~/components/time-table'

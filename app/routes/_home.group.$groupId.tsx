@@ -1,4 +1,4 @@
-import Address from '~/components/Address'
+import Address from '~/components/AddressView'
 import Avatar from '~/components/avatar'
 import BackButton from '~/components/back-button'
 import CommentsContainer from '~/components/comments'
