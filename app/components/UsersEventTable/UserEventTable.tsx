@@ -1,37 +1,46 @@
-import React from 'react'
+import { Link } from 'react-router'
 
-type UserEventTableItem = {
+type UserEventTableRow = {
 	id: string
 	title: string
 	url: string
 }
 
 type Props = {
-	eventSummaryList: UserEventTableItem[]
+	eventSummaryList: UserEventTableRow[]
 }
 
 const UserEventTable = ({ eventSummaryList }: Props) => {
 	return (
 		<table>
-			<th>
+			<thead>
 				<tr>
-					<td>dátum</td>
-					<td>Játék neve</td>
+					<th>dátum</th>
+					<th>Játék neve</th>
 				</tr>
-			</th>
-			<td>
+			</thead>
+			<tbody>
 				{eventSummaryList.map(event => (
-					<UserEventTableRow key={event.id} />
+					<UserEventTableRow key={event.id} {...event} />
 				))}
-			</td>
+			</tbody>
 		</table>
 	)
 }
 
-const UserEventTableRow = () => {
+type UserEventTableRowProps = {
+	id: string
+	title: string
+	url: string
+}
+
+const UserEventTableRow = (props: UserEventTableRowProps) => {
 	return (
 		<tr>
-			<td>hello</td>
+			<td>{props.title}</td>
+			<td>
+				<Link to={props.url}>{props.title}</Link>
+			</td>
 		</tr>
 	)
 }
