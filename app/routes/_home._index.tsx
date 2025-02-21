@@ -1,10 +1,9 @@
-import type { Route } from './+types/_home._index'
-import { drizzleClient } from '~/services/db.server'
-import { event as CalendarEvent } from '~/schema'
 import { EventList, type EventListItem } from '~/components/EventList/EventList'
+import { queryEventList } from '~/queries/queryEventList.server'
+import type { Route } from './+types/_home._index'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-	const eventList = await drizzleClient.select().from(CalendarEvent).limit(10)
+	const eventList = await queryEventList()
 
 	const events: EventListItem[] = eventList.map(e => ({
 		id: e.id,
