@@ -35,14 +35,9 @@ describe('EventList', () => {
 		])
 	})
 
-	it('renders a ul list', () => {
-		render(<EventList events={[]} />)
-
-		expect(screen.getByTestId('event-list')).toBeInTheDocument()
-	})
-
 	it('renders a list', () => {
 		render(<Stub />)
+		expect(screen.getByRole('list')).toBeInTheDocument()
 		expect(screen.getByRole('listitem')).toBeInTheDocument()
 	})
 
