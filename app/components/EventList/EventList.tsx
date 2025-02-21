@@ -1,4 +1,4 @@
-type EventListItem = {
+export type EventListItem = {
 	id: number
 	title: string
 	url: string
@@ -7,7 +7,7 @@ type EventListItem = {
 	coverPhoto: string
 }
 
-type EventListProps = {
+export type EventListProps = {
 	events: EventListItem[]
 }
 
@@ -23,4 +23,10 @@ export const EventList = (props: EventListProps) => {
 	)
 }
 
-const EventListItem = (event: EventListItem) => <li>{event.title}</li>
+const EventListItem = (event: EventListItem) => (
+	<li>
+		<h2>{event.title}</h2>
+		<p>{event.startDate}</p>
+		<p>{event.createdBy}</p>
+	</li>
+)
