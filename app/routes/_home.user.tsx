@@ -37,19 +37,19 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 	}
 
 	return (
-		<Box>
-			<Flex justify='end' p='4' mb='4'>
+		<div>
+			<div className='flex flex-row justify-end'>
 				<LogoutButton />
-			</Flex>
+			</div>
 
-			<Heading size='3' mb='4'>
+			<h3>
 				<EditableText value={callsign} onSave={handleCallsignChange} />
-			</Heading>
+			</h3>
 
-			<Text>{name}</Text>
+			<p>{name}</p>
 
 			<Outlet />
-		</Box>
+		</div>
 	)
 }
 
