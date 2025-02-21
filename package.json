@@ -10,7 +10,7 @@
 		"start": "bunx react-router-serve ./build/server/index.js",
 		"gen-schema": "bunx -bun @better-auth/cli generate --config ./app/services/auth.server.ts",
 		"drizzle-push": "npx drizzle-kit push",
-		"studio": "npx drizzle-kit studio"
+		"studio": "bunx drizzle-kit studio"
 	},
 	"dependencies": {
 		"@better-auth/cli": "^1.1.16",
