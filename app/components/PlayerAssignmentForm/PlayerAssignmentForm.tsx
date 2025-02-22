@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 type PlayerInfo = {
 	id: string
@@ -52,13 +52,17 @@ export const PlayerAssignmentForm = (props: PlayerAssignmentFormProps) => {
 	)
 }
 
-const Faction = (props: {
+type FactionProps = {
 	faction: string
 	players: PlayerInfo[]
 	onDrop: (e: React.DragEvent, faction: string) => void
-}) => {
-	const { faction, players, onDrop } = props
+}
 
+export const Faction: React.FC<FactionProps> = ({
+	faction,
+	players,
+	onDrop
+}) => {
 	const EmptyList = () => <li>Nincs játékos</li>
 
 	return (
@@ -78,9 +82,7 @@ const Faction = (props: {
 	)
 }
 
-const Item = ({ ...props }: PlayerInfo) => {
-	const { id, name, callsign, avatar } = props
-
+const Item: React.FC<PlayerInfo> = ({ id, name, callsign, avatar }) => {
 	return (
 		<li
 			id={callsign}
