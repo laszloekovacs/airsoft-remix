@@ -8,11 +8,12 @@ type ItemType = {
 }
 
 type GroupsContextType = {
+	groups: string[]
 	items: ItemType[]
 	setItems: React.Dispatch<React.SetStateAction<ItemType[]>>
-	handleDragStart: (e: React.DragEvent<HTMLDivElement>, id: string) => void
-	handleDragOver: (e: React.DragEvent<HTMLDivElement>, id: string) => void
-	handleDrop: (e: React.DragEvent<HTMLDivElement>, id: string) => void
+	handleDragStart: (e: React.DragEvent<HTMLDivElement>, itemId: string) => void
+	handleDragOver: (e: React.DragEvent<HTMLDivElement>, groupId: string) => void
+	handleDrop: (e: React.DragEvent<HTMLDivElement>, groupId: string) => void
 }
 
 const GroupsContext = React.createContext<GroupsContextType | null>(null)
@@ -34,23 +35,37 @@ type GroupsContainerProps = {
 export const GroupsContainer: React.FC<GroupsContainerProps> = props => {
 	const [items, setItems] = useState(props.items)
 
-	const handleDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
-		e.preventDefault()
-		e.dataTransfer.setData('id', id)
-		console.log('drag start')
+	const allGroups = items.map(item => item.group || 'none')
+	const groups = [...new Set(allGroups)]
+
+	const handleDragStart = (
+		e: React.DragEvent<HTMLDivElement>,
+		itemId: string
+	) => {
+		e.dataTransfer.setData('text/plain', itemId)
 	}
 
-	const handleDragOver = (e: React.DragEvent<HTMLDivElement>, id: string) => {
+	const handleDragOver = (
+		e: React.DragEvent<HTMLDivElement>,
+		groupId: string
+	) => {
 		e.preventDefault()
-		console.log('drag over')
 	}
 
-	const handleDrop = (e: React.DragEvent<HTMLDivElement>, id: string) => {
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>, groupId: string) => {
+		const id = e.dataTransfer.getData('text/plain')
+
+		const rest = items.filter(item => item.id != id)
+		const item = items.find(item => item.id == id)
+		if (item) {
+			setItems([...rest, { ...item, group: groupId }])
+		}
+
 		e.preventDefault()
-		console.log('drop')
 	}
 
 	const context: GroupsContextType = {
+		groups,
 		items,
 		setItems,
 		handleDragStart,
@@ -69,7 +84,13 @@ type GroupProps = {
 export const Group: React.FC<GroupProps> = props => {
 	const { handleDragOver, handleDrop } = useGroups()
 
-	return <div onDrop={e => handleDrop(e, props.groupId)}>{props.children}</div>
+	return (
+		<div
+			onDrop={e => handleDrop(e, props.groupId)}
+			onDragOver={e => handleDragOver(e, props.groupId)}>
+			<>{props.children}</>
+		</div>
+	)
 }
 
 type GroupItemProps = {
@@ -82,7 +103,7 @@ export const GroupItem: React.FC<GroupItemProps> = props => {
 
 	return (
 		<div draggable onDragStart={e => handleDragStart(e, props.itemId)}>
-			{props.children}
+			<>{props.children}</>
 		</div>
 	)
 }

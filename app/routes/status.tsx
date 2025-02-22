@@ -1,7 +1,9 @@
-import { Group } from '@radix-ui/themes/components/context-menu'
+import { useState } from 'react'
 import {
+	Group,
 	GroupItem,
-	GroupsContainer
+	GroupsContainer,
+	useGroups
 } from '~/components/Groups/PlayerAssignmentForm'
 
 export default function Status() {
@@ -36,14 +38,57 @@ export default function Status() {
 		}
 	]
 
+	return <PlayerAssigmentForm players={players} />
+}
+
+const PlayerAssigmentForm = ({ players }) => {
 	return (
 		<GroupsContainer items={players}>
-			<Group groupId='blue'>
-				<GroupItem itemId='1'>
-					<p>mogadishu</p>
-					<img src='https://picsum.photos/50' draggable='false' />
-				</GroupItem>
-			</Group>
+			<h3>All players</h3>
+			<PlayerGroups />
 		</GroupsContainer>
+	)
+}
+
+const PlayerGroups = () => {
+	const { groups } = useGroups()
+
+	return (
+		<ul>
+			{groups.map(group => (
+				<Group key={group} groupId={group}>
+					<h3>{group}</h3>
+					<PlayerList groupId={group} />
+				</Group>
+			))}
+		</ul>
+	)
+}
+
+const PlayerList = ({ groupId }) => {
+	const { items } = useGroups()
+
+	return (
+		<div>
+			<p>Players in this group</p>
+			<ul>
+				{items
+					.filter(item => item.group == groupId)
+					.map(item => (
+						<GroupItem key={item.id} itemId={item.id}>
+							<PlayerCard key={item.id} player={item} />
+						</GroupItem>
+					))}
+			</ul>
+		</div>
+	)
+}
+
+const PlayerCard = ({ player }) => {
+	return (
+		<div>
+			<img src={player.avatar} />
+			<p>{player.callsign}</p>
+		</div>
 	)
 }
