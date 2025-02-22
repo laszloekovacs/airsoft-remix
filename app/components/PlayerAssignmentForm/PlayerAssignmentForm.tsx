@@ -17,7 +17,10 @@ export const PlayerAssignmentForm = (props: PlayerAssignmentFormProps) => {
 	const { eventId } = props
 
 	const factions = useMemo(
-		() => Object.groupBy(playerList, p => p.faction),
+		() =>
+			Object.groupBy(playerList, p => {
+				return p.faction ?? 'Unassigned'
+			}),
 		[playerList]
 	)
 
