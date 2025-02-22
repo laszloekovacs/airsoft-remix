@@ -1,17 +1,25 @@
-import React from 'react'
+import { useState } from 'react'
 
-const useAssignmentForm = () => {
-	const state = {}
-
-	return [state]
+type PlayerAssignment = {
+	id: string
+	name: string
+	callsign: string
+	avatar: string
+	faction: string
 }
 
 type PlayerAssignmentFormProps = {
-	initialValues: any
+	players: PlayerAssignment[]
 }
 
-const PlayerAssignmentForm = (props: PlayerAssignmentFormProps) => {
-	return <div data-testid='player-assignment-form'>PlayerAssignmentForm</div>
-}
+export default function PlayerAssignmentForm(props: PlayerAssignmentFormProps) {
+	const [playerList, setPlayerList] = useState(props.players)
 
-export default PlayerAssignmentForm
+	const factions = Object.groupBy(playerList, p => p.faction)
+
+	return (
+		<div data-testid='player-assignment-form'>
+			<pre>{JSON.stringify(factions, null, 2)}</pre>
+		</div>
+	)
+}

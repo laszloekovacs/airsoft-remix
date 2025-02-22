@@ -9,20 +9,23 @@ import type { Route } from './+types/_home.user'
 import { updateCallsign } from '~/queries/updateCallsign.server'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-	const session = await getSession(request)
+	const sessionCookie = await getSession(request)
 
-	if (!session) throw new Response('Unauthorized', { status: 401 })
+	if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
 
 	const userData = await drizzleClient
 		.select()
 		.from(user)
-		.where(eq(user.id, session.user.id))
+		.where(eq(user.id, sessionCookie.user.id))
 
 	if (userData.length == 0) {
 		throw new Response('User not found', { status: 404 })
 	}
 
-	return { name: session.user.name, callsign: session.user.callsign }
+	return {
+		name: sessionCookie.user.name,
+		callsign: sessionCookie.user.callsign
+	}
 }
 
 export default function UserPage({ loaderData }: Route.ComponentProps) {
@@ -54,9 +57,9 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
-	const session = await getSession(request)
+	const sessionCookie = await getSession(request)
 
-	if (!session) throw new Response('Unauthorized', { status: 401 })
+	if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
 
 	const formData = await request.formData()
 	const intention = formData.get('intention')
@@ -65,7 +68,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 		const callsign = formData.get('callsign') as string
 		if (!callsign) throw new Response('Badly formatted data', { status: 400 })
 
-		const result = await updateCallsign(session.user.id, callsign)
+		const result = await updateCallsign(sessionCookie.user.id, callsign)
 
 		if (result.length == 0) {
 			throw new Response('Failed to update callsign', { status: 500 })
@@ -73,4 +76,6 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 		return null
 	}
+
+	return null
 }
