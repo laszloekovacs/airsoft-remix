@@ -7,11 +7,6 @@ type ItemType = {
 	group: string
 }
 
-type GroupsContainerProps = {
-	items: ItemType[]
-	chidren: React.ReactNode
-}
-
 type GroupsContextType = {
 	items: ItemType[]
 	setItems: React.Dispatch<React.SetStateAction<ItemType[]>>
@@ -31,11 +26,17 @@ export const useGroups = () => {
 	return context
 }
 
+type GroupsContainerProps = {
+	items: ItemType[]
+	children: React.ReactNode
+}
+
 export const GroupsContainer: React.FC<GroupsContainerProps> = props => {
 	const [items, setItems] = useState(props.items)
 
 	const handleDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
 		e.preventDefault()
+		e.dataTransfer.setData('id', id)
 		console.log('drag start')
 	}
 
@@ -57,20 +58,22 @@ export const GroupsContainer: React.FC<GroupsContainerProps> = props => {
 		handleDrop
 	}
 
-	return <GroupsContext value={context}>{props.chidren}</GroupsContext>
+	return <GroupsContext value={context}>{props.children}</GroupsContext>
 }
 
 type GroupProps = {
-	group: string
+	groupId: string
 	children: React.ReactNode
 }
 
 export const Group: React.FC<GroupProps> = props => {
-	return <div>{props.children}</div>
+	const { handleDragOver, handleDrop } = useGroups()
+
+	return <div onDrop={e => handleDrop(e, props.groupId)}>{props.children}</div>
 }
 
 type GroupItemProps = {
-	id: string
+	itemId: string
 	children: React.ReactNode
 }
 
@@ -78,7 +81,7 @@ export const GroupItem: React.FC<GroupItemProps> = props => {
 	const { handleDragStart } = useGroups()
 
 	return (
-		<div draggable={true} onDragStart={e => handleDragStart(e, props.id)}>
+		<div draggable onDragStart={e => handleDragStart(e, props.itemId)}>
 			{props.children}
 		</div>
 	)

@@ -1,4 +1,8 @@
-import { GroupsContainer } from '~/components/PlayerAssignmentForm/PlayerAssignmentForm'
+import { Group } from '@radix-ui/themes/components/context-menu'
+import {
+	GroupItem,
+	GroupsContainer
+} from '~/components/Groups/PlayerAssignmentForm'
 
 export default function Status() {
 	const players = [
@@ -7,30 +11,39 @@ export default function Status() {
 			name: 'Adam',
 			callsign: 'Adam',
 			avatar: 'https://picsum.photos/50',
-			faction: 'blue'
+			group: 'blue'
 		},
 		{
 			id: '2',
 			name: 'Bravo',
 			callsign: 'Bravo',
 			avatar: 'https://picsum.photos/50',
-			faction: 'red'
+			group: 'red'
 		},
 		{
 			id: '3',
 			name: 'charlie',
 			callsign: 'Charlie',
 			avatar: 'https://picsum.photos/50',
-			faction: 'blue'
+			group: 'blue'
 		},
 		{
 			id: '4',
 			name: 'delta',
 			callsign: 'Delta',
 			avatar: 'https://picsum.photos/50',
-			faction: ''
+			group: ''
 		}
 	]
 
-	return <GroupsContainer items={players} eventId='hello' />
+	return (
+		<GroupsContainer items={players}>
+			<Group groupId='blue'>
+				<GroupItem itemId='1'>
+					<p>mogadishu</p>
+					<img src='https://picsum.photos/50' draggable='false' />
+				</GroupItem>
+			</Group>
+		</GroupsContainer>
+	)
 }
