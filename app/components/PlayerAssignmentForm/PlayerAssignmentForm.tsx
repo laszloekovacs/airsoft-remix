@@ -1,97 +1,85 @@
+import React from 'react'
 import { useState } from 'react'
 
-type PlayerInfo = {
+// an id, and the name of the group it belongs to
+type ItemType = {
 	id: string
-	name: string
-	callsign: string
-	avatar: string
-	faction: string
+	group: string
 }
 
-type PlayerAssignmentFormProps = {
-	eventId: string
-	players: PlayerInfo[]
+type GroupsContainerProps = {
+	items: ItemType[]
+	chidren: React.ReactNode
 }
 
-export const PlayerAssignmentForm = (props: PlayerAssignmentFormProps) => {
-	const [players, setPlayers] = useState(props.players)
-	const { eventId } = props
+type GroupsContextType = {
+	items: ItemType[]
+	setItems: React.Dispatch<React.SetStateAction<ItemType[]>>
+	handleDragStart: (e: React.DragEvent<HTMLDivElement>, id: string) => void
+	handleDragOver: (e: React.DragEvent<HTMLDivElement>, id: string) => void
+	handleDrop: (e: React.DragEvent<HTMLDivElement>, id: string) => void
+}
 
-	const handleDrop = (e: React.DragEvent, faction: string) => {
-		const id = e.dataTransfer.getData('id')
+const GroupsContext = React.createContext<GroupsContextType | null>(null)
 
-		const player = players.find(p => p.id == id)
-		if (player) {
-			const newPlayers = players.filter(p => p.id != id)
-
-			setPlayers([...newPlayers, { ...player, faction }])
-		}
+export const useGroups = () => {
+	const context = React.useContext(GroupsContext)
+	if (!context) {
+		throw new Error('useGroups must be used within a GroupsContainer')
 	}
 
-	const playersWithNamedFaction = players.map(p => ({
-		...p,
-		faction: p.faction || 'várólista'
-	}))
-	const factions = Object.groupBy(playersWithNamedFaction, p => p.faction)
+	return context
+}
+
+export const GroupsContainer: React.FC<GroupsContainerProps> = props => {
+	const [items, setItems] = useState(props.items)
+
+	const handleDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
+		e.preventDefault()
+		console.log('drag start')
+	}
+
+	const handleDragOver = (e: React.DragEvent<HTMLDivElement>, id: string) => {
+		e.preventDefault()
+		console.log('drag over')
+	}
+
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>, id: string) => {
+		e.preventDefault()
+		console.log('drop')
+	}
+
+	const context: GroupsContextType = {
+		items,
+		setItems,
+		handleDragStart,
+		handleDragOver,
+		handleDrop
+	}
+
+	return <GroupsContext value={context}>{props.chidren}</GroupsContext>
+}
+
+type GroupProps = {
+	group: string
+	children: React.ReactNode
+}
+
+export const Group: React.FC<GroupProps> = props => {
+	return <div>{props.children}</div>
+}
+
+type GroupItemProps = {
+	id: string
+	children: React.ReactNode
+}
+
+export const GroupItem: React.FC<GroupItemProps> = props => {
+	const { handleDragStart } = useGroups()
 
 	return (
-		<div id={eventId}>
-			<ul>
-				{Object.keys(factions).map(faction => {
-					return (
-						<Faction
-							key={faction}
-							faction={faction}
-							players={factions[faction] ?? []}
-							onDrop={handleDrop}
-						/>
-					)
-				})}
-			</ul>
+		<div draggable={true} onDragStart={e => handleDragStart(e, props.id)}>
+			{props.children}
 		</div>
-	)
-}
-
-type FactionProps = {
-	faction: string
-	players: PlayerInfo[]
-	onDrop: (e: React.DragEvent, faction: string) => void
-}
-
-export const Faction: React.FC<FactionProps> = ({
-	faction,
-	players,
-	onDrop
-}) => {
-	const EmptyList = () => <li>Nincs játékos</li>
-
-	return (
-		<li
-			id={faction}
-			onDragOver={e => e.preventDefault()}
-			onDrop={e => onDrop(e, faction)}>
-			<h3>{faction}</h3>
-			<ul>
-				{players.length == 0 ? (
-					<EmptyList />
-				) : (
-					players.map(player => <Item key={player.id} {...player} />)
-				)}
-			</ul>
-		</li>
-	)
-}
-
-const Item: React.FC<PlayerInfo> = ({ id, name, callsign, avatar }) => {
-	return (
-		<li
-			id={callsign}
-			draggable
-			onDragStart={e => e.dataTransfer.setData('id', id)}>
-			<div>
-				<h3>{callsign}</h3>
-				<img src={avatar ?? null} alt={name} draggable={false} />
-			</div>
-		</li>
 	)
 }

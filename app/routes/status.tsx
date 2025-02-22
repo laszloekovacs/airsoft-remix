@@ -1,4 +1,4 @@
-import { PlayerAssignmentForm } from '~/components/PlayerAssignmentForm/PlayerAssignmentForm'
+import { GroupsContainer } from '~/components/PlayerAssignmentForm/PlayerAssignmentForm'
 
 export default function Status() {
 	const players = [
@@ -32,5 +32,5 @@ export default function Status() {
 		}
 	]
 
-	return <PlayerAssignmentForm players={players} eventId='hello' />
+	return <GroupsContainer items={players} eventId='hello' />
 }

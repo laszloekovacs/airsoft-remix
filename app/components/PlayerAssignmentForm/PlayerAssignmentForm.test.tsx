@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/vitest'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { PlayerAssignmentForm } from './PlayerAssignmentForm'
+import { GroupsContainer } from './PlayerAssignmentForm'
 
 describe('PlayerAssignmentForm', () => {
 	const players = [
@@ -22,7 +22,7 @@ describe('PlayerAssignmentForm', () => {
 	]
 
 	it('should render a list of players', () => {
-		render(<PlayerAssignmentForm players={players} eventId='gr' />)
+		render(<GroupsContainer items={players} eventId='gr' />)
 		expect(screen.getByText('John Doe')).toBeInTheDocument()
 		expect(screen.getByText('Mike jeffs')).toBeInTheDocument()
 		expect(screen.getAllByRole('listitem')).toHaveLength(4)
