@@ -25,5 +25,5 @@ export default function Status() {
 		}
 	]
 
-	return <PlayerAssignmentForm players={players} />
+	return <PlayerAssignmentForm players={players} eventId='hello' />
 }
