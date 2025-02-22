@@ -22,6 +22,13 @@ export default function Status() {
 			callsign: 'Charlie',
 			avatar: 'https://picsum.photos/50',
 			faction: 'blue'
+		},
+		{
+			id: '4',
+			name: 'delta',
+			callsign: 'Delta',
+			avatar: 'https://picsum.photos/50',
+			faction: ''
 		}
 	]
 

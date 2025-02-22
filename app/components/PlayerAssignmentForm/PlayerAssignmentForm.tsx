@@ -12,17 +12,27 @@ type PlayerAssignmentFormProps = {
 	eventId: string
 	players: PlayerInfo[]
 }
+
 export const PlayerAssignmentForm = (props: PlayerAssignmentFormProps) => {
-	const { players: playerList } = props
+	const [players, setPlayers] = useState(props.players)
 	const { eventId } = props
 
-	const factions = useMemo(
-		() =>
-			Object.groupBy(playerList, p => {
-				return p.faction ?? 'Unassigned'
-			}),
-		[playerList]
-	)
+	const handleDrop = (e: React.DragEvent, faction: string) => {
+		const id = e.dataTransfer.getData('id')
+
+		const player = players.find(p => p.id == id)
+		if (player) {
+			const newPlayers = players.filter(p => p.id != id)
+
+			setPlayers([...newPlayers, { ...player, faction }])
+		}
+	}
+
+	const playersWithNamedFaction = players.map(p => ({
+		...p,
+		faction: p.faction || 'várólista'
+	}))
+	const factions = Object.groupBy(playersWithNamedFaction, p => p.faction)
 
 	return (
 		<div id={eventId}>
@@ -32,7 +42,8 @@ export const PlayerAssignmentForm = (props: PlayerAssignmentFormProps) => {
 						<Faction
 							key={faction}
 							faction={faction}
-							players={factions[faction]}
+							players={factions[faction] ?? []}
+							onDrop={handleDrop}
 						/>
 					)
 				})}
@@ -41,38 +52,43 @@ export const PlayerAssignmentForm = (props: PlayerAssignmentFormProps) => {
 	)
 }
 
-const Faction = (props: { faction: string; players?: PlayerInfo[] }) => {
-	const { faction, players } = props
+const Faction = (props: {
+	faction: string
+	players: PlayerInfo[]
+	onDrop: (e: React.DragEvent, faction: string) => void
+}) => {
+	const { faction, players, onDrop } = props
 
-	if (!players)
-		return (
-			<li id={faction}>
-				<h3>{faction}</h3>
-				<p>No players assigned</p>
-			</li>
-		)
+	const EmptyList = () => <li>Nincs játékos</li>
 
 	return (
-		<li id={faction}>
+		<li
+			id={faction}
+			onDragOver={e => e.preventDefault()}
+			onDrop={e => onDrop(e, faction)}>
 			<h3>{faction}</h3>
 			<ul>
-				{players?.map(player => (
-					<PlayerCard key={player.id} {...player} />
-				))}
+				{players.length == 0 ? (
+					<EmptyList />
+				) : (
+					players.map(player => <Item key={player.id} {...player} />)
+				)}
 			</ul>
 		</li>
 	)
 }
 
-const PlayerCard = ({ ...props }: PlayerInfo) => {
+const Item = ({ ...props }: PlayerInfo) => {
 	const { id, name, callsign, avatar } = props
 
 	return (
-		<li id={callsign}>
+		<li
+			id={callsign}
+			draggable
+			onDragStart={e => e.dataTransfer.setData('id', id)}>
 			<div>
 				<h3>{callsign}</h3>
-				<h2>{name}</h2>
-				<img src={avatar ?? null} alt={name} />
+				<img src={avatar ?? null} alt={name} draggable={false} />
 			</div>
 		</li>
 	)
