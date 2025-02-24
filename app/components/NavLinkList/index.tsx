@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router'
 
-type NavLinkListProps = {
+export type NavLinkListProps = {
 	items: Array<{ name: string; href: string }>
 }
 
