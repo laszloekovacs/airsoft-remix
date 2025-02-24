@@ -1,30 +1,23 @@
 import "@testing-library/jest-dom/vitest";
+import { render, screen, waitFor } from "@testing-library/react";
 import { createRoutesStub } from "react-router";
-import { beforeEach, describe, expect, it } from "vitest";
-import EventEditPage, { loader } from "./_home.event.($eventUrl).edit";
+import { describe, expect, it } from "vitest";
+import EventEditPage from "./_home.event.($eventUrl).edit";
 
 
 describe('EditEventPage with new event', () => {
-    let Stub: ReturnType<typeof createRoutesStub>
-
-
-    beforeEach(() => { 
-        Stub = createRoutesStub([
+    it('renders the route', () => {
+        const Stub = createRoutesStub([
             {
-                path: '/',
+                path: '/event/edit',
                 Component: EventEditPage,
-                loader: loader,
-                
-            },
+            }
         ])
-    })
 
+        render(<Stub initialEntries={['/event/edit']} />)
 
-    it("renders", () => {
-        expect(Stub).toBeTruthy()   
+        expect(screen.getByRole('heading')).toBeInTheDocument()
+        expect(screen.getByText('Esemény szerkesztése')).toBeInTheDocument()
     })
+})
 
-    it("renders a form to input an event title", () => {
-        expect(true).toBe(true)
-    })
-});
