@@ -65,10 +65,12 @@ export default function EventEditIndexPage({ loaderData }: Route.ComponentProps)
     }
 
     useEffect(() => {
+
         if (fetcher.data) {
             setUrl(fetcher.data.url)
         }
     }, [fetcher.data])
+
 
 
     return (
