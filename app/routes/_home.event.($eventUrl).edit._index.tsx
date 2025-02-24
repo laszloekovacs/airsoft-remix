@@ -19,7 +19,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
 
 	// TODO: check if its the users event
-
+	// use database index to identify event
 	let result
 
 	if (params.eventUrl) {

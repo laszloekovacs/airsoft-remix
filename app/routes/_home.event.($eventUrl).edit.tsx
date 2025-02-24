@@ -12,7 +12,11 @@ export default function EventEditPage(props: EventEditPagePRops) {
 		items: [
 			{
 				name: 'nev es datum',
-				href: params.eventUrl ? `/event/${params.eventUrl}/edit` : '/event/edit'
+				to: params.eventUrl ? `/event/${params.eventUrl}/edit` : '/event/edit'
+			},
+			{
+				name: 'idopontok',
+				to: `/event/${params.eventUrl}/edit/schedule`
 			}
 		]
 	}

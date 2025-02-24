@@ -11,7 +11,7 @@ it('should render a nav element', () => {
 })
 
 it('should render a list item', () => {
-	const items = [{ name: 'test', href: '/' }]
+	const items = [{ name: 'test', to: '/' }]
 	const Component = () => <NavLinkList items={items} />
 
 	const Stub = createRoutesStub([
@@ -27,7 +27,7 @@ it('should render a list item', () => {
 })
 
 it('should render a link', () => {
-	const items = [{ name: 'test', href: '/home' }]
+	const items = [{ name: 'test', to: '/home' }]
 	const Component = () => <NavLinkList items={items} />
 
 	const Stub = createRoutesStub([

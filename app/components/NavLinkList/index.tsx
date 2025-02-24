@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router'
 
 export type NavLinkListProps = {
-	items: Array<{ name: string; href: string }>
+	items: Array<{ name: string; to: string }>
 }
 
 export const NavLinkList = (props: NavLinkListProps) => {
@@ -10,8 +10,10 @@ export const NavLinkList = (props: NavLinkListProps) => {
 	return (
 		<nav>
 			{items.map(item => (
-				<li key={item.name}>
-					<NavLink to={item.href}>{item.name}</NavLink>
+				<li key={item.to}>
+					<NavLink to={item.to}>
+						<span>{item.name}</span>
+					</NavLink>
 				</li>
 			))}
 		</nav>
