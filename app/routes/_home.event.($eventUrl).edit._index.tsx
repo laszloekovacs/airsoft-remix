@@ -73,6 +73,7 @@ export default function EventEditIndexPage({
 
 			{fetcher.state === 'submitting' ? 'Submitting...' : ''}
 			<p>{debounced}</p>
+			<pre>{JSON.stringify(fetcher?.data, null, 2)}</pre>
 		</fetcher.Form>
 	)
 }
@@ -87,5 +88,11 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	const generatedUrl = startDate + '-' + generateUrlName(title)
 
-	return { url: generatedUrl }
+	// check if it's not in use
+	const result = await drizzleClient
+		.select()
+		.from(event)
+		.where(eq(event.url, generatedUrl))
+
+	return { url: generatedUrl, urlInUse: result.length > 0 ? true : false }
 }
