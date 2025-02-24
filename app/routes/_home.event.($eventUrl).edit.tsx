@@ -1,17 +1,14 @@
-import type { Route } from './+types/_home.event.($eventUrl).edit'
+import { Outlet } from 'react-router'
 
-export const loader = async ({ params, request }: Route.ActionArgs) => {
-	return {
-		user: "mike"
-	}
-}
 
-export default function EventEditPage({ loaderData }: Route.ComponentProps) {
-	const user = loaderData.user
+
+export default function EventEditPage() {
 
 	return (
 		<div>
 			<h1>Esemény szerkesztése</h1>
+
+			<Outlet />
 		</div>
 	)
 }
