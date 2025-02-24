@@ -1,11 +1,11 @@
 import { Form, useFetcher } from "react-router"
 import type { Route } from "./+types/_home.event.($eventUrl).edit._index"
 import { getSession } from "~/services/auth.server"
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { drizzleClient } from "~/services/db.server"
 import { event } from "~/schema"
 import { eq } from "drizzle-orm"
-import { debounce } from "lodash"
+import { generateUrlName } from "~/helpers/generate-url-name"
 
 
 export const loader = async ({ params, request }: Route.LoaderArgs) => {
@@ -26,20 +26,33 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 export default function EventEditIndexPage({ loaderData }: Route.ComponentProps) {
     const [url, setUrl] = useState(loaderData.url)
     const [title, setTitle] = useState(loaderData.title)
-
+    const [startDate, setStartDate] = useState(new Date().toISOString().split("T")[0])
     const fetcher = useFetcher()
 
+    const handleChange = async (e: React.ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        /// check if theres a date set
+        if (startDate) {
 
 
-    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value)
+            await fetcher.submit(e.currentTarget)
+        }
     }
 
-    return (
-        <fetcher.Form method="post">
-            <label htmlFor="title">Esemény neve</label>
-            <input id="title" type="text" name="title" value={title} onChange={handleChange} />
+    useEffect(() => {
+        if (fetcher.data) {
+            setUrl(fetcher.data.url)
+        }
+    }, [fetcher.data])
 
+
+    return (
+        <fetcher.Form method="post" onChange={handleChange}>
+            <label htmlFor="title">Esemény neve</label>
+            <input id="title" type="text" name="title" value={title} onChange={e => setTitle(e.target.value)} />
+
+            <input id="date" type="date" name="startDate" value={startDate} onChange={e => setStartDate(e.target.value)} />
             <p>{url}</p>
 
             {fetcher.state === "submitting" ? "Submitting..." : ""}
@@ -54,12 +67,9 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
     const formData = await request.formData()
     const title = formData.get('title')
+    const startDate = formData.get('startDate')
 
-    console.log("title", title)
+    const generatedUrl = startDate + "-" + generateUrlName(title as string)
 
-    if (!title) {
-        return { url: "" }
-    }
-
-    return { url: title }
+    return { url: generatedUrl }
 }
