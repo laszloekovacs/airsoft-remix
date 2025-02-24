@@ -8,21 +8,33 @@ import { getSession } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
 import type { Route } from './+types/_home.event.($eventUrl).edit._index'
 
+type LoaderDataViewModel = {
+	url: string
+	title: string
+	startDate: string
+}
+
 export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	const sessionCookie = await getSession(request)
 	if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
 
+	// TODO: check if its the users event
+
+	let result
+
 	if (params.eventUrl) {
-		const result = await drizzleClient
+		result = await drizzleClient
 			.select()
 			.from(event)
 			.where(eq(event.url, params.eventUrl))
-
-		return { url: params.eventUrl, title: result[0].title }
 	}
 
-	// return the events url and title or empty string if not found
-	return { url: '', title: '' }
+	const loaderData: LoaderDataViewModel = {
+		url: params.eventUrl || '',
+		title: (result && result[0].title) || '',
+		startDate: (result && result[0].startDate) || ''
+	}
+	return loaderData
 }
 
 export default function EventEditIndexPage({
@@ -30,9 +42,8 @@ export default function EventEditIndexPage({
 }: Route.ComponentProps) {
 	const [url, setUrl] = useState(loaderData.url)
 	const [title, setTitle] = useState(loaderData.title)
-	const [startDate, setStartDate] = useState(
-		new Date().toISOString().split('T')[0]
-	)
+	const [startDate, setStartDate] = useState(loaderData.startDate)
+
 	const fetcher = useFetcher()
 	const debounced = useDebouncedValue(url, 300)
 
@@ -40,9 +51,9 @@ export default function EventEditIndexPage({
 		e.preventDefault()
 
 		/// check if theres a date set
-		if (startDate) {
-			await fetcher.submit(e.currentTarget)
-		}
+		const formData = new FormData(e.target)
+		formData.append('intent', 'VERIFY_EVENT_URL')
+		await fetcher.submit(formData)
 	}
 
 	useEffect(() => {
@@ -54,6 +65,7 @@ export default function EventEditIndexPage({
 	return (
 		<fetcher.Form method='post' onChange={handleChange}>
 			<label htmlFor='title'>Esemény neve</label>
+
 			<input
 				id='title'
 				type='text'
@@ -85,6 +97,9 @@ export const action = async ({ request }: Route.ActionArgs) => {
 	const formData = await request.formData()
 	const title = formData.get('title') as string
 	const startDate = formData.get('startDate')
+	const intent = formData.get('intent')
+
+	console.log(intent, title, startDate)
 
 	const generatedUrl = startDate + '-' + generateUrlName(title)
 
