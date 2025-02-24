@@ -8,6 +8,30 @@ import { eq } from "drizzle-orm"
 import { generateUrlName } from "~/helpers/generate-url-name"
 
 
+const useDebouncedValue = (value: any, delay: number) => {
+    const timerRef = useRef<Timer | null>(null)
+    const [debounced, setDebounced] = useState(value)
+
+    useEffect(() => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current)
+        }
+
+        timerRef.current = setTimeout(() => {
+            setDebounced(value)
+        }, delay)
+
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current)
+            }
+        }
+    }, [value, delay])
+
+    return debounced
+}
+
+
 export const loader = async ({ params, request }: Route.LoaderArgs) => {
     const sessionCookie = await getSession(request)
     if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
@@ -28,14 +52,14 @@ export default function EventEditIndexPage({ loaderData }: Route.ComponentProps)
     const [title, setTitle] = useState(loaderData.title)
     const [startDate, setStartDate] = useState(new Date().toISOString().split("T")[0])
     const fetcher = useFetcher()
+    const debounced = useDebouncedValue(url, 300)
+
 
     const handleChange = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         /// check if theres a date set
         if (startDate) {
-
-
             await fetcher.submit(e.currentTarget)
         }
     }
@@ -56,6 +80,7 @@ export default function EventEditIndexPage({ loaderData }: Route.ComponentProps)
             <p>{url}</p>
 
             {fetcher.state === "submitting" ? "Submitting..." : ""}
+            <p>{debounced}</p>
         </fetcher.Form>
     )
 }
