@@ -1,26 +1,46 @@
 import "@testing-library/jest-dom/vitest";
 import { render, screen } from "@testing-library/react";
 import { createRoutesStub } from "react-router";
-import { beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import EventEditIndexPage from "./_home.event.($eventUrl).edit._index";
 
-
 describe("Edit event index page", () => {
-    let Stub: ReturnType<typeof createRoutesStub>
-
-    beforeEach(() => {
-        Stub = createRoutesStub([
+    it("renders a form with a title input, fills in title", () => {
+        const Stub = createRoutesStub([
             {
                 path: "/",
-                Component: () => <EventEditIndexPage loaderData={{ user: "mike" }} params={{ eventUrl: "test" }} matches={{} as any} />,
+                Component: () => <EventEditIndexPage loaderData={{ title: "eventitle", url: "mike" }} params={{}} matches={{} as any} />,
             }
         ])
 
         render(<Stub />)
+        expect(document.querySelector("form")).toBeInTheDocument()
+        expect(document.querySelector("input[name='title']")).toBeInTheDocument()
+        expect(document.querySelector("input[name='title']")).toHaveValue("eventitle")
     })
 
+    it("renders out the url parameter passed to the page", () => {
+        const Stub = createRoutesStub([
+            {
+                path: "/",
+                Component: () => <EventEditIndexPage loaderData={{ title: "mike", url: "eventurl" }} params={{}} matches={{} as any} />,
+            }
+        ])
 
-    it("renders properly", () => {
-        expect(screen.getByText("mike")).toBeInTheDocument()
+        render(<Stub />)
+        expect(screen.getByText("eventurl")).toBeInTheDocument()
+    })
+
+    it("calls fetcher when title chages", () => {
+        const Stub = createRoutesStub([
+            {
+                path: "/",
+                Component: () => <EventEditIndexPage loaderData={{ title: "mike", url: "eventurl" }} params={{}} matches={{} as any} />,
+            }
+        ])
+
+        render(<Stub />)
+
+        expect(screen.getByText("eventurl")).toBeInTheDocument()
     })
 })
