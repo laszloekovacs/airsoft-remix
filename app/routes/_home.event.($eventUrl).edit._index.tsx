@@ -81,7 +81,6 @@ export default function EventEditIndexPage({
 				value={startDate}
 				onChange={e => setStartDate(e.target.value)}
 			/>
-			<p>{url}</p>
 
 			{fetcher.state === 'submitting' ? 'Submitting...' : ''}
 			<p>{debounced}</p>
