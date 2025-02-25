@@ -43,24 +43,18 @@ export default function EventEditIndexPage({
 	const [url, setUrl] = useState(loaderData.url)
 	const [title, setTitle] = useState(loaderData.title)
 	const [startDate, setStartDate] = useState(loaderData.startDate)
-
-	const fetcher = useFetcher()
-	const debounced = useDebouncedValue(url, 300)
+	const fetcher = useFetcher<typeof action>()
 
 	const handleChange = async (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		/// check if theres a date set
-		const formData = new FormData(e.target)
-		formData.append('intent', 'VERIFY_EVENT_URL')
-		await fetcher.submit(formData)
-	}
+		const formData = new FormData(e.currentTarget)
+		formData.append('intent', 'preview')
 
-	useEffect(() => {
-		if (fetcher.data) {
-			setUrl(fetcher.data.url)
-		}
-	}, [fetcher.data])
+		await fetcher.submit(formData, {
+			method: 'post'
+		})
+	}
 
 	return (
 		<fetcher.Form method='post' onChange={handleChange}>
@@ -82,9 +76,8 @@ export default function EventEditIndexPage({
 				onChange={e => setStartDate(e.target.value)}
 			/>
 
-			{fetcher.state === 'submitting' ? 'Submitting...' : ''}
-			<p>{debounced}</p>
-			<pre>{JSON.stringify(fetcher?.data, null, 2)}</pre>
+			<pre>{JSON.stringify(fetcher.state)}</pre>
+			<pre>{fetcher.data && JSON.stringify(fetcher?.data)}</pre>
 		</fetcher.Form>
 	)
 }
@@ -95,10 +88,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	const formData = await request.formData()
 	const title = formData.get('title') as string
-	const startDate = formData.get('startDate')
-	const intent = formData.get('intent')
-
-	console.log(intent, title, startDate)
+	const startDate = formData.get('startDate') as string
 
 	const generatedUrl = startDate + '-' + generateUrlName(title)
 
