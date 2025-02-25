@@ -1,8 +1,7 @@
 import { eq } from 'drizzle-orm'
-import { useEffect, useState } from 'react'
+import { useDeferredValue, useEffect, useState } from 'react'
 import { useFetcher } from 'react-router'
 import { generateUrlName } from '~/helpers/generate-url-name'
-import { useDebouncedValue } from '~/hools/useDebounceValue'
 import { event } from '~/schema'
 import { getSession } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
@@ -37,6 +36,25 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	return loaderData
 }
 
+const GeneratedUrl = ({
+	title,
+	startDate
+}: {
+	title: string
+	startDate: string
+}) => {
+	const fetcher = useFetcher()
+
+	useEffect(() => {
+		fetcher.submit(
+			{ intent: 'verify_url', title, startDate },
+			{ method: 'post', encType: 'application/json' }
+		)
+	}, [title, startDate])
+
+	return <p>{fetcher?.data && JSON.stringify(fetcher?.data)}</p>
+}
+
 export default function EventEditIndexPage({
 	loaderData
 }: Route.ComponentProps) {
@@ -45,19 +63,11 @@ export default function EventEditIndexPage({
 	const [startDate, setStartDate] = useState(loaderData.startDate)
 	const fetcher = useFetcher<typeof action>()
 
-	const handleChange = async (e: React.ChangeEvent<HTMLFormElement>) => {
-		e.preventDefault()
-
-		const formData = new FormData(e.currentTarget)
-		formData.append('intent', 'preview')
-
-		await fetcher.submit(formData, {
-			method: 'post'
-		})
-	}
+	const deferredTitle = useDeferredValue(title)
+	const deferredStartDate = useDeferredValue(startDate)
 
 	return (
-		<fetcher.Form method='post' onChange={handleChange}>
+		<fetcher.Form method='post'>
 			<label htmlFor='title'>Esemény neve</label>
 
 			<input
@@ -77,7 +87,7 @@ export default function EventEditIndexPage({
 			/>
 
 			<pre>{JSON.stringify(fetcher.state)}</pre>
-			<pre>{fetcher.data && JSON.stringify(fetcher?.data)}</pre>
+			<GeneratedUrl title={deferredTitle} startDate={deferredStartDate} />
 		</fetcher.Form>
 	)
 }
@@ -86,9 +96,8 @@ export const action = async ({ request }: Route.ActionArgs) => {
 	const sessionCookie = await getSession(request)
 	if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
 
-	const formData = await request.formData()
-	const title = formData.get('title') as string
-	const startDate = formData.get('startDate') as string
+	const formData = await request.json()
+	const { title, startDate } = formData
 
 	const generatedUrl = startDate + '-' + generateUrlName(title)
 
