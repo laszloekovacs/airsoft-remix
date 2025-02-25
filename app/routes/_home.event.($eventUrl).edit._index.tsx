@@ -37,14 +37,14 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 }
 
 const GeneratedUrl = ({
+	fetcher,
 	title,
 	startDate
 }: {
+	fetcher: ReturnType<typeof useFetcher<typeof action>>
 	title: string
 	startDate: string
 }) => {
-	const fetcher = useFetcher()
-
 	useEffect(() => {
 		fetcher.submit(
 			{ intent: 'verify_url', title, startDate },
@@ -87,7 +87,11 @@ export default function EventEditIndexPage({
 			/>
 
 			<pre>{JSON.stringify(fetcher.state)}</pre>
-			<GeneratedUrl title={deferredTitle} startDate={deferredStartDate} />
+			<GeneratedUrl
+				fetcher={fetcher}
+				title={deferredTitle}
+				startDate={deferredStartDate}
+			/>
 		</fetcher.Form>
 	)
 }
