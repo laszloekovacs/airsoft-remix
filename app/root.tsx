@@ -1,3 +1,5 @@
+import { Theme } from '@radix-ui/themes'
+import '@radix-ui/themes/styles.css'
 import {
 	isRouteErrorResponse,
 	Links,
@@ -7,15 +9,18 @@ import {
 	ScrollRestoration
 } from 'react-router'
 import type { Route } from './+types/root'
-import '@radix-ui/themes/styles.css'
-import { Theme } from '@radix-ui/themes'
 import './root.css'
+import type { JSX } from 'react'
 
 export const links: Route.LinksFunction = () => [
 	{ rel: 'icon', href: '/favicon.ico?v2' }
 ]
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({
+	children
+}: {
+	children: React.ReactNode
+}): JSX.Element {
 	return (
 		<html lang='en'>
 			<head>
