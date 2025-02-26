@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/vitest'
 import { render, screen } from '@testing-library/react'
 import { createRoutesStub } from 'react-router'
 import { describe, expect, it } from 'vitest'
-import EventEditIndexPage from './_home.event.($eventUrl).edit._index'
+import EventEditIndexPage from '../_home.event.($eventUrl).edit._index'
 
 describe('Edit event index page', () => {
 	it('renders a form with a title input, fills in title', () => {
