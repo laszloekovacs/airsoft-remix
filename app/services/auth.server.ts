@@ -63,19 +63,19 @@ export async function getSession(request: Request) {
 	return auth.api.getSession({ headers: request.headers })
 }
 
-export const isSessionCookie = (
+export function isSessionCookie(
 	cookie: unknown
-): cookie is Awaited<ReturnType<typeof auth.api.getSession>> => {
-	if (cookie === null) return false
-	if (typeof cookie !== 'object') return false
+): cookie is Awaited<ReturnType<typeof auth.api.getSession>> {
+	if (cookie == null || typeof cookie !== 'object') return false
 
+	const { session, user } = cookie as { session?: unknown; user?: unknown }
 	if (
-		'user' in cookie &&
-		'session' in cookie &&
-		typeof cookie.session === 'object' &&
-		typeof cookie.user === 'object'
+		session == null ||
+		user == null ||
+		typeof session !== 'object' ||
+		typeof user !== 'object'
 	)
-		return true
+		return false
 
-	return false
+	return true
 }
