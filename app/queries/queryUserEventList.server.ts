@@ -1,10 +1,10 @@
 import { eq } from 'drizzle-orm'
 import type { UserEventTableRow } from '~/components/UsersEventTable/UserEventTable'
 import { event } from '~/schema'
-import { drizzleClient } from '~/services/db.server'
+import { db } from '~/services/db.server'
 
 export const queryUserEventList = async (userId: string) => {
-	const databaseEvents = await drizzleClient
+	const databaseEvents = await db
 		.select()
 		.from(event)
 		.where(eq(event.createdBy, userId))

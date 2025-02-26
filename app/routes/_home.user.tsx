@@ -4,7 +4,7 @@ import { EditableText } from '~/components/editable-text'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
 import { getSession } from '~/services/auth.server'
-import { drizzleClient } from '~/services/db.server'
+import { db } from '~/services/db.server'
 import type { Route } from './+types/_home.user'
 import { updateCallsign } from '~/queries/updateCallsign.server'
 
@@ -13,7 +13,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 	if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
 
-	const userData = await drizzleClient
+	const userData = await db
 		.select()
 		.from(user)
 		.where(eq(user.id, sessionCookie.user.id))

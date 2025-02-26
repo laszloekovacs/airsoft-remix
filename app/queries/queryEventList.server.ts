@@ -1,11 +1,11 @@
 // returns list of events for the index page to list out
 
-import { drizzleClient } from '~/services/db.server'
+import { db } from '~/services/db.server'
 import { event } from '~/schema'
 import type { EventListItem } from '~/components/EventList/EventList'
 
 export const queryEventList = async () => {
-	const eventList = await drizzleClient.select().from(event)
+	const eventList = await db.select().from(event)
 
 	const eventViewModel: EventListItem[] = eventList.map(e => ({
 		id: e.id,

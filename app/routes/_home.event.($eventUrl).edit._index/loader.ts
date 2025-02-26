@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { event } from '~/schema'
 import { getSession } from '~/services/auth.server'
-import { drizzleClient } from '~/services/db.server'
+import { db } from '~/services/db.server'
 import type { Route } from './+types/route'
 
 export type LoaderDataViewModel = {
@@ -18,10 +18,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	let result
 
 	if (params.eventUrl) {
-		result = await drizzleClient
-			.select()
-			.from(event)
-			.where(eq(event.url, params.eventUrl))
+		result = await db.select().from(event).where(eq(event.url, params.eventUrl))
 
 		if (result.length == 0) {
 			throw new Response('not found', { status: 404 })

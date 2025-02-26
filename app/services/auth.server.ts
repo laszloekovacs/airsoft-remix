@@ -1,7 +1,7 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { customSession } from 'better-auth/plugins'
-import { drizzleClient } from './db.server'
+import { db } from './db.server'
 import {
 	account,
 	session,
@@ -10,7 +10,7 @@ import {
 } from '~/schema/auth-schema'
 
 export const auth = betterAuth({
-	database: drizzleAdapter(drizzleClient, {
+	database: drizzleAdapter(db, {
 		provider: 'pg',
 		schema: {
 			account: account,

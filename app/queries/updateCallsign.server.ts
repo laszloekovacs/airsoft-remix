@@ -1,9 +1,9 @@
 import { eq } from 'drizzle-orm'
 import { user } from '~/schema/auth-schema'
-import { drizzleClient } from '~/services/db.server'
+import { db } from '~/services/db.server'
 
 export const updateCallsign = async (id: string, callsign: string) => {
-	const result = await drizzleClient
+	const result = await db
 		.update(user)
 		.set({ callsign: callsign })
 		.where(eq(user.id, id))

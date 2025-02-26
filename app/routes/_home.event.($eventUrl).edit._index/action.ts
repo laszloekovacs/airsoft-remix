@@ -3,7 +3,7 @@ import { redirect } from 'react-router'
 import { generateUrlName as generateUrlSafeName } from '~/helpers/generate-url-name'
 import { event } from '~/schema'
 import { getSession } from '~/services/auth.server'
-import { drizzleClient } from '~/services/db.server'
+import { db } from '~/services/db.server'
 import type { Route } from './+types/route'
 
 type ActionResultModel = {
@@ -24,7 +24,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 	switch (intent) {
 		case 'save': {
-			const result = await drizzleClient
+			const result = await db
 				.update(event)
 				.set({
 					title,
@@ -39,7 +39,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
 
 		case 'verify': {
 			// check if it's not in use
-			const result = await drizzleClient
+			const result = await db
 				.select()
 				.from(event)
 				.where(eq(event.url, generatedUrl))
