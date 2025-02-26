@@ -1,20 +1,14 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { customSession } from 'better-auth/plugins'
+import { account, session, user, verification } from '~/schema/auth-schema'
 import { db } from './db.server'
-import {
-	account,
-	session,
-	user as authUser,
-	verification
-} from '~/schema/auth-schema'
 
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: 'pg',
 		schema: {
 			account: account,
-			user: authUser,
+			user: user,
 			session: session,
 			verification: verification
 		}
@@ -67,4 +61,21 @@ export const auth = betterAuth({
 // helper for getting session
 export async function getSession(request: Request) {
 	return auth.api.getSession({ headers: request.headers })
+}
+
+export const isSessionCookie = (
+	cookie: unknown
+): cookie is Awaited<ReturnType<typeof auth.api.getSession>> => {
+	if (cookie === null) return false
+	if (typeof cookie !== 'object') return false
+
+	if (
+		'user' in cookie &&
+		'session' in cookie &&
+		typeof cookie.session === 'object' &&
+		typeof cookie.user === 'object'
+	)
+		return true
+
+	return false
 }
