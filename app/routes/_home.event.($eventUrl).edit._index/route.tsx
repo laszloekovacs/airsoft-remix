@@ -5,7 +5,7 @@ import { generateUrlName as generateUrlSafeName } from '~/helpers/generate-url-n
 import { event } from '~/schema'
 import { getSession } from '~/services/auth.server'
 import { drizzleClient } from '~/services/db.server'
-import type { Route } from '../+types/_home.event.($eventUrl).edit._index'
+import type { Route } from './+types/route'
 
 type LoaderDataViewModel = {
 	id: string
