@@ -18,5 +18,5 @@ export const PreviewUrl = ({
 		)
 	}, [title, startDate])
 
-	return <p>{fetcher?.data && JSON.stringify(fetcher?.data)}</p>
+	return <p>{fetcher?.data && JSON.stringify(fetcher.data)}</p>
 }

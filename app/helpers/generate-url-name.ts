@@ -1,5 +1,5 @@
 export function generateUrlName(title: string) {
-	// 1. Remove accents and special characters
+	// 1. Replace accents and special characters
 	const normalizedTitle = title.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
 	// 2. Replace spaces with hyphens

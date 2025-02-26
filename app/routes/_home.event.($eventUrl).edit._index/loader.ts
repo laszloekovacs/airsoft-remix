@@ -17,6 +17,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 
 	let result
 
+	// event name parameter provided in the url
 	if (params.eventUrl) {
 		result = await db.select().from(event).where(eq(event.url, params.eventUrl))
 
@@ -31,7 +32,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 
 	const loaderData: LoaderDataViewModel = {
 		id: result?.[0].id || '',
-		url: params.eventUrl || '',
+		url: result?.[0].url || '',
 		title: result?.[0].title || '',
 		startDate: result?.[0].startDate || ''
 	}

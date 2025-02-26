@@ -76,7 +76,7 @@ describe('Edit event index page', () => {
 		expect(screen.getByText('eventurl')).toBeInTheDocument()
 	})
 
-	it('should check for invalid url characters', () => {
+	it('should check for invalid url characters when validating', () => {
 		expect(true).toBe(true)
 	})
 })
