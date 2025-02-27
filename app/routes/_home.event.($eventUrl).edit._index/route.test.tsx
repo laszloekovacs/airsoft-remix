@@ -1,3 +1,7 @@
+//import { render } from '@testing-library/react'
+//import { createRoutesStub } from 'react-router'
+import EventEditIndexPage from './route'
+
 describe('Edit event index page', () => {
 	it('renders a form with a title input, fills in title', () => {
 		const Stub = createRoutesStub([
