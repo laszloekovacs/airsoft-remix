@@ -18,5 +18,14 @@ export const PreviewUrl = (props: PreviewProps) => {
 		)
 	}, [title, startDate])
 
-	return <p>{fetcher?.data && JSON.stringify(fetcher.data)}</p>
+	return (
+		<div>
+			{fetcher?.data && (
+				<p>
+					<span>{fetcher.data.url}</span>
+					<span>{fetcher.data.isAvailable}</span>
+				</p>
+			)}
+		</div>
+	)
 }
