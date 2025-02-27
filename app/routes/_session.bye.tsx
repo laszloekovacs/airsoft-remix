@@ -3,9 +3,13 @@ import { Link } from 'react-router'
 const ByePage = () => {
 	return (
 		<div>
-			<div>Viszlát!</div>
-			<p>sikeresen kiléptél.</p>
-			<Link to='/'>Home</Link>
+			<div>
+				<h2>Viszlát!</h2>
+				<p>sikeresen kiléptél.</p>
+			</div>
+			<div>
+				<Link to='/'>Home</Link>
+			</div>
 		</div>
 	)
 }
