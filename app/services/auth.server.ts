@@ -1,4 +1,4 @@
-import { betterAuth } from 'better-auth'
+import { betterAuth, type Session, type User } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { account, session, user, verification } from '~/schema/auth-schema'
 import { db } from './db.server'
@@ -33,17 +33,9 @@ export const auth = betterAuth({
 			enabled: true
 		},
 		additionalFields: {
-			claims: {
+			metadata: {
 				type: 'string',
-				required: true,
-				input: false,
-				defaultValue: ''
-			},
-			callsign: {
-				type: 'string',
-				required: true,
-				input: true,
-				defaultValue: ''
+				required: false
 			}
 		}
 	},
@@ -63,12 +55,17 @@ export async function getCookieFromRequest(request: Request) {
 	return auth.api.getSession({ headers: request.headers })
 }
 
+type SessionCookieData = {
+	user: User
+	session: Session
+}
+
 export function isCookieFromRequest(
 	cookie: unknown
-): cookie is Awaited<ReturnType<typeof auth.api.getSession>> {
+): cookie is SessionCookieData {
 	if (cookie == null || typeof cookie !== 'object') return false
 
-	const { session, user } = cookie as { session?: unknown; user?: unknown }
+	const { session, user } = cookie as SessionCookieData
 	if (
 		session == null ||
 		user == null ||
