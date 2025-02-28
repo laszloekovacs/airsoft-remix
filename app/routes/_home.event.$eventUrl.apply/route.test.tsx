@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('Event page', () => {
 	it.todo('renders the events name, and date, splash image', () => {
@@ -34,6 +34,10 @@ import { getSessionCookie } from '~/services/auth.server'
 import { isSessionCookie } from '~/services/auth.server'
 
 describe('loader', async () => {
+	beforeEach(() => {
+		vi.resetAllMocks()
+	})
+
 	it('calls getSessionCookie and isSessionCookie to check if user is logged in', async () => {
 		vi.mock('~/services/auth.server', () => ({
 			getSessionCookie: vi.fn(() => 0),
@@ -57,7 +61,36 @@ describe('loader', async () => {
 		expect(isSessionCookie).toHaveBeenCalledOnce()
 	})
 
-	it.todo('checks if the event exists', () => {
+	it('returns an existing event', async () => {
+		vi.mock('~/services/auth.server', () => ({
+			getSessionCookie: vi.fn(() => {}),
+			isSessionCookie: vi.fn(() => true)
+		}))
+
+		vi.mock('~/services/db.server', () => ({
+			db: vi.fn(() => {
+				select: vi.fn(() => {
+					from: vi.fn(() => {
+						where: vi.fn(() => true)
+					})
+				})
+			})
+		}))
+
+		const params = {
+			eventUrl: 'testevent'
+		}
+
+		const result = loader({ params, request: {} as any, context: {} as any })
+		await expect(result).resolves.toBeTruthy()
+
+		expect(result).toEqual({
+			eventData: {
+				id: '',
+				title: ''
+			}
+		})
+
 		expect(true).toBe(true)
 	})
 
