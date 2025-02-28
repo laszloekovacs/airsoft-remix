@@ -6,11 +6,13 @@ import { PageLogo } from '~/routes/_home/PageLogo'
 import { getCookieFromRequest } from '~/services/auth.server'
 
 export function meta({}: Route.MetaArgs) {
+	const url = import.meta.url
+
 	return [
 		{ title: 'Airsoft Naptár' },
 		{ name: 'description', content: 'Airsoft esemény naptár' },
-		{ property: 'og:url', content: 'www.localhost:3000' },
-		{ property: 'type', content: 'website' },
+		{ property: 'og:type', content: 'website' },
+		{ property: 'og:url', content: url },
 		{ property: 'og:title', content: 'Airsoft Naptár' },
 		{ property: 'og:description', content: 'Airsoft esemény naptár' },
 		{ property: 'og:site_name', content: 'Airsoft Naptár' },
@@ -22,10 +24,8 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-	// returns email, if logged in aka session is not null
-	const session = await getCookieFromRequest(request)
-
-	return session
+	const sessionData = await getCookieFromRequest(request)
+	return sessionData
 }
 
 export default function HomePage({ loaderData }: Route.ComponentProps) {

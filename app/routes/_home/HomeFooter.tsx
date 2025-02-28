@@ -3,19 +3,13 @@ import { Link } from 'react-router'
 
 export const HomeFooter = () => {
 	return (
-		<Box py='4'>
-			<Flex gap='2' direction='column' pb='4'>
-				<RadixLink asChild>
-					<Link to='/'>Kezdőlap</Link>
-				</RadixLink>
-				<RadixLink asChild>
-					<Link to='/user'>Profil</Link>
-				</RadixLink>
-			</Flex>
+		<div>
+			<div>
+				<Link to='/'>Kezdőlap</Link>
+				<Link to='/user'>Profil</Link>
+			</div>
 
-			<Text size='1' weight='light'>
-				{new Date().getFullYear()} Airsoft Naptár
-			</Text>
-		</Box>
+			<small>{new Date().getFullYear()} Airsoft Naptár</small>
+		</div>
 	)
 }

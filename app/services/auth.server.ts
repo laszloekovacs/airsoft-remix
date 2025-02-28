@@ -55,7 +55,7 @@ export async function getCookieFromRequest(request: Request) {
 	return auth.api.getSession({ headers: request.headers })
 }
 
-type SessionCookieData = {
+export type SessionCookieData = {
 	user: User
 	session: Session
 }
