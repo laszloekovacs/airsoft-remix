@@ -3,7 +3,7 @@ import { Outlet } from 'react-router'
 import { HomeFooter } from '~/components/home-footer'
 import { PageLogo } from '~/components/page-logo'
 import SessionHeader from '~/components/session-header'
-import { auth } from '~/services/auth.server'
+import { auth, getCookieFromRequest } from '~/services/auth.server'
 import type { Route } from './+types/_home'
 
 export function meta({}: Route.MetaArgs) {
@@ -24,7 +24,7 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ params, request }: Route.LoaderArgs) {
 	// returns email, if logged in aka session is not null
-	const session = await auth.api.getSession({ headers: request.headers })
+	const session = await getCookieFromRequest(request)
 
 	return session
 }

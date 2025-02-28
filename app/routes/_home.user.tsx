@@ -3,13 +3,13 @@ import { Outlet, useFetcher } from 'react-router'
 import { EditableText } from '~/components/editable-text'
 import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
-import { getSession } from '~/services/auth.server'
+import { getCookieFromRequest } from '~/services/auth.server'
 import { db } from '~/services/db.server'
 import type { Route } from './+types/_home.user'
 import { updateCallsign } from '~/queries/updateCallsign.server'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-	const sessionCookie = await getSession(request)
+	const sessionCookie = await getCookieFromRequest(request)
 
 	if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
 
@@ -57,7 +57,7 @@ export default function UserPage({ loaderData }: Route.ComponentProps) {
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
-	const sessionCookie = await getSession(request)
+	const sessionCookie = await getCookieFromRequest(request)
 
 	if (!sessionCookie) throw new Response('Unauthorized', { status: 401 })
 
