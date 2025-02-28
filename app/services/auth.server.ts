@@ -59,11 +59,11 @@ export const auth = betterAuth({
 })
 
 // helper for getting session
-export async function getSessionCookie(request: Request) {
+export async function getCookieFromRequest(request: Request) {
 	return auth.api.getSession({ headers: request.headers })
 }
 
-export function isSessionCookie(
+export function isCookieFromRequest(
 	cookie: unknown
 ): cookie is Awaited<ReturnType<typeof auth.api.getSession>> {
 	if (cookie == null || typeof cookie !== 'object') return false

@@ -30,8 +30,8 @@ describe('Event page', () => {
 })
 
 import { loader } from './route'
-import { getSessionCookie } from '~/services/auth.server'
-import { isSessionCookie } from '~/services/auth.server'
+import { getCookieFromRequest } from '~/services/auth.server'
+import { isCookieFromRequest } from '~/services/auth.server'
 
 describe('loader', async () => {
 	beforeEach(() => {
@@ -57,8 +57,8 @@ describe('loader', async () => {
 
 		await expect(result).rejects.toThrowError('Unauthorized')
 
-		expect(getSessionCookie).toHaveBeenCalledOnce()
-		expect(isSessionCookie).toHaveBeenCalledOnce()
+		expect(getCookieFromRequest).toHaveBeenCalledOnce()
+		expect(isCookieFromRequest).toHaveBeenCalledOnce()
 	})
 
 	it.todo('returns the attendance data for the event', async () => {

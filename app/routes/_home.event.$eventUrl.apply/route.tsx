@@ -3,7 +3,10 @@ import type { User } from 'better-auth'
 import { eq } from 'drizzle-orm'
 import { Form } from 'react-router'
 import { event } from '~/schema'
-import { getSessionCookie, isSessionCookie } from '~/services/auth.server'
+import {
+	getCookieFromRequest,
+	isCookieFromRequest
+} from '~/services/auth.server'
 import { db } from '~/services/db.server'
 
 type ApplyToEventViewModel = {
@@ -15,9 +18,9 @@ type ApplyToEventViewModel = {
 }
 
 export const loader = async ({ params, request }: Route.LoaderArgs) => {
-	const sessionCookie = await getSessionCookie(request)
+	const sessionCookie = await getCookieFromRequest(request)
 
-	if (!sessionCookie && !isSessionCookie(sessionCookie)) {
+	if (!sessionCookie && !isCookieFromRequest(sessionCookie)) {
 		throw new Error('Unauthorized')
 	}
 

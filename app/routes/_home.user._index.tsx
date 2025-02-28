@@ -1,11 +1,11 @@
 import ContactList from '~/components/contact-list'
 import UserEventTable from '~/components/UsersEventTable/UserEventTable'
 import { queryUserEventList } from '~/queries/queryUserEventList.server'
-import { getSession } from '~/services/auth.server'
+import { getCookieFromRequest } from '~/services/auth.server'
 import type { Route } from './+types/_home.user._index'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
-	const session = await getSession(request)
+	const session = await getCookieFromRequest(request)
 
 	if (!session || !session?.user)
 		return new Response('Unauthorized', { status: 401 })
