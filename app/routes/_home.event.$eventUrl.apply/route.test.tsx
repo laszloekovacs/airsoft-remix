@@ -29,9 +29,16 @@ describe('Event page', () => {
 	})
 })
 
+import { loader } from './route'
+
 describe('loader', () => {
-	it.todo('checks for cookie, user has to be logged in', () => {
-		expect(true).toBe(true)
+	it('checks for user to be logged in', () => {
+		const request = new Request('', {})
+
+		const result = () =>
+			loader({ params: {} as any, request, context: {} as any })
+
+		expect(result).rejects.toThrow()
 	})
 
 	it.todo('checks if the event exists', () => {
