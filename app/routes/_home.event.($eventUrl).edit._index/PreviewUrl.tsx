@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import type { action } from './action'
+import type { action } from './route'
 import type { useFetcher } from 'react-router'
 
 type PreviewProps = {

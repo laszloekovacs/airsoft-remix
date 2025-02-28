@@ -1,4 +1,4 @@
-export function generateUrlName(title: string) {
+export function generateUrlSafeName(title: string) {
 	// 1. Replace accents and special characters
 	const normalizedTitle = title.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 

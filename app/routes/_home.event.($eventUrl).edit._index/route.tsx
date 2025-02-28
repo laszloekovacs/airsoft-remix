@@ -5,7 +5,8 @@ import { getSession } from '~/services/auth.server'
 import { db } from '~/services/db.server'
 import { PreviewUrl } from './PreviewUrl'
 import { event } from '~/schema'
-import type { Route } from '../+types/_home.event.($eventUrl).edit'
+import type { Route } from '.react-router/types/app/routes/_home.event.($eventUrl).edit._index/+types/route'
+import { generateUrlSafeName } from '~/helpers/generateUrlSafeName'
 
 export type LoaderDataViewModel = {
 	id: string
