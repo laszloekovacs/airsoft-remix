@@ -1,7 +1,8 @@
+import type { Route } from '.react-router/types/app/routes/_home/+types/route'
 import { Outlet } from 'react-router'
+import SessionHeader from '~/routes/_home/SessionHeader'
 import { HomeFooter } from '~/routes/_home/HomeFooter'
-import { PageLogo } from '~/components/page-logo'
-import SessionHeader from '~/components/session-header'
+import { PageLogo } from '~/routes/_home/PageLogo'
 import { getCookieFromRequest } from '~/services/auth.server'
 
 export function meta({}: Route.MetaArgs) {
@@ -33,15 +34,13 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 	return (
 		<div>
 			<div>
-				<div>
-					<PageLogo />
-					<SessionHeader sessionData={sessionData} />
-				</div>
-
-				<Outlet />
-
-				<HomeFooter />
+				<PageLogo />
+				<SessionHeader sessionData={sessionData} />
 			</div>
+
+			<Outlet />
+
+			<HomeFooter />
 		</div>
 	)
 }

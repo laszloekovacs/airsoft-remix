@@ -41,7 +41,7 @@ const UnauthenticatedSessionHeader = () => {
 	}
 
 	return (
-		<Box>
+		<div>
 			<Text>belépés / felíratkozás</Text>
 
 			<Flex gap='2'>
@@ -52,6 +52,6 @@ const UnauthenticatedSessionHeader = () => {
 					<img src='/assets/discord-fill.svg' alt='discord' width={30} />
 				</Button>
 			</Flex>
-		</Box>
+		</div>
 	)
 }
