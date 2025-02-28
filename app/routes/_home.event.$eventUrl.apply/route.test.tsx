@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 describe('Event page', () => {
 	it.todo('renders the events name, and date, splash image', () => {
@@ -31,14 +31,20 @@ describe('Event page', () => {
 
 import { loader } from './route'
 
-describe('loader', () => {
-	it('checks for user to be logged in', () => {
-		const request = new Request('', {})
+describe('loader', async () => {
+	it('thows if user isnt logged in', async () => {
+		// mock imported function getSessionCookie
+		vi.mock('./')
 
-		const result = () =>
+		const request = new Request('https://example.com', {
+			method: 'GET',
+			headers: { Cookie: '' }
+		})
+
+		const result = async () =>
 			loader({ params: {} as any, request, context: {} as any })
 
-		expect(result).rejects.toThrow()
+		await expect(result).rejects.toThrow('Unauthorized')
 	})
 
 	it.todo('checks if the event exists', () => {
