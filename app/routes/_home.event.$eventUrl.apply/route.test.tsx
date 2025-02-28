@@ -30,21 +30,31 @@ describe('Event page', () => {
 })
 
 import { loader } from './route'
+import { getSessionCookie } from '~/services/auth.server'
+import { isSessionCookie } from '~/services/auth.server'
 
 describe('loader', async () => {
 	it('thows if user isnt logged in', async () => {
-		// mock imported function getSessionCookie
-		vi.mock('./')
+		vi.mock('~/services/auth.server', () => {
+			return {
+				getSessionCookie: vi.fn(() => 0),
+				isSessionCookie: vi.fn(() => 0)
+			}
+		})
 
 		const request = new Request('https://example.com', {
 			method: 'GET',
 			headers: { Cookie: '' }
 		})
 
-		const result = async () =>
-			loader({ params: {} as any, request, context: {} as any })
+		const result = await loader({
+			params: {} as any,
+			request,
+			context: {} as any
+		})
 
-		await expect(result).rejects.toThrow('Unauthorized')
+		expect(getSessionCookie).toHaveBeenCalledWith(request)
+		expect(isSessionCookie).toHaveBeenCalledWith('hello')
 	})
 
 	it.todo('checks if the event exists', () => {

@@ -59,7 +59,7 @@ export const auth = betterAuth({
 })
 
 // helper for getting session
-export async function getSession(request: Request) {
+export async function getSessionCookie(request: Request) {
 	return auth.api.getSession({ headers: request.headers })
 }
 
