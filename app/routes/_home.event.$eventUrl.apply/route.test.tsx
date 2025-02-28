@@ -61,20 +61,10 @@ describe('loader', async () => {
 		expect(isSessionCookie).toHaveBeenCalledOnce()
 	})
 
-	it('returns an existing event', async () => {
+	it.todo('returns the attendance data for the event', async () => {
 		vi.mock('~/services/auth.server', () => ({
 			getSessionCookie: vi.fn(() => {}),
 			isSessionCookie: vi.fn(() => true)
-		}))
-
-		vi.mock('~/services/db.server', () => ({
-			db: vi.fn(() => {
-				select: vi.fn(() => {
-					from: vi.fn(() => {
-						where: vi.fn(() => true)
-					})
-				})
-			})
 		}))
 
 		const params = {

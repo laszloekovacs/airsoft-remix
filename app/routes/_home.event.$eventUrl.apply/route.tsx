@@ -25,10 +25,18 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 		throw new Error('Event not found')
 	}
 
-	const eventData: ApplyToEventViewModel = {
+	const applyToEventData: ApplyToEventViewModel = {
 		id: result[0].id,
 		title: result[0].title
 	}
 
-	return { eventData }
+	return { applyToEventData }
+}
+
+export default function ApplyToEventPage({ loaderData }: Route.ComponentProps) {
+	return (
+		<div>
+			<p>Jelentkezés Eseményre</p>
+		</div>
+	)
 }
