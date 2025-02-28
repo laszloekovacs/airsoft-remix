@@ -34,7 +34,7 @@ import { getSessionCookie } from '~/services/auth.server'
 import { isSessionCookie } from '~/services/auth.server'
 
 describe('loader', async () => {
-	it('thows if user isnt logged in', async () => {
+	it('calls getSessionCookie and isSessionCookie to check if user is logged in', async () => {
 		vi.mock('~/services/auth.server', () => ({
 			getSessionCookie: vi.fn(() => 0),
 			isSessionCookie: vi.fn(() => 0)
@@ -47,12 +47,14 @@ describe('loader', async () => {
 
 		const result = loader({
 			params: {} as any,
-			request,
+			request: {} as any,
 			context: {} as any
 		})
 
-		expect(getSessionCookie).toHaveBeenCalledWith(request)
 		await expect(result).rejects.toThrowError('Unauthorized')
+
+		expect(getSessionCookie).toHaveBeenCalledOnce()
+		expect(isSessionCookie).toHaveBeenCalledOnce()
 	})
 
 	it.todo('checks if the event exists', () => {
