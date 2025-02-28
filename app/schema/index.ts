@@ -10,28 +10,6 @@ import {
 } from 'drizzle-orm/pg-core'
 import { user } from './auth-schema'
 
-export const group = pgTable('group', {
-	id: uuid().primaryKey().defaultRandom(),
-	name: text().notNull(),
-	url: text().notNull().unique(),
-	owner: text('owner').references(() => user.id, {
-		onDelete: 'set null'
-	}),
-	coverPhoto: text('cover_photo'),
-	address: jsonb('address').default('[]'),
-	contacts: jsonb('contacts').default('[]')
-})
-
-export const membership = pgTable('membership', {
-	id: uuid().primaryKey().defaultRandom(),
-	userId: text('user_id')
-		.notNull()
-		.references(() => user.id),
-	groupId: uuid('group_id')
-		.notNull()
-		.references(() => group.id)
-})
-
 export const event = pgTable('event', {
 	id: uuid().primaryKey().defaultRandom(),
 	createdAt: timestamp().defaultNow(),
@@ -48,21 +26,27 @@ export const event = pgTable('event', {
 	})
 })
 
-export const attendanceStatusEnum = pgEnum('status', [
+export const attendanceInterest = pgEnum('attendance_interest', [
 	'skipping',
 	'going',
 	'maybe'
 ])
 
-export const attendees = pgTable('attendees', {
+export const user_to_event_attendance = pgTable('attendees', {
 	id: uuid().primaryKey().defaultRandom(),
 	userId: text('user_id')
 		.notNull()
-		.references(() => user.id),
+		.references(() => user.id)
+		.unique(),
 	eventId: uuid('event_id')
 		.notNull()
-		.references(() => event.id),
-	status: attendanceStatusEnum('status').notNull().default('skipping')
+		.references(() => event.id)
+		.unique(),
+	attendanceInterest: attendanceInterest('attendance_interest')
+		.notNull()
+		.default('skipping'),
+	preferedFaction: text('prefered_faction'),
+	assignedFaction: text('assigned_faction')
 })
 
 export const user_metadata = pgTable('user_metadata', {
