@@ -39,7 +39,6 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 			</div>
 
 			<Outlet />
-
 			<HomeFooter />
 		</div>
 	)
