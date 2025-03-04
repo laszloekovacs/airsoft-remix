@@ -1,6 +1,6 @@
 import { EventList } from '~/components/EventList/EventList'
 import { queryEventList } from '~/queries/queryEventList.server'
-import type { Route } from './+types/_home._index'
+import type { Route } from '../+types/_home._index'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const eventList = await queryEventList()

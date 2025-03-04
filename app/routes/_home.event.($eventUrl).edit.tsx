@@ -1,4 +1,4 @@
-import { Outlet, type NavLinkProps } from 'react-router'
+import { Outlet } from 'react-router'
 import { NavLinkList, type NavLinkListProps } from '~/components/NavLinkList'
 
 type EventEditPagePRops = {
