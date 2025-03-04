@@ -53,6 +53,7 @@ export const user_metadata = pgTable('user_metadata', {
 	id: uuid().primaryKey().defaultRandom(),
 	userId: text('user_id')
 		.notNull()
+		.unique()
 		.references(() => user.id, {
 			onDelete: 'cascade'
 		}),

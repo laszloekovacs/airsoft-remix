@@ -1,8 +1,8 @@
-import ContactList from '~/components/contact-list'
-import UserEventTable from '~/components/UsersEventTable/UserEventTable'
+import UserEventTable from '~/routes/_home.user._index/UserEventTable'
 import { queryUserEventList } from '~/queries/queryUserEventList.server'
 import { getCookieFromRequest } from '~/services/auth.server'
-import type { Route } from './+types/_home.user._index'
+import type { Route } from './+types/route'
+import ContactList from './ContactList'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
 	const session = await getCookieFromRequest(request)

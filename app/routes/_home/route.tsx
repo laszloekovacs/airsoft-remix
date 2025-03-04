@@ -33,7 +33,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div>
-			<div>
+			<div className='flex justify-between flex-row'>
 				<PageLogo />
 				<SessionHeader sessionData={sessionData} />
 			</div>

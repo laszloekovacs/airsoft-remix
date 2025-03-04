@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import type { UserEventTableRow } from '~/components/UsersEventTable/UserEventTable'
+import type { UserEventTableRow } from '~/routes/_home.user._index/UserEventTable'
 import { event } from '~/schema'
 import { db } from '~/services/db.server'
 
