@@ -5,7 +5,7 @@ import LogoutButton from '~/components/logout-button'
 import { user } from '~/schema/auth-schema'
 import { getCookieFromRequest } from '~/services/auth.server'
 import { db } from '~/services/db.server'
-import { type Route } from '../+types/_home._index'
+import { type Route } from './+types/route'
 import { updateCallsign } from '~/queries/updateCallsign.server'
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
@@ -24,7 +24,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 	return {
 		name: sessionCookie.user.name,
-		callsign: sessionCookie.user.metadata?.callsign ?? ''
+		callsign: '' // sessionCookie.user.metadata?.callsign ?? ''
 	}
 }
 
