@@ -3,7 +3,7 @@
 # Airsoft community social webpage
 
 
-## Key features
+## Key planned features
 
 1. User Registration And Profile
    - Users can create profiles with custom name, contact info
